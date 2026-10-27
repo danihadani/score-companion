@@ -25,6 +25,12 @@ ENV NODE_ENV=production
 COPY server/package.json server/package-lock.json ./
 RUN npm ci --omit=dev
 
+# Build the Prisma client from the schema.
+COPY server/prisma ./prisma
+RUN npx prisma generate
+
+COPY server/src ./src
+
 COPY server/src ./src
 COPY --from=client-build /client/dist ./public
 
@@ -33,4 +39,5 @@ RUN mkdir logs && chown node:node logs
 USER node
 
 EXPOSE 3000
-CMD ["node", "src/server.js"]
+# Bring the database up to date with the migrations, then start.
+CMD ["sh", "-c", "npx prisma migrate deploy && node src/server.js"]

@@ -6,5 +6,5 @@ coverage/
 
 # Log files are created while the app runs. Keep the folder,
 # and add a sample log on purpose when handing in the project.
-logs/*
-!logs/.gitkeep
+**/logs/*
+!**/logs/.gitkeep

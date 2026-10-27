@@ -1,0 +1,12 @@
+# Only what the Dockerfile copies needs to reach Docker.
+**/node_modules
+**/dist
+**/coverage
+**/logs
+**/.env
+.git
+.github
+docs
+server/tests
+tests
+*.md

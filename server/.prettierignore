@@ -1,0 +1,5 @@
+node_modules/
+coverage/
+public/
+logs/
+package-lock.json

@@ -27,4 +27,56 @@ keeps all of that in one place, and does the timecode arithmetic for you.
 
 ## Running the project
 
-_Coming soon._
+### With Docker (the whole app + database)
+
+```bash
+cp .env.example .env          # then change the password inside
+docker compose up --build
+```
+
+Open http://localhost:3000. Log files are written to `logs/`.
+
+> On Linux, if `logs/` stays empty, give the container permission to write
+> there: `chmod 777 logs`. (Docker Desktop on Mac handles this by itself.)
+
+### For development (live reload)
+
+Two terminals:
+
+```bash
+cd server && npm install && npm run dev      # API on http://localhost:3000
+cd client && npm install && npm run dev      # site on http://localhost:5173
+```
+
+## Tests
+
+```bash
+cd server
+npm test                 # unit tests
+npm run test:coverage    # fails if less than 70% of the lines are tested
+npm run lint             # ESLint
+```
+
+Integration test, from the project root, against the running containers:
+
+```bash
+docker compose up --build -d
+./tests/integration.sh
+```
+
+## Project structure
+
+```
+score-companion/
+├── server/             Express API
+│   ├── src/
+│   │   ├── app.js      routes and middleware
+│   │   ├── server.js   starts listening
+│   │   └── logger.js   writes logs/app.log and logs/error.log
+│   └── tests/          Jest tests
+├── client/             React app (Vite)
+├── tests/              integration test (curl)
+├── docs/               user stories and sprint notes
+├── Dockerfile          builds client + server into one image
+└── docker-compose.yml  runs the app next to PostgreSQL
+```

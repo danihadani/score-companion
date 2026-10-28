@@ -44,11 +44,23 @@ Open http://localhost:3000. Log files are written to `logs/`.
 Two terminals:
 
 ```bash
-cd server && npm install && npm run dev      # API on http://localhost:3000
+cd server && npm install && npm run dev      # API on http://localhost:3000 (needs server/.env, see server/.env.example)
 cd client && npm install && npm run dev      # site on http://localhost:5173
 ```
 
 ## Tests
+
+The tests use their own database, `score_companion_test`, so they can empty
+its tables without touching your real projects. One-time setup, with the
+database container running (`docker compose up -d db`):
+
+```bash
+cd server
+cp .env.test.example .env.test     # same user and password as .env
+npm run test:db                    # creates the test database and its tables
+```
+
+Run `npm run test:db` again after every new migration. Then:
 
 ```bash
 cd server

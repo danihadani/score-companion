@@ -7,10 +7,11 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
+    "test": "node --env-file=.env.test --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand",
+    "test:coverage": "node --env-file=.env.test --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --coverage",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test:db": "node --env-file=.env.test node_modules/prisma/build/index.js migrate deploy"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

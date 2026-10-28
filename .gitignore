@@ -2,6 +2,7 @@ node_modules/
 dist/
 coverage/
 .env
+.env.test
 .DS_Store
 
 # Log files are created while the app runs. Keep the folder,

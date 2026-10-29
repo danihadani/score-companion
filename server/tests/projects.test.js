@@ -27,9 +27,7 @@ describe("POST /api/projects", () => {
   });
 
   test("answers 400 and saves nothing when the title is missing", async () => {
-    const res = await request(app)
-    .post("/api/projects")
-    .send({fps: 24});
+    const res = await request(app).post("/api/projects").send({ fps: 24 });
 
     expect(res.status).toBe(400);
     expect(res.body.error).toBe("TITLE_REQUIRED");

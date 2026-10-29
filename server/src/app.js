@@ -8,6 +8,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import express from "express";
 import morgan from "morgan";
+import { projectsRouter } from "./routes/projects.js";
 
 import { logger } from "./logger.js";
 
@@ -27,6 +28,8 @@ app.use(
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
+
+app.use("/api/projects", projectsRouter);
 
 // Any /api address that no route above answered.
 app.use("/api", (req, res) => {

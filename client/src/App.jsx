@@ -1,21 +1,25 @@
 import { useEffect, useState } from "react";
 import CreateProjectForm from "./CreateProjectForm.jsx";
-// A first page that only checks the client can reach the server.
-export default function App() {
-  const [status, setStatus] = useState("checking…");
+import ProjectList from "./ProjectList.jsx";
 
+export default function App() {
+  const [projects, setProjects] = useState([]);
+
+  async function loadProjects() {
+    const res = await fetch("/api/projects");
+    setProjects(await res.json());
+  }
+
+  // Load the list once, when the page opens.
   useEffect(() => {
-    fetch("/api/health")
-      .then((res) => res.json())
-      .then((data) => setStatus(data.status))
-      .catch(() => setStatus("server is not reachable"));
+    loadProjects();
   }, []);
 
   return (
     <main>
       <h1>Score Companion</h1>
-      <p>Server: {status}</p>
-      <CreateProjectForm />
+      <CreateProjectForm onCreated={loadProjects} />
+      <ProjectList projects={projects} />
     </main>
   );
 }

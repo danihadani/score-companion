@@ -9,7 +9,7 @@ const MESSAGES = {
  INVALID_FPS: "Please add a valid frame rate"
 };
 
-export default function CreateProjectForm() {
+export default function CreateProjectForm({onCreated}) {
   const [title, setTitle] = useState("");
   const [director, setDirector] = useState("");
   const [fps, setFps] = useState("24");
@@ -33,6 +33,7 @@ export default function CreateProjectForm() {
       return;
     }
     setCreated(data);
+    onCreated();
     setTitle("");
     setDirector("");
   }

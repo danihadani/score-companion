@@ -13,9 +13,10 @@ services:
       PORT: 3000
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
     volumes:
-      # The log files land in ./logs on your computer, so they
-      # survive the container and can be handed in.
-      - ./logs:/app/logs
+      # The log files land in server/logs on your computer - the same
+      # folder `npm run dev` writes to - so they survive the container
+      # and can be handed in.
+      - ./server/logs:/app/logs
     depends_on:
       db:
         condition: service_healthy

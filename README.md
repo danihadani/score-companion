@@ -34,10 +34,11 @@ cp .env.example .env          # then change the password inside
 docker compose up --build
 ```
 
-Open http://localhost:3000. Log files are written to `logs/`.
+Open http://localhost:3000. Log files are written to `server/logs/`, whether the
+server runs in Docker or with `npm run dev`.
 
-> On Linux, if `logs/` stays empty, give the container permission to write
-> there: `chmod 777 logs`. (Docker Desktop on Mac handles this by itself.)
+> On Linux, if `server/logs/` stays empty, give the container permission to write
+> there: `chmod 777 server/logs`. (Docker Desktop on Mac handles this by itself.)
 
 ### For development (live reload)
 
@@ -85,6 +86,7 @@ score-companion/
 │   │   ├── app.js      routes and middleware
 │   │   ├── server.js   starts listening
 │   │   └── logger.js   writes logs/app.log and logs/error.log
+│   ├── logs/           log files (from Docker and from npm run dev)
 │   └── tests/          Jest tests
 ├── client/             React app (Vite)
 ├── tests/              integration test (curl)

@@ -17,3 +17,9 @@ projectsRouter.post("/", async (req, res) => {
   const saved = await prisma.project.create({ data: project });
   res.status(201).json(saved);
 });
+
+// GET /api/projects - all projects, newest first
+projectsRouter.get("/", async (req, res) => {
+  const projects = await prisma.project.findMany({ orderBy: { createdAt: "desc" } });
+  res.json(projects);
+});

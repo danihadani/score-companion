@@ -19,7 +19,7 @@ export default function App() {
     <main>
       <h1>Score Companion</h1>
       <CreateProjectForm onCreated={loadProjects} />
-      <ProjectList projects={projects} />
+      <ProjectList projects={projects} onChanged= {loadProjects} />
     </main>
   );
 }

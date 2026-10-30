@@ -54,3 +54,36 @@ await prisma.project.create({
     expect(res.body[0].title).toBe("New Film");
   });
 });
+
+describe("DELETE /api/projects/:id", () => {
+  test("deletes the project and answers 204", async () => {
+    const project = await prisma.project.create({
+        data: {title: "New Film" , fps: 24},
+    });
+
+     const res= await request(app)
+
+    .delete(`/api/projects/${project.id}`)
+
+    expect(res.status).toBe(204);
+    expect(await prisma.project.count()).toBe(0);
+  });
+
+  test("answers 404 for an id that doesn't exist", async () => {
+    const res= await request(app)
+
+    .delete("/api/projects/99999")
+
+    expect(res.status).toBe(404);
+    expect(res.body.error).toBe("PROJECT_NOT_FOUND");
+  });
+
+  test("answers 404 when the id is not a number", async () => {
+     const res= await request(app)
+
+    .delete("/api/projects/abc")
+
+    expect(res.status).toBe(404);
+    expect(res.body.error).toBe("PROJECT_NOT_FOUND");
+  });
+});

@@ -63,6 +63,22 @@ Fill one in at the end of each sprint:
 - What I'll do differently next sprint:
 ```
 
+### Sprint 1 — Projects and timecode
+
+- **Planned:** 12 h (1.2–1.6) **Actual:** __ h — longer than planned.
+- **What went well:** Working in small steps: a commit after every part, and a
+  merge after every task. Writing tests right after each task caught bugs
+  early — a delete route that answered 204 without deleting, and a typo
+  (`fos` instead of `fps`) that the PUT test turned into a clear 400.
+- **What was harder than expected, and why:** Almost everything. Setting the
+  project up from scratch — the folder structure, which file does what, what to
+  run and from where — took a long time. Many of the tools (tests against a
+  database, Express routers, Prisma in Docker) went deeper than the course
+  did, so I needed a lot of help and a lot of learning on my own.
+- **What I'll do differently next sprint:** Sprint 2 builds on a base that is
+  now in place, with a clear order of work (validation → route → tests →
+  client), so I expect tasks to go faster.
+
 ## Code review
 
 Three large changes go through review by another participant. Good candidates:

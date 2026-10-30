@@ -28,49 +28,47 @@ projectsRouter.get("/", async (req, res) => {
 projectsRouter.delete("/:id", async (req, res) => {
   const projectId = Number(req.params.id);
 
-  if(!Number.isInteger(projectId)) {
-    return res.status(404).json({error: "PROJECT_NOT_FOUND"});
+  if (!Number.isInteger(projectId)) {
+    return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
   }
-  
-    const project = await prisma.project.findUnique({
-        where: {id: projectId},
-    });
 
-    if(!project){
-        return res.status(404).json({error: "PROJECT_NOT_FOUND" })
-    }
+  const project = await prisma.project.findUnique({
+    where: { id: projectId },
+  });
 
-    await prisma.project.delete({ where: { id: projectId }
-     });
+  if (!project) {
+    return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
+  }
 
-    return res.status(204).end();
-  
+  await prisma.project.delete({ where: { id: projectId } });
+
+  return res.status(204).end();
 });
 
 // PUT /api/projects/:id - update a project
 projectsRouter.put("/:id", async (req, res) => {
   const projectId = Number(req.params.id);
 
-  if(!Number.isInteger(projectId)) {
-    return res.status(404).json({error: "PROJECT_NOT_FOUND"});
+  if (!Number.isInteger(projectId)) {
+    return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
   }
-    let project;
+  let project;
   try {
     project = validateProject(req.body);
   } catch (err) {
     return res.status(400).json({ error: err.message });
   }
-   const existing = await prisma.project.findUnique({
-        where: {id: projectId},
-    })
+  const existing = await prisma.project.findUnique({
+    where: { id: projectId },
+  });
 
-    if(!existing){
-        return res.status(404).json({error: "PROJECT_NOT_FOUND" });
-    }
+  if (!existing) {
+    return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
+  }
 
   const updated = await prisma.project.update({
-    where: { id : projectId },
+    where: { id: projectId },
     data: project,
-  })
+  });
   res.json(updated);
 });

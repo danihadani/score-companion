@@ -1,0 +1,76 @@
+ALL LICENSES - Score Companion
+==============================
+
+The tools and packages this project uses, and their licenses.
+(The operating system and the programming language are not listed.)
+
+
+TOOLS
+-----
+
+Tool                 What it is used for                        License
+-------------------  -----------------------------------------  ----------------------------
+Docker Engine        Runs the app and the database in           Apache-2.0
+                     containers
+Docker Compose       Runs the app container next to the         Apache-2.0
+                     database container
+PostgreSQL           The database (image postgres:17-alpine)    PostgreSQL License
+Prisma               Database schema, migrations and queries    Apache-2.0
+Git                  Version control                            GPL-2.0
+npm                  Package manager                            Artistic-2.0
+license-checker      Collected the package licenses below       BSD-3-Clause
+
+
+SERVER PACKAGES (server/package.json)
+-------------------------------------
+
+Package              Version   Used for                         License
+-------------------  --------  -------------------------------  ------------
+express              5.3.0     The REST API                     MIT
+@prisma/client       6.19.3    Talking to the database          Apache-2.0
+prisma               6.19.3    Migrations (command line)        Apache-2.0
+morgan               1.12.1    A log line for every request     MIT
+winston              3.19.0    Writing logs to files            MIT
+
+Development only:
+jest                 30.5.2    Unit and route tests             MIT
+supertest            7.3.1     Sending requests in tests        MIT
+eslint               10.13.0   Linting                          MIT
+@eslint/js           10.0.1    ESLint's recommended rules       MIT
+globals              17.13.0   Node and Jest globals for ESLint MIT
+prettier             3.9.10    Code formatting                  MIT
+
+
+CLIENT PACKAGES (client/package.json)
+-------------------------------------
+
+Package              Version   Used for                         License
+-------------------  --------  -------------------------------  ------------
+react                19.3.1    The user interface               MIT
+react-dom            19.3.1    Rendering React in the browser   MIT
+
+Development only:
+vite                 8.3.5     Dev server and build             MIT
+@vitejs/plugin-react 6.1.2     React support for Vite           MIT
+
+
+ALL INSTALLED PACKAGES, INCLUDING THEIR OWN DEPENDENCIES
+--------------------------------------------------------
+
+Counted with `npx license-checker --summary` in each folder.
+"UNLICENSED" is this project itself, which is private.
+
+Server (484 packages)                 Client (22 packages)
+  MIT                400                MIT            15
+  ISC                 33                MPL-2.0         3
+  Apache-2.0          23                Apache-2.0      1
+  BSD-3-Clause        12                ISC             1
+  BSD-2-Clause         8                BSD-3-Clause    1
+  BlueOak-1.0.0        8                UNLICENSED      1
+  CC-BY-4.0            1
+  MIT OR CC0-1.0       1
+  UNLICENSED           1
+
+To refresh this file after adding a package:
+  cd server && npx license-checker --summary
+  cd client && npx license-checker --summary

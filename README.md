@@ -40,6 +40,16 @@ server runs in Docker or with `npm run dev`.
 > On Linux, if `server/logs/` stays empty, give the container permission to write
 > there: `chmod 777 server/logs`. (Docker Desktop on Mac handles this by itself.)
 
+### From Docker Hub (no build needed)
+
+The image is on Docker Hub: `danihadani/score-companion`, for Intel and Apple Silicon.
+
+```bash
+cp .env.example .env
+docker compose pull app
+docker compose up --no-build
+```
+
 ### For development (live reload)
 
 Two terminals:

@@ -101,6 +101,7 @@ score-companion/
 ├── client/             React app (Vite)
 ├── tests/              integration test (curl)
 ├── docs/               user stories and sprint notes
+├── ALL_LICENSES        tools and packages used, and their licenses
 ├── Dockerfile          builds client + server into one image
 └── docker-compose.yml  runs the app next to PostgreSQL
 ```

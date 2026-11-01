@@ -1,4 +1,4 @@
-import CreateCueForm from "./createCueForm.jsx";
+import CreateCueForm from "./CreateCueForm.jsx";
 
 export default function ProjectList({ projects, onChanged }) {
   async function handleDelete(project) {

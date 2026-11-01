@@ -60,7 +60,7 @@ ALL INSTALLED PACKAGES, INCLUDING THEIR OWN DEPENDENCIES
 Counted with `npx license-checker --summary` in each folder.
 "UNLICENSED" is this project itself, which is private.
 
-Server (484 packages)                 Client (22 packages)
+Server (487 packages)                 Client (22 packages)
   MIT                400                MIT            15
   ISC                 33                MPL-2.0         3
   Apache-2.0          23                Apache-2.0      1

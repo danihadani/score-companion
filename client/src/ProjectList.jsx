@@ -1,3 +1,5 @@
+import CreateCueForm from "./createCueForm.jsx";
+
 export default function ProjectList({ projects, onChanged }) {
   async function handleDelete(project) {
     if (!window.confirm(`Delete "${project.title}"?`)) return;
@@ -39,6 +41,7 @@ export default function ProjectList({ projects, onChanged }) {
             {` · ${project.fps} fps`}
             <button onClick={() => handleRename(project)}>Rename</button>
             <button onClick={() => handleDelete(project)}>Delete</button>
+            <CreateCueForm project={project} />
           </li>
         ))}
       </ul>

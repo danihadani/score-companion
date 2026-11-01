@@ -74,10 +74,8 @@ projectsRouter.put("/:id", async (req, res) => {
   res.json(updated);
 });
 
-
 // POST /api/projects/:id/cues - add a cue to a project
 projectsRouter.post("/:id/cues", async (req, res) => {
-  
   const projectId = Number(req.params.id);
 
   if (!Number.isInteger(projectId)) {
@@ -99,7 +97,7 @@ projectsRouter.post("/:id/cues", async (req, res) => {
     return res.status(400).json({ error: err.message });
   }
   const saved = await prisma.cue.create({
-  data: { ...cue, projectId: project.id },
-});
-res.status(201).json(saved);
+    data: { ...cue, projectId: project.id },
+  });
+  res.status(201).json(saved);
 });

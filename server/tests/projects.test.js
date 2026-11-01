@@ -4,6 +4,7 @@ import { prisma } from "../src/prisma.js";
 
 // Every test starts from an empty table, so counts are predictable.
 beforeEach(async () => {
+  await prisma.cue.deleteMany();
   await prisma.project.deleteMany();
 });
 

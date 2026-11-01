@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { prisma } from "../prisma.js";
 import { validateProject } from "../validation/projects.js";
+import { validateCue } from "../validation/cues.js";
 
 export const projectsRouter = Router();
 
@@ -71,4 +72,34 @@ projectsRouter.put("/:id", async (req, res) => {
     data: project,
   });
   res.json(updated);
+});
+
+
+// POST /api/projects/:id/cues - add a cue to a project
+projectsRouter.post("/:id/cues", async (req, res) => {
+  
+  const projectId = Number(req.params.id);
+
+  if (!Number.isInteger(projectId)) {
+    return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
+  }
+  const project = await prisma.project.findUnique({
+    where: { id: projectId },
+  });
+
+  if (!project) {
+    return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
+  }
+
+  let cue;
+  try {
+    cue = validateCue(req.body, project.fps);
+  } catch (err) {
+    // Bad input from the client: answer 400 with the error code.
+    return res.status(400).json({ error: err.message });
+  }
+  const saved = await prisma.cue.create({
+  data: { ...cue, projectId: project.id },
+});
+res.status(201).json(saved);
 });

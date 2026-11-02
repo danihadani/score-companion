@@ -87,6 +87,22 @@ docker compose up --build -d
 ./tests/integration.sh
 ```
 
+## Security
+
+The project is scanned with [Snyk](https://snyk.io) (screenshots in `docs/security/`):
+
+| Scan | Before | After |
+|---|---|---|
+| Packages (`snyk test`) | 0 | 0 |
+| Code (`snyk code test`) | 2 medium | 0 |
+| Docker image (`snyk container test`) | 25 in npm, 18 in the base image | 0 |
+
+What changed:
+- Express no longer sends the `X-Powered-By` header, so the framework isn't advertised
+- Requests are rate-limited, against denial-of-service
+- The image runs on `node:26-alpine`, and npm is removed from it: the server
+  doesn't need npm to run, and it carried most of the vulnerabilities
+
 ## Project structure
 
 ```

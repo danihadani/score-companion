@@ -9,10 +9,14 @@ import { fileURLToPath } from "node:url";
 import express from "express";
 import morgan from "morgan";
 import { projectsRouter } from "./routes/projects.js";
+import rateLimit from "express-rate-limit";
 
 import { logger } from "./logger.js";
 
 export const app = express();
+
+// Don't tell every visitor which framework runs the server.
+app.disable("x-powered-by");
 
 /******************** General Middleware ********************/
 app.use(express.json());
@@ -42,8 +46,11 @@ app.use("/api", (req, res) => {
 const publicDir = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public");
 
 if (fs.existsSync(publicDir)) {
+  // At most 100 page loads a minute from one address.
+  const pageLimiter = rateLimit({ windowMs: 60 * 1000, limit: 100 });
+
   app.use(express.static(publicDir));
-  app.get("/{*splat}", (req, res) => {
+  app.get("/{*splat}", pageLimiter, (req, res) => {
     res.sendFile(path.join(publicDir, "index.html"));
   });
 }

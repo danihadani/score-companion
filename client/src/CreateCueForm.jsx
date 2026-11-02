@@ -25,17 +25,18 @@ export default function CreateCueForm({project}) {
     setError("");
     setCreated(null);
 
-    const res = await fetch(`/api/projects/${project.id}/cues`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name , timecodeIn, timecodeOut, scene, status }),
-    });
-    const data = await res.json();
-
-    if (!res.ok) {
-      setError(MESSAGES[data.error] || "Something went wrong");
-      return;
-    }
+let res, data;
+try {
+  res = await fetch(`/api/projects/${project.id}/cues`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, timecodeIn, timecodeOut, scene, status }),
+  });
+  data = await res.json();
+} catch {
+  setError("Can't reach the server. Please try again.");
+  return;
+}
     setCreated(data);
     setName("");
     setTimecodeIn("");

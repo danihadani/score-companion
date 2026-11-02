@@ -39,3 +39,11 @@ export function framesToTimecode(totalFrames, fps) {
   const pad = (n) => String(n).padStart(2, "0");
   return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}:${pad(frames)}`;
 }
+
+// How long a cue lasts, as a timecode: "01:00:00:00" → "01:00:30:00" is "00:00:30:00"
+export function durationTimecode(timecodeIn, timecodeOut, fps) {
+  return framesToTimecode(
+    timecodeToFrames(timecodeOut, fps) - timecodeToFrames(timecodeIn, fps),
+    fps,
+  );
+}

@@ -1,0 +1,596 @@
+2026-10-29T07:16:13.534Z [info] Server is listening on http://localhost:3000
+2026-10-29T07:16:30.429Z [info] GET / 404 - 2.225 ms
+2026-10-29T07:17:03.396Z [info] POST /api/projects 201 - 23.801 ms
+2026-10-29T07:17:30.901Z [info] POST /api/projects 400 - 0.207 ms
+2026-10-29T08:01:50.507Z [info] Server is listening on http://localhost:3000
+2026-10-29T08:02:32.592Z [info] GET /api/health 200 - 1.145 ms
+2026-10-29T08:02:32.594Z [info] GET /api/health 304 - 0.310 ms
+2026-10-29T08:02:55.214Z [info] POST /api/projects 201 - 19.079 ms
+2026-10-29T08:03:16.966Z [info] POST /api/projects 400 - 0.434 ms
+2026-10-29T08:07:24.194Z [info] POST /api/projects 400 - 0.235 ms
+2026-10-29T08:07:24.944Z [info] POST /api/projects 400 - 0.238 ms
+2026-10-29T08:07:25.585Z [info] POST /api/projects 400 - 0.219 ms
+2026-10-29T08:07:26.194Z [info] POST /api/projects 400 - 0.221 ms
+2026-10-29T08:08:11.839Z [info] POST /api/projects 400 - 0.216 ms
+2026-10-29T12:58:42.906Z [info] Server is listening on http://localhost:3000
+2026-10-29T12:58:50.483Z [info] GET /api/projects 200 - 33.521 ms
+2026-10-29T13:33:22.350Z [info] Server is listening on http://localhost:3000
+2026-10-29T13:34:40.946Z [info] GET /api/projects 200 - 20.439 ms
+2026-10-29T13:34:40.950Z [info] GET /api/projects 304 - 1.673 ms
+2026-10-30T06:10:14.966Z [info] Server is listening on http://localhost:3000
+2026-10-30T06:10:15.580Z [info] Server is listening on http://localhost:3000
+2026-10-30T06:20:07.777Z [info] Server is listening on http://localhost:3000
+2026-10-30T06:20:11.242Z [info] Server is listening on http://localhost:3000
+2026-10-30T06:20:37.060Z [info] GET /api/projects 200 - 20.111 ms
+2026-10-30T06:20:46.417Z [info] DELETE /api/projects/1 204 - 3.914 ms
+2026-10-30T06:21:10.720Z [info] DELETE /api/projects/1 204 - 3.856 ms
+2026-10-30T06:22:50.360Z [info] Server is listening on http://localhost:3000
+2026-10-30T06:23:10.210Z [info] Server is listening on http://localhost:3000
+2026-10-30T06:23:57.355Z [info] Server is listening on http://localhost:3000
+2026-10-30T06:24:00.256Z [info] DELETE /api/projects/1 204 - 21.831 ms
+2026-10-30T06:24:01.932Z [info] DELETE /api/projects/1 404 - 3.681 ms
+2026-10-30T06:48:18.588Z [info] Server is listening on http://localhost:3000
+2026-10-30T06:48:55.097Z [info] PUT /api/projects/2 200 - 21.653 ms
+2026-10-30T07:06:59.431Z [info] Server is listening on http://localhost:3000
+2026-10-30T07:12:26.191Z [info] Server is listening on http://localhost:3000
+2026-10-30T07:14:56.944Z [info] Server is listening on http://localhost:3000
+2026-10-30T07:15:00.717Z [info] GET /api/projects 200 - 23.875 ms
+2026-10-30T07:15:00.720Z [info] GET /api/projects 304 - 1.307 ms
+2026-10-30T07:15:13.157Z [info] POST /api/projects 201 - 3.586 ms
+2026-10-30T07:15:13.162Z [info] GET /api/projects 200 - 1.551 ms
+2026-10-30T07:15:23.843Z [info] PUT /api/projects/3 400 - 0.644 ms
+2026-10-30T07:15:32.105Z [info] PUT /api/projects/3 200 - 6.876 ms
+2026-10-30T07:15:32.110Z [info] GET /api/projects 200 - 1.407 ms
+2026-11-01T06:53:34.045Z [info] Server is listening on http://localhost:3000
+2026-11-01T06:53:55.208Z [info] POST /api/projects/2/cues 201 - 35.953 ms
+2026-11-01T06:54:36.580Z [info] POST /api/projects/2/cues 400 - 2.669 ms
+2026-11-01T06:54:47.660Z [info] POST /api/projects/999999/cues 404 - 1.999 ms
+2026-11-01T07:25:26.727Z [info] Server is listening on http://localhost:3000
+2026-11-01T07:43:26.805Z [info] Server is listening on http://localhost:3000
+2026-11-01T07:43:41.195Z [info] GET /api/projects 304 - 20.945 ms
+2026-11-01T07:43:41.198Z [info] GET /api/projects 304 - 1.641 ms
+2026-11-01T07:43:41.907Z [info] GET /api/projects 304 - 2.427 ms
+2026-11-01T07:43:41.911Z [info] GET /api/projects 304 - 1.671 ms
+2026-11-01T07:43:42.504Z [info] GET /api/projects 304 - 2.508 ms
+2026-11-01T07:43:42.509Z [info] GET /api/projects 304 - 2.119 ms
+2026-11-01T07:43:43.088Z [info] GET /api/projects 304 - 2.141 ms
+2026-11-01T07:43:43.092Z [info] GET /api/projects 304 - 1.890 ms
+2026-11-01T07:44:30.112Z [info] GET /api/projects 304 - 2.426 ms
+2026-11-01T07:44:30.115Z [info] GET /api/projects 304 - 1.582 ms
+2026-11-01T07:44:35.311Z [info] GET /api/projects 304 - 1.928 ms
+2026-11-01T07:44:35.316Z [info] GET /api/projects 304 - 1.874 ms
+2026-11-01T07:45:24.026Z [info] GET /api/projects 304 - 2.175 ms
+2026-11-01T07:45:24.029Z [info] GET /api/projects 304 - 1.077 ms
+2026-11-01T07:45:53.858Z [info] Server is listening on http://localhost:3000
+2026-11-01T07:45:58.133Z [info] GET /api/projects 304 - 21.820 ms
+2026-11-01T07:45:58.137Z [info] GET /api/projects 304 - 1.761 ms
+2026-11-01T07:46:00.450Z [info] GET /api/projects 304 - 2.350 ms
+2026-11-01T07:46:00.454Z [info] GET /api/projects 304 - 1.845 ms
+2026-11-01T07:47:11.268Z [info] GET /api/projects 304 - 6.342 ms
+2026-11-01T07:47:11.290Z [info] GET /api/projects 304 - 3.209 ms
+2026-11-01T07:47:49.659Z [info] GET /api/projects 304 - 1.996 ms
+2026-11-01T07:47:49.662Z [info] GET /api/projects 304 - 1.276 ms
+2026-11-01T07:48:53.472Z [info] GET /api/projects 304 - 2.034 ms
+2026-11-01T07:48:53.475Z [info] GET /api/projects 304 - 1.150 ms
+2026-11-01T07:49:00.358Z [info] Server is listening on http://localhost:3000
+2026-11-01T07:49:05.484Z [info] GET /api/projects 304 - 28.971 ms
+2026-11-01T07:49:05.489Z [info] GET /api/projects 304 - 2.014 ms
+2026-11-01T07:49:09.395Z [info] GET /api/projects 304 - 3.366 ms
+2026-11-01T07:49:09.400Z [info] GET /api/projects 304 - 2.204 ms
+2026-11-01T07:50:14.047Z [info] GET /api/projects 304 - 2.710 ms
+2026-11-01T07:50:14.050Z [info] GET /api/projects 304 - 0.969 ms
+2026-11-01T07:51:05.946Z [info] POST /api/projects/2/cues 400 - 3.590 ms
+2026-11-01T07:51:28.958Z [info] POST /api/projects/2/cues 400 - 2.999 ms
+2026-11-01T07:51:37.978Z [info] POST /api/projects/2/cues 201 - 6.889 ms
+2026-11-01T08:15:10.496Z [info] Server is listening on http://localhost:3000
+2026-11-01T08:15:11.430Z [info] GET / 200 - 3.560 ms
+2026-11-01T08:15:11.443Z [info] GET /assets/index-C-xYFzKg.js 200 - 1.418 ms
+2026-11-01T08:15:11.569Z [info] GET /favicon.ico 200 - 2.839 ms
+2026-11-01T08:15:11.589Z [info] GET /api/projects 200 - 32.730 ms
+2026-11-01T10:24:14.266Z [info] Server is listening on http://localhost:3000
+2026-11-01T10:24:14.418Z [info] GET /api/health 200 - 1.586 ms
+2026-11-01T10:24:14.438Z [info] GET /api/no-such-page 404 - 0.688 ms
+2026-11-01T10:24:14.456Z [info] GET / 200 - 1.437 ms
+2026-11-01T10:24:14.503Z [info] POST /api/projects 201 - 26.800 ms
+2026-11-01T10:24:14.520Z [info] POST /api/projects 400 - 0.279 ms
+2026-11-01T10:24:14.537Z [info] POST /api/projects 400 - 0.217 ms
+2026-11-01T10:24:14.569Z [info] PUT /api/projects/999999 404 - 1.851 ms
+2026-11-01T10:26:20.641Z [info] GET /api/health 200 - 0.347 ms
+2026-11-01T10:26:20.661Z [info] GET /api/no-such-page 404 - 0.477 ms
+2026-11-01T10:26:20.680Z [info] GET / 200 - 1.620 ms
+2026-11-01T10:26:20.701Z [info] POST /api/projects 201 - 3.677 ms
+2026-11-01T10:26:20.722Z [info] POST /api/projects 400 - 0.671 ms
+2026-11-01T10:26:20.739Z [info] POST /api/projects 400 - 0.524 ms
+2026-11-01T10:26:20.760Z [info] GET /api/projects 200 - 3.771 ms
+2026-11-01T10:26:20.780Z [info] PUT /api/projects/999999 404 - 3.070 ms
+2026-11-02T06:46:29.458Z [info] Server is listening on http://localhost:3000
+2026-11-02T06:47:29.308Z [info] Server is listening on http://localhost:3000
+2026-11-02T06:47:30.500Z [info] GET / 404 - 2.380 ms
+2026-11-02T06:47:40.050Z [info] GET / 404 - 0.628 ms
+2026-11-02T06:47:40.950Z [info] GET / 404 - 0.486 ms
+2026-11-02T06:47:41.505Z [info] GET / 404 - 0.339 ms
+2026-11-02T06:47:41.941Z [info] GET / 404 - 0.346 ms
+2026-11-02T06:47:42.269Z [info] GET / 404 - 0.329 ms
+2026-11-02T06:48:36.596Z [info] Server is listening on http://localhost:3000
+2026-11-02T06:48:40.689Z [info] GET / 404 - 1.913 ms
+2026-11-02T06:49:50.958Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:24:20
+2026-11-02T06:49:50.959Z [info] GET /api/projects 500 - 16.034 ms
+2026-11-02T06:49:50.963Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:24:20
+2026-11-02T06:49:50.964Z [info] GET /api/projects 500 - 1.715 ms
+2026-11-02T06:51:36.864Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:24:20
+2026-11-02T06:51:36.865Z [info] GET /api/projects 500 - 2.501 ms
+2026-11-02T06:51:36.868Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:24:20
+2026-11-02T06:51:36.869Z [info] GET /api/projects 500 - 1.265 ms
+2026-11-02T06:52:08.840Z [info] Server is listening on http://localhost:3000
+2026-11-02T06:52:16.021Z [info] GET /api/projects 200 - 38.663 ms
+2026-11-02T06:52:16.025Z [info] GET /api/projects 304 - 1.523 ms
+2026-11-02T06:52:54.349Z [info] Server is listening on http://localhost:3000
+2026-11-02T06:52:57.946Z [info] POST /api/projects/5/cues 201 - 45.233 ms
+2026-11-02T07:00:21.605Z [info] Server is listening on http://localhost:3000
+2026-11-02T07:00:27.589Z [info] Server is listening on http://localhost:3000
+2026-11-02T07:08:08.090Z [info] Server is listening on http://localhost:3000
+2026-11-02T07:16:02.964Z [info] GET /api/projects 304 - 25.130 ms
+2026-11-02T07:16:02.968Z [info] GET /api/projects 304 - 1.676 ms
+2026-11-02T07:16:02.989Z [info] GET /api/projects/5/cues 200 - 10.096 ms
+2026-11-02T07:16:02.998Z [info] GET /api/projects/5/cues 304 - 5.102 ms
+2026-11-02T07:16:03.002Z [info] GET /api/projects/3/cues 200 - 22.637 ms
+2026-11-02T07:16:03.003Z [info] GET /api/projects/2/cues 200 - 22.810 ms
+2026-11-02T07:16:03.003Z [info] GET /api/projects/4/cues 200 - 24.069 ms
+2026-11-02T07:16:03.009Z [info] GET /api/projects/3/cues 304 - 2.130 ms
+2026-11-02T07:16:03.010Z [info] GET /api/projects/2/cues 304 - 4.485 ms
+2026-11-02T07:16:03.011Z [info] GET /api/projects/4/cues 304 - 2.778 ms
+2026-11-02T07:16:07.563Z [info] GET /api/projects 304 - 5.231 ms
+2026-11-02T07:16:07.568Z [info] GET /api/projects 304 - 1.956 ms
+2026-11-02T07:16:07.588Z [info] GET /api/projects/5/cues 304 - 7.822 ms
+2026-11-02T07:16:07.588Z [info] GET /api/projects/4/cues 304 - 7.392 ms
+2026-11-02T07:16:07.588Z [info] GET /api/projects/3/cues 304 - 7.110 ms
+2026-11-02T07:16:07.588Z [info] GET /api/projects/2/cues 304 - 4.855 ms
+2026-11-02T07:16:07.595Z [info] GET /api/projects/5/cues 304 - 2.724 ms
+2026-11-02T07:16:07.595Z [info] GET /api/projects/4/cues 304 - 2.906 ms
+2026-11-02T07:16:07.596Z [info] GET /api/projects/2/cues 304 - 4.218 ms
+2026-11-02T07:16:07.597Z [info] GET /api/projects/3/cues 304 - 4.612 ms
+2026-11-02T07:16:19.555Z [info] DELETE /api/cues/3 204 - 11.337 ms
+2026-11-02T07:16:19.563Z [info] GET /api/projects/5/cues 200 - 4.254 ms
+2026-11-02T07:16:36.113Z [info] POST /api/projects 201 - 3.769 ms
+2026-11-02T07:16:36.123Z [info] GET /api/projects 200 - 3.374 ms
+2026-11-02T07:16:36.142Z [info] GET /api/projects/6/cues 200 - 2.906 ms
+2026-11-02T07:16:36.146Z [info] GET /api/projects/6/cues 304 - 2.118 ms
+2026-11-02T07:16:48.055Z [info] PUT /api/cues/1 200 - 9.113 ms
+2026-11-02T07:16:48.062Z [info] GET /api/projects/2/cues 200 - 3.077 ms
+2026-11-02T07:19:33.784Z [info] DELETE /api/cues/1 204 - 5.762 ms
+2026-11-02T07:19:33.792Z [info] GET /api/projects/2/cues 200 - 3.748 ms
+2026-11-02T07:20:10.860Z [info] POST /api/projects/3/cues 201 - 6.446 ms
+2026-11-02T07:20:10.868Z [info] GET /api/projects/3/cues 200 - 3.725 ms
+2026-11-02T07:20:28.077Z [info] DELETE /api/cues/4 204 - 4.677 ms
+2026-11-02T07:20:28.086Z [info] GET /api/projects/3/cues 200 - 4.154 ms
+2026-11-02T07:20:48.005Z [info] POST /api/projects/2/cues 201 - 6.343 ms
+2026-11-02T07:20:48.015Z [info] GET /api/projects/2/cues 200 - 4.807 ms
+2026-11-02T07:20:52.410Z [info] PUT /api/cues/5 200 - 6.231 ms
+2026-11-02T07:20:52.419Z [info] GET /api/projects/2/cues 200 - 4.847 ms
+2026-11-02T07:38:02.596Z [info] Server is listening on http://localhost:3000
+2026-11-02T07:39:12.864Z [info] Server is listening on http://localhost:3000
+2026-11-02T07:39:26.738Z [info] Server is listening on http://localhost:3000
+2026-11-02T07:39:37.804Z [info] Server is listening on http://localhost:3000
+2026-11-02T08:37:19.502Z [info] Server is listening on http://localhost:3000
+2026-11-02T08:37:19.878Z [info] GET /api/health 200 - 3.663 ms
+2026-11-02T08:37:19.896Z [info] GET /api/no-such-page 404 - 0.401 ms
+2026-11-02T08:37:19.917Z [info] GET / 200 - 4.510 ms
+2026-11-02T08:37:19.968Z [info] POST /api/projects 201 - 27.665 ms
+2026-11-02T08:37:19.985Z [info] POST /api/projects 400 - 0.247 ms
+2026-11-02T08:37:20.002Z [info] POST /api/projects 400 - 0.201 ms
+2026-11-02T08:37:20.020Z [info] GET /api/projects 200 - 2.290 ms
+2026-11-02T08:37:20.040Z [info] PUT /api/projects/999999 404 - 1.709 ms
+2026-11-04T06:24:03.296Z [info] Server is listening on http://localhost:3000
+2026-11-04T06:24:26.798Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:24:26.800Z [info] GET /api/projects 500 - 13.702 ms
+2026-11-04T06:24:26.803Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:24:26.804Z [info] GET /api/projects 500 - 1.096 ms
+2026-11-04T06:24:28.876Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:24:28.877Z [info] GET /api/projects 500 - 2.068 ms
+2026-11-04T06:24:28.880Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:24:28.881Z [info] GET /api/projects 500 - 1.427 ms
+2026-11-04T06:24:43.400Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:24:43.401Z [info] GET /api/projects 500 - 2.140 ms
+2026-11-04T06:24:43.414Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:24:43.415Z [info] GET /api/projects 500 - 8.828 ms
+2026-11-04T06:26:49.153Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:26:49.154Z [info] GET /api/projects 500 - 1.452 ms
+2026-11-04T06:26:49.157Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:26:49.157Z [info] GET /api/projects 500 - 1.021 ms
+2026-11-04T06:31:32.040Z [info] Server is listening on http://localhost:3000
+2026-11-04T06:33:05.807Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:33:05.810Z [info] GET /api/projects 500 - 8.017 ms
+2026-11-04T06:33:05.813Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:33:05.814Z [info] GET /api/projects 500 - 1.396 ms
+2026-11-04T06:33:16.667Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:33:16.668Z [info] GET /api/projects 500 - 2.471 ms
+2026-11-04T06:33:16.677Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:33:16.678Z [info] GET /api/projects 500 - 7.358 ms
+2026-11-04T06:33:35.446Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:33:35.447Z [info] GET /api/projects 500 - 1.878 ms
+2026-11-04T06:33:35.465Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:33:35.465Z [info] GET /api/projects 500 - 2.132 ms
+2026-11-04T06:33:37.239Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:33:37.240Z [info] GET /api/projects 500 - 1.775 ms
+2026-11-04T06:33:37.243Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:33:37.243Z [info] GET /api/projects 500 - 1.299 ms
+2026-11-04T06:34:49.096Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:34:49.096Z [error] GET /api/projects - PrismaClientInitializationError: 
+Invalid `prisma.project.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:7568)
+    at ei.handleAndLogRequestError (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6593)
+    at ei.request (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:121:6300)
+    at async a (/Users/danieverhadani/Projects/score-companion/server/node_modules/@prisma/client/runtime/library.js:130:9551)
+    at async file:///Users/danieverhadani/Projects/score-companion/server/src/routes/projects.js:25:20
+2026-11-04T06:34:49.096Z [info] GET /api/projects 500 - 1.342 ms
+2026-11-04T06:34:49.096Z [info] GET /api/projects 500 - 1.408 ms
+2026-11-04T06:46:49.701Z [info] Server is listening on http://localhost:3000
+2026-11-04T06:47:02.133Z [info] GET /api/projects 200 - 41.755 ms
+2026-11-04T06:47:02.137Z [info] GET /api/projects 304 - 1.636 ms
+2026-11-04T06:47:02.163Z [info] GET /api/projects/2/cues 304 - 10.128 ms
+2026-11-04T06:47:02.167Z [info] GET /api/projects/2/cues 304 - 1.708 ms
+2026-11-04T06:47:02.170Z [info] GET /api/projects/6/cues 304 - 18.167 ms
+2026-11-04T06:47:02.176Z [info] GET /api/projects/6/cues 304 - 2.495 ms
+2026-11-04T06:47:02.178Z [info] GET /api/projects/7/cues 200 - 27.112 ms
+2026-11-04T06:47:02.179Z [info] GET /api/projects/5/cues 304 - 26.294 ms
+2026-11-04T06:47:02.180Z [info] GET /api/projects/4/cues 304 - 26.873 ms
+2026-11-04T06:47:02.185Z [info] GET /api/projects/3/cues 304 - 31.738 ms
+2026-11-04T06:47:02.187Z [info] GET /api/projects/7/cues 304 - 1.809 ms
+2026-11-04T06:47:02.187Z [info] GET /api/projects/5/cues 304 - 1.724 ms
+2026-11-04T06:47:02.188Z [info] GET /api/projects/4/cues 304 - 2.122 ms
+2026-11-04T06:47:02.188Z [info] GET /api/projects/3/cues 304 - 2.429 ms
+2026-11-04T06:48:54.482Z [info] Server is listening on http://localhost:3000
+2026-11-04T06:48:55.093Z [info] GET /api/projects 304 - 38.161 ms
+2026-11-04T06:48:55.097Z [info] GET /api/projects 304 - 2.493 ms
+2026-11-04T06:48:55.214Z [info] Server is listening on http://localhost:3000
+2026-11-04T06:49:41.649Z [info] Server is listening on http://localhost:3000
+2026-11-04T06:49:42.066Z [info] GET /api/projects 304 - 22.256 ms
+2026-11-04T06:49:42.069Z [info] GET /api/projects 304 - 1.351 ms
+2026-11-04T06:49:42.083Z [info] GET /api/projects/7/cues 404 - 0.430 ms
+2026-11-04T06:49:42.084Z [info] GET /api/projects/6/cues 404 - 0.200 ms
+2026-11-04T06:49:42.085Z [info] GET /api/projects/5/cues 404 - 0.080 ms
+2026-11-04T06:49:42.085Z [info] GET /api/projects/4/cues 404 - 0.074 ms
+2026-11-04T06:49:42.086Z [info] GET /api/projects/3/cues 404 - 0.077 ms
+2026-11-04T06:49:42.086Z [info] GET /api/projects/2/cues 404 - 0.060 ms
+2026-11-04T06:49:42.087Z [info] GET /api/projects/7/cues 404 - 0.112 ms
+2026-11-04T06:49:42.088Z [info] GET /api/projects/6/cues 404 - 0.129 ms
+2026-11-04T06:49:42.088Z [info] GET /api/projects/5/cues 404 - 0.052 ms
+2026-11-04T06:49:42.088Z [info] GET /api/projects/4/cues 404 - 0.052 ms
+2026-11-04T06:49:42.089Z [info] GET /api/projects/3/cues 404 - 0.320 ms
+2026-11-04T06:49:42.090Z [info] GET /api/projects/2/cues 404 - 0.041 ms
+2026-11-04T06:51:24.073Z [info] Server is listening on http://localhost:3000
+2026-11-04T06:51:50.053Z [info] Server is listening on http://localhost:3000
+2026-11-04T06:53:19.022Z [info] Server is listening on http://localhost:3000
+2026-11-04T06:54:04.609Z [info] Server is listening on http://localhost:3000
+2026-11-04T06:54:17.431Z [info] GET /api/projects 304 - 21.242 ms
+2026-11-04T06:54:17.435Z [info] GET /api/projects 304 - 1.293 ms
+2026-11-04T06:54:17.464Z [info] GET /api/projects/7/cues 200 - 14.575 ms
+2026-11-04T06:54:17.469Z [info] GET /api/projects/7/cues 304 - 2.389 ms
+2026-11-04T06:54:17.473Z [info] GET /api/projects/6/cues 200 - 23.148 ms
+2026-11-04T06:54:17.474Z [info] GET /api/projects/5/cues 200 - 23.655 ms
+2026-11-04T06:54:17.475Z [info] GET /api/projects/4/cues 200 - 24.113 ms
+2026-11-04T06:54:17.477Z [info] GET /api/projects/3/cues 200 - 26.581 ms
+2026-11-04T06:54:17.478Z [info] GET /api/projects/2/cues 200 - 26.837 ms
+2026-11-04T06:54:17.480Z [info] GET /api/projects/6/cues 304 - 2.304 ms
+2026-11-04T06:54:17.481Z [info] GET /api/projects/5/cues 304 - 1.988 ms
+2026-11-04T06:54:17.481Z [info] GET /api/projects/4/cues 304 - 1.805 ms
+2026-11-04T06:54:17.482Z [info] GET /api/projects/3/cues 304 - 1.863 ms
+2026-11-04T06:54:17.483Z [info] GET /api/projects/2/cues 304 - 1.935 ms
+2026-11-04T07:07:33.964Z [info] Server is listening on http://localhost:3000
+2026-11-04T07:08:33.932Z [info] Project created: id=8 "taxi driver" (24 fps)
+2026-11-04T07:08:33.935Z [http] POST /api/projects 201 - 24.017 ms
+2026-11-04T07:08:33.945Z [http] GET /api/projects 200 - 4.417 ms
+2026-11-04T07:08:33.970Z [http] GET /api/projects/8/cues 200 - 5.172 ms
+2026-11-04T07:08:33.975Z [http] GET /api/projects/8/cues 304 - 2.074 ms
+2026-11-04T07:09:04.630Z [info] Project deleted: id=8 "taxi driver"
+2026-11-04T07:09:04.631Z [http] DELETE /api/projects/8 204 - 10.049 ms
+2026-11-04T07:09:04.639Z [http] GET /api/projects 200 - 3.300 ms
+2026-11-04T07:09:58.722Z [info] Cue added: id=6 "0m1" to project 7
+2026-11-04T07:09:58.722Z [http] POST /api/projects/7/cues 201 - 7.081 ms
+2026-11-04T07:09:58.745Z [http] GET /api/projects/7/cues 200 - 18.934 ms
+2026-11-04T07:10:28.454Z [warn] Project refused: TITLE_REQUIRED
+2026-11-04T07:10:28.455Z [warn] POST /api/projects 400 - 0.555 ms
+2026-11-04T07:10:48.357Z [info] Cue updated: id=6 "0m1" (status: sent)
+2026-11-04T07:10:48.358Z [http] PUT /api/cues/6 200 - 8.027 ms
+2026-11-04T07:10:48.370Z [http] GET /api/projects/7/cues 200 - 3.384 ms
+2026-11-04T07:11:00.159Z [info] Cue updated: id=6 "0m1" (status: approved)
+2026-11-04T07:11:00.160Z [http] PUT /api/cues/6 200 - 6.959 ms
+2026-11-04T07:11:00.175Z [http] GET /api/projects/7/cues 200 - 4.185 ms
+2026-11-04T07:15:51.308Z [info] Server is listening on http://localhost:3000
+2026-11-04T07:26:26.639Z [info] Server is listening on http://localhost:3000
+2026-11-04T07:26:27.444Z [info] Server is listening on http://localhost:3000
+2026-11-04T07:54:31.793Z [http] GET /api/health 200 - 0.830 ms
+2026-11-04T07:54:31.808Z [warn] GET /api/no-such-page 404 - 0.202 ms
+2026-11-04T07:54:31.822Z [warn] GET / 404 - 0.439 ms
+2026-11-04T07:54:31.859Z [info] Project created: id=9 "Integration Test" (24 fps)
+2026-11-04T07:54:31.859Z [http] POST /api/projects 201 - 19.586 ms
+2026-11-04T07:54:31.874Z [warn] Project refused: TITLE_REQUIRED
+2026-11-04T07:54:31.874Z [warn] POST /api/projects 400 - 0.212 ms
+2026-11-04T07:54:31.888Z [warn] Project refused: INVALID_FPS
+2026-11-04T07:54:31.889Z [warn] POST /api/projects 400 - 0.176 ms
+2026-11-04T07:54:31.905Z [http] GET /api/projects 200 - 3.324 ms
+2026-11-04T07:54:31.921Z [warn] PUT /api/projects/999999 404 - 2.459 ms
+2026-11-04T07:56:52.257Z [info] Server is listening on http://localhost:3000
+2026-11-04T07:57:05.917Z [http] GET /api/health 200 - 1.348 ms
+2026-11-04T07:57:05.934Z [warn] GET /api/no-such-page 404 - 0.342 ms
+2026-11-04T07:57:05.951Z [http] GET / 200 - 1.454 ms
+2026-11-04T07:57:05.992Z [info] Project created: id=10 "Integration Test" (24 fps)
+2026-11-04T07:57:05.993Z [http] POST /api/projects 201 - 23.903 ms
+2026-11-04T07:57:06.009Z [warn] Project refused: TITLE_REQUIRED
+2026-11-04T07:57:06.009Z [warn] POST /api/projects 400 - 0.224 ms
+2026-11-04T07:57:06.026Z [warn] Project refused: INVALID_FPS
+2026-11-04T07:57:06.026Z [warn] POST /api/projects 400 - 0.186 ms
+2026-11-04T07:57:06.044Z [http] GET /api/projects 200 - 2.197 ms
+2026-11-04T07:57:06.061Z [warn] PUT /api/projects/999999 404 - 1.486 ms
+2026-11-04T07:57:26.086Z [http] GET /api/health 200 - 0.285 ms
+2026-11-04T07:57:26.109Z [warn] GET /api/no-such-page 404 - 0.285 ms
+2026-11-04T07:57:26.128Z [http] GET / 200 - 1.181 ms
+2026-11-04T07:57:26.152Z [info] Project created: id=11 "Integration Test" (24 fps)
+2026-11-04T07:57:26.153Z [http] POST /api/projects 201 - 5.340 ms
+2026-11-04T07:57:26.172Z [warn] Project refused: TITLE_REQUIRED
+2026-11-04T07:57:26.172Z [warn] POST /api/projects 400 - 0.518 ms
+2026-11-04T07:57:26.190Z [warn] Project refused: INVALID_FPS
+2026-11-04T07:57:26.190Z [warn] POST /api/projects 400 - 0.422 ms
+2026-11-04T07:57:26.207Z [http] GET /api/projects 200 - 1.303 ms
+2026-11-04T07:57:26.236Z [warn] PUT /api/projects/999999 404 - 1.059 ms
+2026-11-04T07:58:22.580Z [http] GET /api/projects 200 - 2.291 ms
+2026-11-04T07:58:22.586Z [http] GET /api/projects 304 - 1.886 ms
+2026-11-04T07:58:22.621Z [http] GET /api/projects/6/cues 304 - 11.334 ms
+2026-11-04T07:58:22.624Z [http] GET /api/projects/11/cues 200 - 20.094 ms
+2026-11-04T07:58:22.625Z [http] GET /api/projects/10/cues 200 - 18.580 ms
+2026-11-04T07:58:22.626Z [http] GET /api/projects/7/cues 304 - 17.129 ms
+2026-11-04T07:58:22.626Z [http] GET /api/projects/9/cues 200 - 18.771 ms
+2026-11-04T07:58:22.631Z [http] GET /api/projects/3/cues 304 - 3.449 ms
+2026-11-04T07:58:22.632Z [http] GET /api/projects/2/cues 304 - 2.971 ms
+2026-11-04T07:58:22.634Z [http] GET /api/projects/4/cues 304 - 23.649 ms
+2026-11-04T07:58:22.635Z [http] GET /api/projects/5/cues 304 - 4.395 ms
+2026-11-04T07:58:22.635Z [http] GET /api/projects/6/cues 304 - 3.891 ms
+2026-11-04T07:58:22.636Z [http] GET /api/projects/11/cues 304 - 3.179 ms
+2026-11-04T07:58:22.639Z [http] GET /api/projects/10/cues 304 - 3.606 ms
+2026-11-04T07:58:22.642Z [http] GET /api/projects/7/cues 304 - 3.204 ms
+2026-11-04T07:58:22.646Z [http] GET /api/projects/9/cues 304 - 6.092 ms
+2026-11-04T07:58:22.647Z [http] GET /api/projects/3/cues 304 - 7.198 ms
+2026-11-04T07:58:22.648Z [http] GET /api/projects/2/cues 304 - 6.748 ms
+2026-11-04T07:58:22.648Z [http] GET /api/projects/4/cues 304 - 6.711 ms
+2026-11-04T07:58:22.648Z [http] GET /api/projects/5/cues 304 - 6.682 ms
+2026-11-04T07:58:27.383Z [warn] Project refused: TITLE_REQUIRED
+2026-11-04T07:58:27.384Z [warn] POST /api/projects 400 - 0.633 ms
+2026-11-04T07:58:36.498Z [info] Project updated: id=11 "Integration Test 2"
+2026-11-04T07:58:36.499Z [http] PUT /api/projects/11 200 - 3.159 ms
+2026-11-04T07:58:36.505Z [http] GET /api/projects 200 - 1.841 ms

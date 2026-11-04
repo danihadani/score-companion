@@ -49,8 +49,8 @@ export default function CreateCueForm({ project, onCreated }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h3>New Cue</h3>
+    <form className="form cue-form" onSubmit={handleSubmit}>
+      <h4>Add a cue</h4>
 
       <label>
         Cue Name
@@ -93,8 +93,8 @@ export default function CreateCueForm({ project, onCreated }) {
 
       <button type="submit">Create cue</button>
 
-      {error && <p>{error}</p>}
-      {created && <p>Created “{created.name}”</p>}
+      {error && <p className="error">{error}</p>}
+      {created && <p className="success">Added “{created.name}”</p>}
     </form>
   );
 }

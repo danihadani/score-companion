@@ -5,11 +5,11 @@ const ALLOWED_FPS = [23.976, 24, 25, 29.97, 30, 48, 50, 59.94, 60];
 
 const MESSAGES = {
   TITLE_REQUIRED: "Please enter the film's title",
-   FPS_REQUIRED: "Please choose frame rate",
- INVALID_FPS: "Please add a valid frame rate"
+  FPS_REQUIRED: "Please choose frame rate",
+  INVALID_FPS: "Please add a valid frame rate",
 };
 
-export default function CreateProjectForm({onCreated}) {
+export default function CreateProjectForm({ onCreated }) {
   const [title, setTitle] = useState("");
   const [director, setDirector] = useState("");
   const [fps, setFps] = useState("24");
@@ -39,7 +39,7 @@ export default function CreateProjectForm({onCreated}) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="card form" onSubmit={handleSubmit}>
       <h2>New project</h2>
 
       <label>
@@ -65,8 +65,8 @@ export default function CreateProjectForm({onCreated}) {
 
       <button type="submit">Create project</button>
 
-      {error && <p>{error}</p>}
-      {created && <p>Created “{created.title}”</p>}
+      {error && <p className="error">{error}</p>}
+      {created && <p className="success">Created “{created.title}”</p>}
     </form>
   );
 }

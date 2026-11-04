@@ -31,20 +31,40 @@ export default function ProjectList({ projects, onChanged }) {
   }
 
   if (projects.length === 0) {
-    return <p>No projects yet. Create the first one above.</p>;
+    return (
+      <p className="empty">No projects yet. Create the first one above.</p>
+    );
   }
 
   return (
     <section>
       <h2>My projects</h2>
-      <ul>
+      <ul className="projects">
         {projects.map((project) => (
-          <li key={project.id}>
-            <strong>{project.title}</strong>
-            {project.director && ` — ${project.director}`}
-            {` · ${project.fps} fps`}
-            <button onClick={() => handleRename(project)}>Rename</button>
-            <button onClick={() => handleDelete(project)}>Delete</button>
+          <li key={project.id} className="card project">
+            <div className="project-head">
+              <div>
+                <h3>{project.title}</h3>
+                <p className="meta">
+                  {project.director && `${project.director} · `}
+                  {project.fps} fps
+                </p>
+              </div>
+              <div className="actions">
+                <button
+                  className="secondary"
+                  onClick={() => handleRename(project)}
+                >
+                  Rename
+                </button>
+                <button
+                  className="danger"
+                  onClick={() => handleDelete(project)}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
             <CueList project={project} />
           </li>
         ))}

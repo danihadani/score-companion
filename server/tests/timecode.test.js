@@ -1,4 +1,4 @@
-import { timecodeToFrames, framesToTimecode } from "../src/timecode.js";
+import { timecodeToFrames, framesToTimecode, durationTimecode } from "../src/timecode.js";
 
 describe("timecodeToFrames", () => {
   test("adds hours, minutes, seconds and frames at 24 fps", () => {
@@ -62,5 +62,15 @@ describe("framesToTimecode", () => {
   test("throws on negative or fractional frames", () => {
     expect(() => framesToTimecode(-1, 24)).toThrow("INVALID_FRAMES");
     expect(() => framesToTimecode(1.5, 24)).toThrow("INVALID_FRAMES");
+  });
+});
+
+describe("durationTimecode", () => {
+  test("is the time between timecode in and timecode out", () => {
+    expect(durationTimecode("01:00:00:00", "01:00:30:00", 24)).toBe("00:00:30:00");
+  });
+
+  test("counts frames at the project's frame rate", () => {
+    expect(durationTimecode("01:00:00:20", "01:00:01:05", 25)).toBe("00:00:00:10");
   });
 });

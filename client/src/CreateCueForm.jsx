@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-
-
 const CUE_STATUSES = ["sketch", "sent", "approved", "recorded", "mixed"];
 
 const MESSAGES = {
@@ -11,7 +9,7 @@ const MESSAGES = {
   INVALID_STATUS: "Please choose a status",
 };
 
-export default function CreateCueForm({project}) {
+export default function CreateCueForm({ project, onCreated }) {
   const [name, setName] = useState("");
   const [timecodeIn, setTimecodeIn] = useState("");
   const [timecodeOut, setTimecodeOut] = useState("");
@@ -25,25 +23,29 @@ export default function CreateCueForm({project}) {
     setError("");
     setCreated(null);
 
-let res, data;
-try {
-  res = await fetch(`/api/projects/${project.id}/cues`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name, timecodeIn, timecodeOut, scene, status }),
-  });
-  data = await res.json();
-} catch {
-  setError("Can't reach the server. Please try again.");
-  return;
-}
+    let res, data;
+    try {
+      res = await fetch(`/api/projects/${project.id}/cues`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, timecodeIn, timecodeOut, scene, status }),
+      });
+      data = await res.json();
+    } catch {
+      setError("Can't reach the server. Please try again.");
+      return;
+    }
+
+    if (!res.ok) {
+      setError(MESSAGES[data.error] || "Something went wrong");
+      return;
+    }
     setCreated(data);
+    onCreated();
     setName("");
     setTimecodeIn("");
     setTimecodeOut("");
     setScene("");
-
-
   }
 
   return (
@@ -57,12 +59,20 @@ try {
 
       <label>
         Timecode In
-        <input value={timecodeIn} onChange={(e) => setTimecodeIn(e.target.value)} placeholder="01:00:00:00"/>
+        <input
+          value={timecodeIn}
+          onChange={(e) => setTimecodeIn(e.target.value)}
+          placeholder="01:00:00:00"
+        />
       </label>
 
       <label>
         Timecode Out
-        <input value={timecodeOut} onChange={(e) => setTimecodeOut(e.target.value)} placeholder="01:00:30:00" />
+        <input
+          value={timecodeOut}
+          onChange={(e) => setTimecodeOut(e.target.value)}
+          placeholder="01:00:30:00"
+        />
       </label>
 
       <label>
@@ -75,7 +85,7 @@ try {
         <select value={status} onChange={(e) => setStatus(e.target.value)}>
           {CUE_STATUSES.map((option) => (
             <option key={option} value={option}>
-              {option} 
+              {option}
             </option>
           ))}
         </select>

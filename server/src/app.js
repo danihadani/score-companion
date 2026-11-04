@@ -10,6 +10,8 @@ import express from "express";
 import morgan from "morgan";
 import { projectsRouter } from "./routes/projects.js";
 import rateLimit from "express-rate-limit";
+import { cuesRouter } from "./routes/cues.js";
+
 
 import { logger } from "./logger.js";
 
@@ -20,6 +22,9 @@ app.disable("x-powered-by");
 
 /******************** General Middleware ********************/
 app.use(express.json());
+
+// At most 300 API requests a minute from one address.
+app.use("/api", rateLimit({ windowMs: 60 * 1000, limit: 300 }));
 
 // One log line for every request that reaches the server.
 app.use(
@@ -34,6 +39,7 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use("/api/projects", projectsRouter);
+app.use("/api/cues", cuesRouter);
 
 // Any /api address that no route above answered.
 app.use("/api", (req, res) => {

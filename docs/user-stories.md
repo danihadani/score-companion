@@ -76,14 +76,40 @@ Fill one in at the end of each sprint:
   database, Express routers, Prisma in Docker) went deeper than the course
   did, so I needed a lot of help and a lot of learning on my own.
 - **What I'll do differently next sprint:** For tasks with a new idea in them,
-   estimate double. - Write more of the code myself, in smaller pieces, even
-   when it’s slower.
+  estimate double. Write more of the code myself, in smaller pieces, even
+  when it's slower.
+
+### Sprint 2 — Cues, reviews and the required practices
+
+- **Planned:** 10 h (2.1–2.5) **Actual:** about 15 h.
+- **Scope changed during the sprint:** I learned this is a course project and
+  not the final project, and that the grading focuses on development
+  practices. So I dropped new features (2.4, temp tracks, login, iTunes
+  search, design) and pulled in the required and practice work instead:
+  clear logs at four levels (2.6), `ALL_LICENSES` (3.4), the integration test
+  for projects (3.5) and the Snyk scan (4.4). The dropped stories are closed
+  as "not planned" on the board, and I may keep them for the final project.
+- **What went well:** It was easier than sprint 1, because the base of the
+  project was already in place and the order of work was clear (validation →
+  route → tests → client). Code review with another participant caught three
+  real problems: no message when the server is down (#32), lists that broke
+  the page on an error response (#37), and an API without rate limiting (#40).
+- **What was harder than expected, and why:** Deciding what to leave out, once
+  it was clear everything wouldn't fit in the time left. Git also had two
+  surprises: a commit landed on `main` by mistake and had to be moved to its
+  branch, and #40 had a merge conflict with `main` that had to be resolved by
+  hand.
+- **What I'll do differently next time:** Decide the scope early, around the
+  requirements, and keep extra features for later.
+
 ## Code review
 
-Three large changes go through review by another participant. Good candidates:
-2.1 (cues), 3.1 (temp tracks), 4.1 (login).
-Link each pull request here once it is reviewed:
+Three large changes went through review by another participant (noater).
+Each has her comment, the fix, and my answer:
 
-1.
-2.
-3.
+1. [#32 Add a cue to a project](https://github.com/danihadani/score-companion/pull/32)
+   — show a message when the server can't be reached (`try/catch` around `fetch`)
+2. [#37 Show a project's cues](https://github.com/danihadani/score-companion/pull/37)
+   — check `res.ok` before saving a list, in `CueList` and in `App`
+3. [#40 Fix Snyk findings](https://github.com/danihadani/score-companion/pull/40)
+   — rate-limit every `/api` route, not only the page

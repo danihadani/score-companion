@@ -6,7 +6,7 @@
 # ============================================================
 
 # ---------- Stage 1: build the client ----------
-FROM node:22-alpine AS client-build
+FROM node:26-alpine AS client-build
 WORKDIR /client
 
 # package files first: Docker caches this layer, so npm ci only
@@ -18,7 +18,7 @@ COPY client/ ./
 RUN npm run build
 
 # ---------- Stage 2: the server ----------
-FROM node:22-alpine
+FROM node:26-alpine
 WORKDIR /app
 ENV NODE_ENV=production
 
@@ -29,7 +29,9 @@ RUN npm ci --omit=dev
 COPY server/prisma ./prisma
 RUN npx prisma generate
 
-COPY server/src ./src
+# npm is only needed to install packages, and it carries known
+# vulnerabilities (Snyk). The running server doesn't need it.
+RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
 
 COPY server/src ./src
 COPY --from=client-build /client/dist ./public
@@ -40,4 +42,4 @@ USER node
 
 EXPOSE 3000
 # Bring the database up to date with the migrations, then start.
-CMD ["sh", "-c", "npx prisma migrate deploy && node src/server.js"]
+CMD ["sh", "-c", "./node_modules/.bin/prisma migrate deploy && node src/server.js"]

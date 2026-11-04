@@ -19,7 +19,8 @@ Prisma               Database schema, migrations and queries    Apache-2.0
 Git                  Version control                            GPL-2.0
 npm                  Package manager                            Artistic-2.0
 license-checker      Collected the package licenses below       BSD-3-Clause
-
+Snyk CLI             Security scans of the packages, the code   Apache-2.0
+                     and the Docker image
 
 SERVER PACKAGES (server/package.json)
 -------------------------------------
@@ -31,6 +32,7 @@ express              5.3.0     The REST API                     MIT
 prisma               6.19.3    Migrations (command line)        Apache-2.0
 morgan               1.12.1    A log line for every request     MIT
 winston              3.19.0    Writing logs to files            MIT
+express-rate-limit   8.7.2      Limits requests per address      MIT
 
 Development only:
 jest                 30.5.2    Unit and route tests             MIT

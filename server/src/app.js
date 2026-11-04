@@ -12,7 +12,6 @@ import { projectsRouter } from "./routes/projects.js";
 import rateLimit from "express-rate-limit";
 import { cuesRouter } from "./routes/cues.js";
 
-
 import { logger } from "./logger.js";
 
 export const app = express();
@@ -26,10 +25,19 @@ app.use(express.json());
 // At most 300 API requests a minute from one address.
 app.use("/api", rateLimit({ windowMs: 60 * 1000, limit: 300 }));
 
-// One log line for every request that reaches the server.
+// One log line for every request that reaches the server: [http] when
+// it succeeded, [warn] when it was refused (status 400 and up).
+const requestLine = ":method :url :status - :response-time ms";
 app.use(
-  morgan(":method :url :status - :response-time ms", {
-    stream: { write: (line) => logger.info(line.trim()) },
+  morgan(requestLine, {
+    skip: (req, res) => res.statusCode >= 400,
+    stream: { write: (line) => logger.http(line.trim()) },
+  }),
+);
+app.use(
+  morgan(requestLine, {
+    skip: (req, res) => res.statusCode < 400,
+    stream: { write: (line) => logger.warn(line.trim()) },
   }),
 );
 

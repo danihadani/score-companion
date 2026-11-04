@@ -3,6 +3,7 @@ import { prisma } from "../prisma.js";
 import { validateProject } from "../validation/projects.js";
 import { validateCue } from "../validation/cues.js";
 import { durationTimecode } from "../timecode.js";
+import { logger } from "../logger.js";
 
 export const projectsRouter = Router();
 
@@ -12,11 +13,13 @@ projectsRouter.post("/", async (req, res) => {
   try {
     project = validateProject(req.body);
   } catch (err) {
+    logger.warn(`Project refused: ${err.message}`);
     // Bad input from the client: answer 400 with the error code.
     return res.status(400).json({ error: err.message });
   }
 
   const saved = await prisma.project.create({ data: project });
+  logger.info(`Project created: id=${saved.id} "${saved.title}" (${saved.fps} fps)`);
   res.status(201).json(saved);
 });
 
@@ -43,6 +46,7 @@ projectsRouter.delete("/:id", async (req, res) => {
   }
 
   await prisma.project.delete({ where: { id: projectId } });
+  logger.info(`Project deleted: id=${projectId} "${project.title}"`);
 
   return res.status(204).end();
 });
@@ -58,6 +62,7 @@ projectsRouter.put("/:id", async (req, res) => {
   try {
     project = validateProject(req.body);
   } catch (err) {
+    logger.warn(`Project ${projectId} not updated: ${err.message}`);
     return res.status(400).json({ error: err.message });
   }
   const existing = await prisma.project.findUnique({
@@ -72,6 +77,7 @@ projectsRouter.put("/:id", async (req, res) => {
     where: { id: projectId },
     data: project,
   });
+  logger.info(`Project updated: id=${updated.id} "${updated.title}"`);
   res.json(updated);
 });
 
@@ -94,12 +100,14 @@ projectsRouter.post("/:id/cues", async (req, res) => {
   try {
     cue = validateCue(req.body, project.fps);
   } catch (err) {
+    logger.warn(`Cue refused for project ${project.id}: ${err.message}`);
     // Bad input from the client: answer 400 with the error code.
     return res.status(400).json({ error: err.message });
   }
   const saved = await prisma.cue.create({
     data: { ...cue, projectId: project.id },
   });
+  logger.info(`Cue added: id=${saved.id} "${saved.name}" to project ${project.id}`);
   res.status(201).json(saved);
 });
 

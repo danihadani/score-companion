@@ -8,7 +8,7 @@ export default function CueList({ project }) {
   const [cues, setCues] = useState([]);
   const [error, setError] = useState("");
 
-    async function loadCues() {
+  async function loadCues() {
     try {
       const res = await fetch(`/api/projects/${project.id}/cues`);
       const data = await res.json();
@@ -51,52 +51,62 @@ export default function CueList({ project }) {
 
   return (
     <div>
-      {error && <p style={{ color: "crimson" }}>{error}</p>}
+      {error && <p className="error">{error}</p>}
 
-      {!error && (cues.length === 0 ? (
-        <p>No cues yet.</p>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Cue</th>
-              <th>In</th>
-              <th>Out</th>
-              <th>Duration</th>
-              <th>Scene</th>
-              <th>Status</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {cues.map((cue) => (
-              <tr key={cue.id}>
-                <td>{cue.name}</td>
-                <td>{cue.timecodeIn}</td>
-                <td>{cue.timecodeOut}</td>
-                <td>{cue.duration}</td>
-                <td>{cue.scene}</td>
-                <td>
-                  <select
-                    value={cue.status}
-                    onChange={(e) => handleStatusChange(cue, e.target.value)}
-                  >
-                    {CUE_STATUSES.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </td>
-                <td>
-                  <button onClick={() => handleDelete(cue)}>Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )
-      )}
+      {!error &&
+        (cues.length === 0 ? (
+          <p className="empty">No cues yet.</p>
+        ) : (
+          <div className="table-wrap">
+            <table className="cues">
+              <thead>
+                <tr>
+                  <th>Cue</th>
+                  <th>In</th>
+                  <th>Out</th>
+                  <th>Duration</th>
+                  <th>Scene</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {cues.map((cue) => (
+                  <tr key={cue.id}>
+                    <td className="cue-name">{cue.name}</td>
+                    <td className="tc">{cue.timecodeIn}</td>
+                    <td className="tc">{cue.timecodeOut}</td>
+                    <td className="tc">{cue.duration}</td>
+                    <td>{cue.scene}</td>
+                    <td>
+                      <select
+                        className={`status status-${cue.status}`}
+                        value={cue.status}
+                        onChange={(e) =>
+                          handleStatusChange(cue, e.target.value)
+                        }
+                      >
+                        {CUE_STATUSES.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td>
+                      <button
+                        className="danger small"
+                        onClick={() => handleDelete(cue)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ))}
 
       <CreateCueForm project={project} onCreated={loadCues} />
     </div>

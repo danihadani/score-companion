@@ -7,19 +7,19 @@ export default function App() {
   const [error, setError] = useState("");
 
   async function loadProjects() {
-  try {
-    const res = await fetch("/api/projects");
-    const data = await res.json();
-    if (!res.ok) {
-      setError("The projects could not be loaded");
-      return;
+    try {
+      const res = await fetch("/api/projects");
+      const data = await res.json();
+      if (!res.ok) {
+        setError("The projects could not be loaded");
+        return;
+      }
+      setProjects(data);
+      setError("");
+    } catch {
+      setError("Can't reach the server. Please try again.");
     }
-    setProjects(data);
-    setError("");
-  } catch {
-    setError("Can't reach the server. Please try again.");
   }
-}
 
   // Load the list once, when the page opens.
   useEffect(() => {
@@ -28,10 +28,13 @@ export default function App() {
 
   return (
     <main>
-  <h1>Score Companion</h1>
-  {error && <p style={{ color: "crimson" }}>{error}</p>}
-  <CreateProjectForm onCreated={loadProjects} />
-  {!error && <ProjectList projects={projects} onChanged={loadProjects} />}
-</main>
+      <header className="page-head">
+        <h1>Score Companion</h1>
+        <p className="tagline">Every cue in your film, from sketch to mix.</p>
+      </header>
+      {error && <p className="error">{error}</p>}
+      <CreateProjectForm onCreated={loadProjects} />
+      {!error && <ProjectList projects={projects} onChanged={loadProjects} />}
+    </main>
   );
 }

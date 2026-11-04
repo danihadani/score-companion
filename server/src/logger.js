@@ -9,7 +9,8 @@ import winston from "winston";
 const LOG_DIR = process.env.LOG_DIR || "logs";
 
 export const logger = winston.createLogger({
-  level: "info",
+  // http < info < warn < error: "http" keeps all four in the files.
+  level: "http",
   // Tests should not fill the log file with fake requests.
   silent: process.env.NODE_ENV === "test",
   format: winston.format.combine(

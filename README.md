@@ -86,6 +86,31 @@ Integration test, from the project root, against the running containers:
 docker compose up --build -d
 ./tests/integration.sh
 ```
+## Logs
+
+The server logs with [winston](https://github.com/winstonjs/winston), to the
+terminal and to two files in `server/logs/`:
+
+| File | What goes in |
+|---|---|
+| `app.log` | everything |
+| `error.log` | errors only |
+
+| Level | When | Example |
+|---|---|---|
+| `http` | every request that succeeded | `POST /api/projects 201 - 12.4 ms` |
+| `info` | something was created, updated or deleted | `Project created: id=7 "Dune" (23.976 fps)` |
+| `warn` | a request was refused (400, 404) and why | `Project refused: TITLE_REQUIRED` |
+| `error` | a failure on the server, with its stack trace | `GET /api/projects - Can't reach database server` |
+
+Watch them live, or search them:
+
+```bash
+tail -f server/logs/app.log              # live
+docker compose logs -f app               # live, when running in Docker
+grep "Project deleted" server/logs/app.log
+grep "\[warn\]" server/logs/app.log
+```
 
 ## Security
 

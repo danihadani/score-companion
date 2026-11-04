@@ -1,4 +1,4 @@
-import CreateCueForm from "./CreateCueForm.jsx";
+import CueList from "./CueList.jsx";
 
 export default function ProjectList({ projects, onChanged }) {
   async function handleDelete(project) {
@@ -16,7 +16,11 @@ export default function ProjectList({ projects, onChanged }) {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       // PUT sends the whole project: the new title, and everything else as it was.
-      body: JSON.stringify({ title, director: project.director, fps: project.fps }),
+      body: JSON.stringify({
+        title,
+        director: project.director,
+        fps: project.fps,
+      }),
     });
 
     if (!res.ok) {
@@ -41,7 +45,7 @@ export default function ProjectList({ projects, onChanged }) {
             {` · ${project.fps} fps`}
             <button onClick={() => handleRename(project)}>Rename</button>
             <button onClick={() => handleDelete(project)}>Delete</button>
-            <CreateCueForm project={project} />
+            <CueList project={project} />
           </li>
         ))}
       </ul>

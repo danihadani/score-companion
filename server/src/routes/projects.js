@@ -2,6 +2,7 @@ import { Router } from "express";
 import { prisma } from "../prisma.js";
 import { validateProject } from "../validation/projects.js";
 import { validateCue } from "../validation/cues.js";
+import { durationTimecode } from "../timecode.js";
 
 export const projectsRouter = Router();
 
@@ -100,4 +101,30 @@ projectsRouter.post("/:id/cues", async (req, res) => {
     data: { ...cue, projectId: project.id },
   });
   res.status(201).json(saved);
+});
+
+// GET /api/projects/:id/cues - a project's cues in film order, with their durations
+projectsRouter.get("/:id/cues", async (req, res) => {
+  const projectId = Number(req.params.id);
+  if (!Number.isInteger(projectId)) {
+    return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
+  }
+
+  const project = await prisma.project.findUnique({ where: { id: projectId } });
+  if (!project) {
+    return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
+  }
+
+  // Timecodes are always HH:MM:SS:FF, so sorting them as text is film order.
+  const cues = await prisma.cue.findMany({
+    where: { projectId },
+    orderBy: { timecodeIn: "asc" },
+  });
+
+  res.json(
+    cues.map((cue) => ({
+      ...cue,
+      duration: durationTimecode(cue.timecodeIn, cue.timecodeOut, project.fps),
+    })),
+  );
 });

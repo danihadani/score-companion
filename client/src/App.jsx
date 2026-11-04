@@ -4,11 +4,22 @@ import ProjectList from "./ProjectList.jsx";
 
 export default function App() {
   const [projects, setProjects] = useState([]);
+  const [error, setError] = useState("");
 
   async function loadProjects() {
+  try {
     const res = await fetch("/api/projects");
-    setProjects(await res.json());
+    const data = await res.json();
+    if (!res.ok) {
+      setError("The projects could not be loaded");
+      return;
+    }
+    setProjects(data);
+    setError("");
+  } catch {
+    setError("Can't reach the server. Please try again.");
   }
+}
 
   // Load the list once, when the page opens.
   useEffect(() => {
@@ -17,9 +28,10 @@ export default function App() {
 
   return (
     <main>
-      <h1>Score Companion</h1>
-      <CreateProjectForm onCreated={loadProjects} />
-      <ProjectList projects={projects} onChanged= {loadProjects} />
-    </main>
+  <h1>Score Companion</h1>
+  {error && <p style={{ color: "crimson" }}>{error}</p>}
+  <CreateProjectForm onCreated={loadProjects} />
+  {!error && <ProjectList projects={projects} onChanged={loadProjects} />}
+</main>
   );
 }

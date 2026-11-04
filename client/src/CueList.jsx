@@ -8,10 +8,15 @@ export default function CueList({ project }) {
   const [cues, setCues] = useState([]);
   const [error, setError] = useState("");
 
-  async function loadCues() {
+    async function loadCues() {
     try {
       const res = await fetch(`/api/projects/${project.id}/cues`);
-      setCues(await res.json());
+      const data = await res.json();
+      if (!res.ok) {
+        setError("The cues could not be loaded");
+        return;
+      }
+      setCues(data);
       setError("");
     } catch {
       setError("Can't reach the server. Please try again.");
@@ -46,9 +51,9 @@ export default function CueList({ project }) {
 
   return (
     <div>
-      {error && <p>{error}</p>}
+      {error && <p style={{ color: "crimson" }}>{error}</p>}
 
-      {cues.length === 0 ? (
+      {!error && (cues.length === 0 ? (
         <p>No cues yet.</p>
       ) : (
         <table>
@@ -90,6 +95,7 @@ export default function CueList({ project }) {
             ))}
           </tbody>
         </table>
+      )
       )}
 
       <CreateCueForm project={project} onCreated={loadCues} />

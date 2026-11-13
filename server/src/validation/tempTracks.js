@@ -31,7 +31,7 @@ function optionalLink(value) {
   return url.href;
 }
 
-export function validateTempTrack(body) {
+export function validateTempTrack(body = {}) {
   const title = optionalText(body.title, MAX_TEXT, "TITLE_TOO_LONG");
   if (!title) throw new Error("TITLE_REQUIRED");
 

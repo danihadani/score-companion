@@ -13,6 +13,8 @@ order, and does the timecode arithmetic for you.
   (23.976, 24, 25, 29.97, 30, 48, 50, 59.94 or 60 fps, the rates DAWs offer).
 - **Cues** — name (`1m1`, `2m3`…), timecode in and out, scene, and status:
   `sketch` → `sent` → `approved` → `recorded` → `mixed`.
+- **Temp tracks** — the references the director liked for each cue: title,
+  artist, a link and notes.
 - **Automatic durations** — each cue's length as a timecode, calculated at the
   project's frame rate.
 - **Clear errors** — a cue that ends before it starts, or a timecode like
@@ -64,7 +66,10 @@ Timecode is always non-drop: drop-frame isn't supported.
 | `POST /api/projects/:id/cues` | Add a cue to a project | 201 · 400 · 404 |
 | `GET /api/projects/:id/cues` | A project's cues in film order, with durations | 200 · 404 |
 | `PUT /api/cues/:id` | Update a cue (for example its status) | 200 · 400 · 404 |
-| `DELETE /api/cues/:id` | Delete a cue | 204 · 404 |
+| `DELETE /api/cues/:id` | Delete a cue and its temp tracks | 204 · 404 |
+| `POST /api/cues/:id/temp-tracks` | Attach a temp track to a cue | 201 · 400 · 404 |
+| `GET /api/cues/:id/temp-tracks` | A cue's temp tracks, oldest first | 200 · 404 |
+| `DELETE /api/temp-tracks/:id` | Remove a temp track | 204 · 404 |
 
 ## Running the project
 

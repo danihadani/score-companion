@@ -52,7 +52,6 @@ describe("validateTempTrack", () => {
   });
 
   test("throws TITLE_REQUIRED when there is no body at all", () => {
-  expect(() => validateTempTrack(undefined)).toThrow("TITLE_REQUIRED");
-});
-
+    expect(() => validateTempTrack(undefined)).toThrow("TITLE_REQUIRED");
+  });
 });

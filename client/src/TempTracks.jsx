@@ -66,20 +66,22 @@ export default function TempTracks({ cue }) {
   }
 
   async function handleDelete(track) {
-  if (!window.confirm(`Remove "${track.title}"?`)) return;
+    if (!window.confirm(`Remove "${track.title}"?`)) return;
 
-  try {
-    const res = await fetch(`/api/temp-tracks/${track.id}`, { method: "DELETE" });
-    if (!res.ok) {
-      setError("The temp track could not be removed");
+    try {
+      const res = await fetch(`/api/temp-tracks/${track.id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        setError("The temp track could not be removed");
+        return;
+      }
+    } catch {
+      setError("Can't reach the server. Please try again.");
       return;
     }
-  } catch {
-    setError("Can't reach the server. Please try again.");
-    return;
+    loadTracks();
   }
-  loadTracks();
-}
 
   return (
     <div className="temp-tracks">

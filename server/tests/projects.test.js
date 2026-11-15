@@ -123,3 +123,31 @@ describe("PUT /api/projects/:id", () => {
     expect(res.status).toBe(404);
   });
 });
+
+describe("GET /api/projects/:id", () => {
+  test("returns the project", async () => {
+    const project = await prisma.project.create({
+      data: { title: "New Film", fps: 24 },
+    });
+
+    const res = await request(app).get(`/api/projects/${project.id}`);
+
+    expect(res.status).toBe(200);
+    expect(res.body.id).toBe(project.id);
+    expect(res.body.title).toBe("New Film");
+  });
+
+  test("answers 404 for a project that doesn't not exist", async () => {
+    const res = await request(app).get("/api/projects/99999");
+
+    expect(res.status).toBe(404);
+    expect(res.body.error).toBe("PROJECT_NOT_FOUND");
+  });
+
+  test("answers 404 when the id is not a number", async () => {
+    const res = await request(app).get("/api/projects/abc");
+
+    expect(res.status).toBe(404);
+    expect(res.body.error).toBe("PROJECT_NOT_FOUND");
+  });
+});

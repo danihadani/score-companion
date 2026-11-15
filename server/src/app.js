@@ -11,6 +11,7 @@ import morgan from "morgan";
 import { projectsRouter } from "./routes/projects.js";
 import rateLimit from "express-rate-limit";
 import { cuesRouter } from "./routes/cues.js";
+import { tempTracksRouter } from "./routes/tempTracks.js";
 
 import { logger } from "./logger.js";
 
@@ -48,6 +49,7 @@ app.get("/api/health", (req, res) => {
 
 app.use("/api/projects", projectsRouter);
 app.use("/api/cues", cuesRouter);
+app.use("/api/temp-tracks", tempTracksRouter);
 
 // Any /api address that no route above answered.
 app.use("/api", (req, res) => {

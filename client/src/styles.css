@@ -268,3 +268,52 @@ button.small {
   background: #e3f3e8;
   color: #2f7a4d;
 }
+
+/* ---------- temp tracks, under a cue ---------- */
+.row-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.cues tr.temps-row td {
+  background: var(--bg);
+  padding: 16px;
+}
+
+.track-list {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.track {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+}
+
+.track a {
+  color: var(--accent);
+}
+
+.track-notes {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.track-form label {
+  flex: 1 1 160px;
+}
+
+.track-form label.wide {
+  flex-basis: 100%;
+}

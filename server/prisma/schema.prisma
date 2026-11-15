@@ -30,4 +30,20 @@ model Cue {
 
   projectId Int
   project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  tempTracks TempTrack[]
+}
+
+// ---------- a reference track the director liked for a cue ----------
+
+model TempTrack {
+  id        Int      @id @default(autoincrement())
+  title     String
+  artist    String?
+  link      String?
+  notes     String?
+  createdAt DateTime @default(now())
+
+  cueId Int
+  cue   Cue @relation(fields: [cueId], references: [id], onDelete: Cascade)
 }

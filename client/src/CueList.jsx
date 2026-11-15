@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import CreateCueForm from "./CreateCueForm.jsx";
+import TempTracks from "./TempTracks.jsx";
 
 const CUE_STATUSES = ["sketch", "sent", "approved", "recorded", "mixed"];
 
@@ -7,6 +8,8 @@ const CUE_STATUSES = ["sketch", "sent", "approved", "recorded", "mixed"];
 export default function CueList({ project }) {
   const [cues, setCues] = useState([]);
   const [error, setError] = useState("");
+  // The cue whose temp tracks are open, or null when none is.
+  const [openCueId, setOpenCueId] = useState(null);
 
   async function loadCues() {
     try {
@@ -72,36 +75,53 @@ export default function CueList({ project }) {
               </thead>
               <tbody>
                 {cues.map((cue) => (
-                  <tr key={cue.id}>
-                    <td className="cue-name">{cue.name}</td>
-                    <td className="tc">{cue.timecodeIn}</td>
-                    <td className="tc">{cue.timecodeOut}</td>
-                    <td className="tc">{cue.duration}</td>
-                    <td>{cue.scene}</td>
-                    <td>
-                      <select
-                        className={`status status-${cue.status}`}
-                        value={cue.status}
-                        onChange={(e) =>
-                          handleStatusChange(cue, e.target.value)
-                        }
-                      >
-                        {CUE_STATUSES.map((option) => (
-                          <option key={option} value={option}>
-                            {option}
-                          </option>
-                        ))}
-                      </select>
-                    </td>
-                    <td>
-                      <button
-                        className="danger small"
-                        onClick={() => handleDelete(cue)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
+                  <Fragment key={cue.id}>
+                    <tr>
+                      <td className="cue-name">{cue.name}</td>
+                      <td className="tc">{cue.timecodeIn}</td>
+                      <td className="tc">{cue.timecodeOut}</td>
+                      <td className="tc">{cue.duration}</td>
+                      <td>{cue.scene}</td>
+                      <td>
+                        <select
+                          className={`status status-${cue.status}`}
+                          value={cue.status}
+                          onChange={(e) =>
+                            handleStatusChange(cue, e.target.value)
+                          }
+                        >
+                          {CUE_STATUSES.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      </td>
+                      <td className="row-actions">
+                        <button
+                          className="secondary small"
+                          onClick={() =>
+                            setOpenCueId(openCueId === cue.id ? null : cue.id)
+                          }
+                        >
+                          {openCueId === cue.id ? "Hide temps" : "Temps"}
+                        </button>
+                        <button
+                          className="danger small"
+                          onClick={() => handleDelete(cue)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                    {openCueId === cue.id && (
+                      <tr className="temps-row">
+                        <td colSpan={7}>
+                          <TempTracks cue={cue} />
+                        </td>
+                      </tr>
+                    )}
+                  </Fragment>
                 ))}
               </tbody>
             </table>

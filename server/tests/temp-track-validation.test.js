@@ -69,6 +69,8 @@ describe("validateTempTrack", () => {
     expect(() => validateTempTrack({ title: "Time", previewUrl: "javascript:alert(1)" })).toThrow(
       "INVALID_LINK",
     );
+  });
+
   test("throws TITLE_REQUIRED when there is no body at all", () => {
     expect(() => validateTempTrack(undefined)).toThrow("TITLE_REQUIRED");
   });

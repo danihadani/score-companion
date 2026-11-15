@@ -40,5 +40,7 @@ export function validateTempTrack(body) {
     artist: optionalText(body.artist, MAX_TEXT, "ARTIST_TOO_LONG"),
     link: optionalLink(body.link),
     notes: optionalText(body.notes, MAX_NOTES, "NOTES_TOO_LONG"),
+    previewUrl: optionalLink(body.previewUrl),
+    artworkUrl: optionalLink(body.artworkUrl),
   };
 }

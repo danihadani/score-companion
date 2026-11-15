@@ -70,4 +70,8 @@ describe("validateCue", () => {
     expect(() => validateCue(frame24, 24)).toThrow("INVALID_TIMECODE");
     expect(validateCue(frame24, 25).timecodeIn).toBe("00:00:00:24");
   });
+
+  test("throws NAME_REQUIRED when there is no body at all", () => {
+    expect(() => validateCue(undefined, 24)).toThrow("NAME_REQUIRED");
+  });
 });

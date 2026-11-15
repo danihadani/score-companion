@@ -51,4 +51,8 @@ describe("validateProject", () => {
   test("throws when fps is not a number", () => {
     expect(() => validateProject({ title: "Dune", fps: "abc" })).toThrow("INVALID_FPS");
   });
+
+  test("throws TITLE_REQUIRED when there is no body at all", () => {
+    expect(() => validateProject(undefined)).toThrow("TITLE_REQUIRED");
+  });
 });

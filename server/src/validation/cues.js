@@ -7,7 +7,7 @@ import { timecodeToFrames } from "../timecode.js";
 
 export const CUE_STATUSES = ["sketch", "sent", "approved", "recorded", "mixed"];
 
-export function validateCue(body, fps) {
+export function validateCue(body = {}, fps) {
   const name = typeof body.name === "string" ? body.name.trim() : "";
   if (!name) throw new Error("NAME_REQUIRED");
 

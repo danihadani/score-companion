@@ -8,7 +8,7 @@
 // Timecode is always non-drop: drop-frame is not supported.
 export const ALLOWED_FPS = [23.976, 24, 25, 29.97, 30, 48, 50, 59.94, 60];
 
-export function validateProject(body) {
+export function validateProject(body = {}) {
   // A title must be text, and not only spaces.
   const title = typeof body.title === "string" ? body.title.trim() : "";
   if (!title) throw new Error("TITLE_REQUIRED");

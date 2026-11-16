@@ -29,6 +29,26 @@ projectsRouter.get("/", async (req, res) => {
   res.json(projects);
 });
 
+// GET /api/projects/:id - specific project
+
+projectsRouter.get("/:id", async (req, res) => {
+  const projectId = Number(req.params.id);
+
+  if (!Number.isInteger(projectId)) {
+    return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
+  }
+
+  const project = await prisma.project.findUnique({
+    where: { id: projectId },
+  });
+
+  if (!project) {
+    return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
+  }
+
+  return res.json(project);
+});
+
 // DELETE /api/projects/:id - delete one project
 projectsRouter.delete("/:id", async (req, res) => {
   const projectId = Number(req.params.id);

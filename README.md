@@ -62,6 +62,7 @@ Timecode is always non-drop: drop-frame isn't supported.
 | `GET /api/health` | Is the server up? | 200 |
 | `POST /api/projects` | Create a project | 201 · 400 |
 | `GET /api/projects` | All projects, newest first | 200 |
+| `GET /api/projects/:id` | One project | 200 · 404 |
 | `PUT /api/projects/:id` | Update a project | 200 · 400 · 404 |
 | `DELETE /api/projects/:id` | Delete a project and its cues | 204 · 404 |
 | `POST /api/projects/:id/cues` | Add a cue to a project | 201 · 400 · 404 |

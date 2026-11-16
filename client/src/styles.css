@@ -371,3 +371,23 @@ button.small {
   display: block;
   margin-top: 8px;
 }
+
+/* ---------- links between pages ---------- */
+.back {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.back:hover {
+  color: var(--accent);
+}
+
+.project h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.project h3 a:hover {
+  color: var(--accent);
+}

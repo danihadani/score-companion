@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ItunesSearch from "./ItunesSearch.jsx";
 
 const MESSAGES = {
   TITLE_REQUIRED: "Please give the track a title",
@@ -16,6 +17,8 @@ export default function TempTracks({ cue }) {
   const [artist, setArtist] = useState("");
   const [link, setLink] = useState("");
   const [notes, setNotes] = useState("");
+  const [previewUrl, setPreviewUrl] = useState("");
+  const [artworkUrl, setArtworkUrl] = useState("");
   const [error, setError] = useState("");
 
   async function loadTracks() {
@@ -46,7 +49,7 @@ export default function TempTracks({ cue }) {
       res = await fetch(`/api/cues/${cue.id}/temp-tracks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, artist, link, notes }),
+        body: JSON.stringify({ title, artist, link, notes, previewUrl, artworkUrl }),
       });
       data = await res.json();
     } catch {
@@ -62,7 +65,18 @@ export default function TempTracks({ cue }) {
     setArtist("");
     setLink("");
     setNotes("");
+    setPreviewUrl("");
+    setArtworkUrl("");
     loadTracks();
+  }
+
+    // A song picked from iTunes fills the form; the notes are still mine to write.
+  function handlePick(song) {
+    setTitle(song.title);
+    setArtist(song.artist);
+    setLink(song.link);
+    setPreviewUrl(song.previewUrl);
+    setArtworkUrl(song.artworkUrl);
   }
 
   async function handleDelete(track) {
@@ -93,7 +107,10 @@ export default function TempTracks({ cue }) {
         <ul className="track-list">
           {tracks.map((track) => (
             <li key={track.id} className="track">
-              <div>
+                {track.artworkUrl && (
+                <img src={track.artworkUrl} alt="" width="48" height="48" />
+              )}
+              <div className="track-text">
                 <strong>{track.title}</strong>
                 {track.artist && (
                   <span className="meta"> · {track.artist}</span>
@@ -112,6 +129,9 @@ export default function TempTracks({ cue }) {
                   </>
                 )}
                 {track.notes && <p className="track-notes">{track.notes}</p>}
+                {track.previewUrl && (
+                  <audio controls preload="none" src={track.previewUrl} />
+                )}
               </div>
               <button
                 className="danger small"
@@ -123,7 +143,7 @@ export default function TempTracks({ cue }) {
           ))}
         </ul>
       )}
-
+      <ItunesSearch onPick={handlePick} />
       <form className="form track-form" onSubmit={handleSubmit}>
         <label>
           Title

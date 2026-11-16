@@ -12,6 +12,7 @@ import { projectsRouter } from "./routes/projects.js";
 import rateLimit from "express-rate-limit";
 import { cuesRouter } from "./routes/cues.js";
 import { tempTracksRouter } from "./routes/tempTracks.js";
+import { itunesRouter } from "./routes/itunes.js";
 
 import { logger } from "./logger.js";
 
@@ -50,6 +51,7 @@ app.get("/api/health", (req, res) => {
 app.use("/api/projects", projectsRouter);
 app.use("/api/cues", cuesRouter);
 app.use("/api/temp-tracks", tempTracksRouter);
+app.use("/api/itunes", itunesRouter);
 
 // Any /api address that no route above answered.
 app.use("/api", (req, res) => {

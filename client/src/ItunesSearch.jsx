@@ -22,26 +22,22 @@ export default function ItunesSearch({ onPick }) {
     setSearched(false);
     setLoading(true);
 
-    try {
+      try {
       // encodeURIComponent: "rock & roll" stays one search term
       const res = await fetch(`/api/itunes/search?term=${encodeURIComponent(term)}`);
       const data = await res.json();
       if (!res.ok) {
-        setError(
-          data.error === "TERM_REQUIRED"
-            ? "Type a song or an artist"
-            : "iTunes can't be reached right now",
-        );
+        setError(MESSAGES[data.error] || "Something went wrong");      
         return;
       }
       setResults(data);
       setSearched(true);
     } catch {
-      setError(MESSAGES[data.error] || "Something went wrong");
+      setError("Can't reach the server. Please try again.");             
     } finally {
       setLoading(false);
     }
-  }
+};
 
   return (
     <div className="itunes">

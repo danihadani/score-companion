@@ -391,3 +391,59 @@ button.small {
 .project h3 a:hover {
   color: var(--accent);
 }
+
+/* ---------- the cue board ---------- */
+.view-switch {
+  display: flex;
+  gap: 8px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(160px, 1fr));
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.column {
+  background: var(--bg);
+  border: 2px dashed transparent;
+  border-radius: var(--radius);
+  padding: 10px;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.column.over {
+  border-color: var(--accent);
+}
+
+.column-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 4px;
+}
+
+.count {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.cue-card {
+  display: grid;
+  gap: 2px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  cursor: grab;
+}
+
+.cue-card .tc,
+.cue-card .meta {
+  font-size: 13px;
+}

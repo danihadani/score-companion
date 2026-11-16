@@ -22,8 +22,17 @@ license-checker      Collected the package licenses below       BSD-3-Clause
 Snyk CLI             Security scans of the packages, the code   Apache-2.0
                      and the Docker image
 
+EXTERNAL SERVICES
+-----------------
+
+Service              What it is used for                        Terms
+-------------------  -----------------------------------------  ----------------------------
+iTunes Search API    Searching songs for temp tracks, with      Apple's terms: free, no key.
+                     artwork and 30-second previews             Previews are shown with a link
+                                                                to the song on Apple Music
 SERVER PACKAGES (server/package.json)
 -------------------------------------
+
 
 Package              Version   Used for                         License
 -------------------  --------  -------------------------------  ------------
@@ -34,7 +43,7 @@ morgan               1.12.1    A log line for every request     MIT
 winston              3.19.0    Writing logs to files            MIT
 express-rate-limit   8.7.2      Limits requests per address      MIT
 
-Development only:
+Development only:ס
 jest                 30.5.2    Unit and route tests             MIT
 supertest            7.3.1     Sending requests in tests        MIT
 eslint               10.13.0   Linting                          MIT

@@ -15,6 +15,7 @@ order, and does the timecode arithmetic for you.
   `sketch` → `sent` → `approved` → `recorded` → `mixed`.
 - **Temp tracks** — the references the director liked for each cue: title,
   artist, a link and notes.
+  Search iTunes and listen to a 30-second preview before adding one.
 - **Automatic durations** — each cue's length as a timecode, calculated at the
   project's frame rate.
 - **Clear errors** — a cue that ends before it starts, or a timecode like
@@ -70,6 +71,7 @@ Timecode is always non-drop: drop-frame isn't supported.
 | `POST /api/cues/:id/temp-tracks` | Attach a temp track to a cue | 201 · 400 · 404 |
 | `GET /api/cues/:id/temp-tracks` | A cue's temp tracks, oldest first | 200 · 404 |
 | `DELETE /api/temp-tracks/:id` | Remove a temp track | 204 · 404 |
+| `GET /api/itunes/search?term=` | Songs from iTunes, with 30-second previews | 200 · 400 · 502 |
 
 ## Running the project
 
@@ -159,6 +161,9 @@ terminal and to two files in `server/logs/`:
 Request lines are written by morgan in `server/src/app.js`; the `info` and
 `warn` lines that say what happened are written in the routes. A sample log is
 in `docs/sample-app.log`.
+
+Every call to an outside service is logged too: each iTunes search as `info`
+(`iTunes search "hans zimmer": 10 results`), and a failed one as `error`.
 
 Watch them live, or search them:
 

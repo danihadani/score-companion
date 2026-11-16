@@ -1,4 +1,4 @@
-import CueList from "./CueList.jsx";
+import { Link } from "react-router";
 
 export default function ProjectList({ projects, onChanged }) {
   async function handleDelete(project) {
@@ -44,7 +44,9 @@ export default function ProjectList({ projects, onChanged }) {
           <li key={project.id} className="card project">
             <div className="project-head">
               <div>
-                <h3>{project.title}</h3>
+                <h3>
+                  <Link to={`/projects/${project.id}`}>{project.title}</Link>
+                </h3>
                 <p className="meta">
                   {project.director && `${project.director} · `}
                   {project.fps} fps
@@ -65,7 +67,6 @@ export default function ProjectList({ projects, onChanged }) {
                 </button>
               </div>
             </div>
-            <CueList project={project} />
           </li>
         ))}
       </ul>

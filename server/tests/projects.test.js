@@ -151,3 +151,44 @@ describe("GET /api/projects/:id", () => {
     expect(res.body.error).toBe("PROJECT_NOT_FOUND");
   });
 });
+
+describe("GET /api/projects/:id/summary", () => {
+  test("adds up the music, overall and per status", async () => {
+    const project = await prisma.project.create({
+      data: { title: "Dune", fps: 24 },
+    });
+    await prisma.cue.createMany({
+      data: [
+        {
+          name: "1m1",
+          timecodeIn: "01:00:00:00",
+          timecodeOut: "01:00:30:00",
+          status: "mixed",
+          projectId: project.id,
+        },
+        {
+          name: "1m2",
+          timecodeIn: "01:05:00:00",
+          timecodeOut: "01:06:00:00",
+          projectId: project.id,
+        },
+      ],
+    });
+
+    const res = await request(app).get(`/api/projects/${project.id}/summary`);
+
+    expect(res.status).toBe(200);
+    expect(res.body.count).toBe(2);
+    expect(res.body.duration).toBe("00:01:30:00");
+    expect(res.body.byStatus.mixed).toEqual({ count: 1, duration: "00:00:30:00" });
+    expect(res.body.byStatus.sketch).toEqual({ count: 1, duration: "00:01:00:00" });
+    expect(res.body.byStatus.sent).toEqual({ count: 0, duration: "00:00:00:00" });
+  });
+
+  test("answers 404 when the project doesn't exist", async () => {
+    const res = await request(app).get("/api/projects/999999/summary");
+
+    expect(res.status).toBe(404);
+    expect(res.body.error).toBe("PROJECT_NOT_FOUND");
+  });
+});

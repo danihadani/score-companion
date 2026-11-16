@@ -1,4 +1,9 @@
-import { timecodeToFrames, framesToTimecode, durationTimecode } from "../src/timecode.js";
+import {
+  timecodeToFrames,
+  framesToTimecode,
+  durationTimecode,
+  totalDuration,
+} from "../src/timecode.js";
 
 describe("timecodeToFrames", () => {
   test("adds hours, minutes, seconds and frames at 24 fps", () => {
@@ -72,5 +77,19 @@ describe("durationTimecode", () => {
 
   test("counts frames at the project's frame rate", () => {
     expect(durationTimecode("01:00:00:20", "01:00:01:05", 25)).toBe("00:00:00:10");
+  });
+});
+
+describe("totalDuration", () => {
+  test("is zero when there are no cues", () => {
+    expect(totalDuration([], 24)).toBe("00:00:00:00");
+  });
+
+  test("adds up the length of every cue", () => {
+    const cues = [
+      { timecodeIn: "01:00:00:00", timecodeOut: "01:00:30:00" }, // 30 seconds
+      { timecodeIn: "01:10:00:00", timecodeOut: "01:11:00:12" }, // 1 minute and 12 frames
+    ];
+    expect(totalDuration(cues, 24)).toBe("00:01:30:12");
   });
 });

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import CueList from "./CueList.jsx";
+import CueBoard from "./CueBoard.jsx";
 
 // One project's page: /projects/7
 export default function ProjectPage() {
@@ -8,6 +9,9 @@ export default function ProjectPage() {
   const { id } = useParams();
   const [project, setProject] = useState(null);
   const [error, setError] = useState("");
+
+ // Which view of the cues is shown: "board" or "table"
+  const [view, setView] = useState("board");
 
   // Load the project when the page opens, and again if the id changes.
   useEffect(() => {
@@ -48,8 +52,26 @@ export default function ProjectPage() {
               {project.fps} fps
             </p>
           </header>
+                    <div className="view-switch">
+            <button
+              className={view === "board" ? "" : "secondary"}
+              onClick={() => setView("board")}
+            >
+              Board
+            </button>
+            <button
+              className={view === "table" ? "" : "secondary"}
+              onClick={() => setView("table")}
+            >
+              Table
+            </button>
+          </div>
           <section className="card">
-            <CueList project={project} />
+            {view === "board" ? (
+              <CueBoard project={project} />
+            ) : (
+              <CueList project={project} />
+            )}
           </section>
         </>
       )}

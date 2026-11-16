@@ -102,6 +102,50 @@ Fill one in at the end of each sprint:
 - **What I'll do differently next time:** Decide the scope early, around the
   requirements, and keep extra features for later.
 
+## The final project
+
+The course project became the base of the final project (due 1 December).
+The plan was rebuilt around one sentence: **Score Companion is the cue wall a
+composer keeps next to the DAW: every cue of the film, where it stands, and
+what it still needs.** Ideas that didn't fit that sentence (a film player with
+synced music, syncing with Ableton) went to "Future work".
+
+| Sprint | Dates | Stories |
+|---|---|---|
+| 3 — Temp tracks | 13–16.11 | 3.1 (#14), 3.2 (#15), 4.3 iTunes search (#21), server fixes |
+| 4 — The cue wall | 16–21.11 | 5.1 project page, 3.3 board (#16), 2.4 music minutes (#12), 5.2 checklist, 5.3 notes |
+| 5 — Privacy | 22–27.11 | 4.1 sign up and log in (#19), 4.2 only my projects (#20) |
+| 6 — Delivery | 28–30.11 | Cue sheet, docs, Snyk, Docker Hub |
+
+### Sprint 3 — Temp tracks
+
+- **Planned:** 8 h (3.1, 3.2, 4.3) **Actual:** 12 h
+- **What went well:** The temp tracks followed the same pattern as the cues
+  (validation → route → tests → client), so they went quickly. Code review
+  caught four real problems: no message when a delete fails or the server is
+  down, a request without a body answering 500, a misleading message for a
+  long search, and old results staying on screen (#47, #48).
+- **What was harder than expected, and why:** The iTunes search was the first
+  time the server talks to an outside service, and that brought new questions:
+  **Testing it.** The tests can't call the real iTunes: the results change,
+    they need the internet, and there is no way to make iTunes fail on purpose
+    to test the 502. So the tests replace `fetch` with a fake (`jest.spyOn`)
+    that answers whatever each test needs, including a network failure. This
+    was new, and took time to understand.
+   **Not trusting what goes out or comes in.** The search term is limited to
+    100 characters and passed with `searchParams`, so a `&` can't change the
+    request to iTunes. iTunes gets 5 seconds to answer. The preview and artwork
+    links are checked like any other link (`http` or `https` only), because they
+    come back from the browser before they are saved.
+   **Logging it.** Every search is logged, and a failure is logged as an
+    error, so a problem with iTunes can be told apart from a problem in the app.
+   **Git and Docker.** A merge conflict in a test file left a test unclosed,
+    and the commit went in before the tests were run. Docker kept port 3000, so
+    the dev server quietly failed to start, which led to a fix in `server.js`
+    (#50).
+- **What I'll do differently next sprint:** Run `npm test` after every merge,
+  before committing. Stop the Docker app before starting the dev server.
+
 ## Code review
 
 Three large changes went through review by another participant (noater).

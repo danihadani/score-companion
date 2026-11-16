@@ -1,5 +1,11 @@
 import { useState } from "react";
 
+const MESSAGES = {
+  TERM_REQUIRED: "Type a song or an artist",
+  TERM_TOO_LONG: "The search can be up to 100 characters",
+  ITUNES_UNAVAILABLE: "iTunes can't be reached right now",
+};
+
 // Search iTunes (through our server) and pick a song.
 // onPick(song) hands the chosen song back to the temp track form.
 export default function ItunesSearch({ onPick }) {
@@ -12,6 +18,8 @@ export default function ItunesSearch({ onPick }) {
   async function handleSearch(e) {
     e.preventDefault();
     setError("");
+    setResults([]);
+    setSearched(false);
     setLoading(true);
 
     try {
@@ -29,7 +37,7 @@ export default function ItunesSearch({ onPick }) {
       setResults(data);
       setSearched(true);
     } catch {
-      setError("Can't reach the server. Please try again.");
+      setError(MESSAGES[data.error] || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -44,6 +52,7 @@ export default function ItunesSearch({ onPick }) {
             value={term}
             onChange={(e) => setTerm(e.target.value)}
             placeholder="Song or artist, e.g. Hans Zimmer Time"
+            maxLength={100}
           />
         </label>
         <button type="submit" disabled={loading}>

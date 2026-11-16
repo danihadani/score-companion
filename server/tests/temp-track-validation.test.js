@@ -13,6 +13,8 @@ describe("validateTempTrack", () => {
       artist: "Hans Zimmer",
       link: "https://www.youtube.com/watch?v=RxabLA7UQ9k",
       notes: "The director loves the build-up",
+      previewUrl: null,
+      artworkUrl: null,
     });
   });
 
@@ -22,6 +24,8 @@ describe("validateTempTrack", () => {
       artist: null,
       link: null,
       notes: null,
+      previewUrl: null,
+      artworkUrl: null,
     });
   });
 
@@ -47,6 +51,22 @@ describe("validateTempTrack", () => {
 
   test("refuses a javascript: link, which would run code when clicked", () => {
     expect(() => validateTempTrack({ title: "Time", link: "javascript:alert(1)" })).toThrow(
+      "INVALID_LINK",
+    );
+  });
+
+  test("keeps the iTunes preview and artwork links", () => {
+    const result = validateTempTrack({
+      title: "Time",
+      previewUrl: "https://audio-ssl.itunes.apple.com/time.m4a",
+      artworkUrl: "https://is1-ssl.mzstatic.com/time/100x100bb.jpg",
+    });
+    expect(result.previewUrl).toBe("https://audio-ssl.itunes.apple.com/time.m4a");
+    expect(result.artworkUrl).toBe("https://is1-ssl.mzstatic.com/time/100x100bb.jpg");
+  });
+
+  test("refuses a preview link that is not http or https", () => {
+    expect(() => validateTempTrack({ title: "Time", previewUrl: "javascript:alert(1)" })).toThrow(
       "INVALID_LINK",
     );
   });

@@ -317,3 +317,57 @@ button.small {
 .track-form label.wide {
   flex-basis: 100%;
 }
+
+/* ---------- iTunes search ---------- */
+.itunes {
+  margin-bottom: 16px;
+}
+
+.form label.grow {
+  flex: 1 1 240px;
+}
+
+.results {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.result {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+}
+
+.result img,
+.track img {
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.result-text {
+  display: grid;
+  flex: 1 1 160px;
+}
+
+.result audio,
+.track audio {
+  height: 32px;
+  max-width: 100%;
+}
+
+.track-text {
+  flex: 1;
+}
+
+.track audio {
+  display: block;
+  margin-top: 8px;
+}

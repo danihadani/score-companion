@@ -170,10 +170,31 @@ synced music, syncing with Ableton) went to "Future work".
   stop at the first failure. Restart the dev server after every migration.
   Read the first error in the output, not the last.
 
+### Sprint 5 — Privacy
+
+- **Planned:** 10 h (4.1, 4.2) **Actual:** 11h
+- **What went well:** The log in came from my hotel booking project: the same
+  `auth.js` with bcrypt, JWT and the `auth` middleware, and the same
+  `RequireAuth`, log in and sign up pages. Reusing code I had written and
+  understood made it faster, and I can explain it. Making each composer see
+  only her own projects needed no change in the client: every lookup on the
+  server includes `userId: req.userId`.
+- **What was harder than expected, and why:**
+  - **Every test needed to log in.** Once the routes required a token, all the
+    route tests failed. A helper, `loggedInAs()`, signs up a composer and
+    returns an agent that sends her token, so the tests themselves barely
+    changed.
+  - **Three `.env` files.** `JWT_SECRET` is read by our code, not by Prisma, so
+    `npm run dev` needed `--env-file`, and the secret had to be added to the
+    `.env` for Docker, for development and for the tests. It became clear why
+    there are three.
+- **What I'll do differently next sprint:** Keep the time that's left for going
+  through the whole project until I can explain every part of it.
+
 ## Code review
 
-Three large changes went through review by another participant (noater).
-Each has her comment, the fix, and my answer:
+Five changes went through review by another participant (noater).
+Each has her comments, the fixes, and my answers:
 
 1. [#32 Add a cue to a project](https://github.com/danihadani/score-companion/pull/32)
    — show a message when the server can't be reached (`try/catch` around `fetch`)
@@ -181,3 +202,7 @@ Each has her comment, the fix, and my answer:
    — check `res.ok` before saving a list, in `CueList` and in `App`
 3. [#40 Fix Snyk findings](https://github.com/danihadani/score-companion/pull/40)
    — rate-limit every `/api` route, not only the page
+4. [#47 Attach temp tracks to a cue](https://github.com/danihadani/score-companion/pull/47)
+   — a message when a delete fails, and 400 instead of 500 for a request without a body
+5. [#48 Search iTunes](https://github.com/danihadani/score-companion/pull/48)
+   — a message for a search that's too long, and clearing old results when a new search fails

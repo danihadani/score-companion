@@ -9,6 +9,8 @@ board per film, does the timecode arithmetic, and shows how much music is done.
 
 ## Features
 
+- **Private** — every composer signs up and logs in, and sees only her own
+  projects.
 - **Projects** — one page per film, with its director and frame rate
   (23.976, 24, 25, 29.97, 30, 48, 50, 59.94 or 60 fps, the rates DAWs offer).
 - **The cue board** — a column per status
@@ -65,6 +67,8 @@ Timecode is always non-drop: drop-frame isn't supported.
 | Request | What it does | Answers |
 |---|---|---|
 | `GET /api/health` | Is the server up? | 200 |
+| `POST /api/users/signup` | Create an account, and get a login token | 201 · 400 · 409 |
+| `POST /api/users/login` | Log in, and get a login token | 200 · 400 · 401 |
 | `POST /api/projects` | Create a project | 201 · 400 |
 | `GET /api/projects` | All projects, newest first | 200 |
 | `GET /api/projects/:id` | One project | 200 · 404 |
@@ -87,12 +91,15 @@ Timecode is always non-drop: drop-frame isn't supported.
 | `POST /api/cues/:id/notes` | Write a note on a cue | 201 · 400 · 404 |
 | `DELETE /api/notes/:id` | Delete a note | 204 · 404 |
 
+Every other route needs the token: `Authorization: Bearer <token>`. Without
+it, or with a token that was changed or has expired, the answer is 401.
+
 ## Running the project
 
 ### With Docker (the whole app + database)
 
 ```bash
-cp .env.example .env          # then change the password inside
+cp .env.example .env          # then set the password and JWT_SECRET inside
 docker compose up --build
 ```
 
@@ -205,10 +212,34 @@ values separately (a parameterized query), so a value can never become part of
 the SQL: that title is simply saved as text. The project builds no SQL from
 strings.
 
+### Logging in
+
+- **Passwords are never stored.** The database keeps a bcrypt hash: a one-way
+  value that a password can be checked against, but can't be turned back into
+  one. The hash is never sent to the browser.
+- **The token is signed.** After logging in, the server gives a JWT that says
+  "this is user 7", signed with `JWT_SECRET`. Changing the id breaks the
+  signature, so the token is refused. The server won't start without the secret,
+  so there is no default secret in the code. A login lasts one day.
+- **A wrong password and an unknown username get the same answer**, so the log
+  in can't be used to find out which usernames exist.
+- **At most 10 sign ups or log ins in 15 minutes** from one address, against
+  guessing passwords.
+- **Someone else's data answers 404**, not 403: every lookup includes the
+  logged-in composer, so another composer's project is "not found", and nobody
+  learns that it exists.
+- **The token is kept in localStorage.** It's simple and works with every
+  request, but JavaScript on the page can read it, so a cross-site scripting
+  bug could steal it. React escapes everything it shows, and links must be
+  `http` or `https`. A possible next step is an `httpOnly` cookie, which
+  JavaScript can't read.
+
 ### Secrets
 
-The database password lives in `.env` files, which are in `.gitignore`. The
-repository only has `.env.example` files with sample values.
+The database password and `JWT_SECRET` live in `.env` files, which are in
+`.gitignore`. The repository only has `.env.example` files with sample values.
+There are three: `.env` for Docker, `server/.env` for `npm run dev`, and
+`server/.env.test` for the tests.
 
 ### Snyk
 
@@ -244,7 +275,7 @@ them. This project uses them as they are.
 | Git: `main` plus a branch for every change | [Branches](https://github.com/danihadani/score-companion/branches) — every change reached `main` through a pull request |
 | User stories, estimates, Kanban board | [Issues](https://github.com/danihadani/score-companion/issues) and the project's Kanban board; stories and estimates in [`docs/user-stories.md`](docs/user-stories.md) |
 | Sprints and retrospectives | [`docs/user-stories.md`](docs/user-stories.md); board screenshots in `docs/board/` |
-| Code review by another participant | [#32](https://github.com/danihadani/score-companion/pull/32) (network errors in the cue form), [#37](https://github.com/danihadani/score-companion/pull/37) (checking `res.ok` before showing lists), [#40](https://github.com/danihadani/score-companion/pull/40) (rate-limiting the API) |
+| Code review by another participant | [#32](https://github.com/danihadani/score-companion/pull/32) (network errors in the cue form), [#37](https://github.com/danihadani/score-companion/pull/37) (checking `res.ok` before showing lists), [#40](https://github.com/danihadani/score-companion/pull/40) (rate-limiting the API), [#47](https://github.com/danihadani/score-companion/pull/47) (a failed delete, and a request without a body), [#48](https://github.com/danihadani/score-companion/pull/48) (search errors, and old results after a failed search) |
 | Unit tests, 70% coverage, integration test | [Tests](#tests) |
 | Linting and formatting | ESLint and Prettier (`npm run lint`, `npm run format`) |
 | Package manager | npm: `package.json` and `package-lock.json` in `server/` and `client/` |

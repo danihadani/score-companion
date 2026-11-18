@@ -42,8 +42,10 @@ prisma               6.19.3    Migrations (command line)        Apache-2.0
 morgan               1.12.1    A log line for every request     MIT
 winston              3.19.0    Writing logs to files            MIT
 express-rate-limit   8.7.2      Limits requests per address      MIT
+bcrypt               6.0.0     Hashing passwords                MIT
+jsonwebtoken         9.0.3     Login tokens (JWT)               MIT
 
-Development only:ס
+Development only:
 jest                 30.5.2    Unit and route tests             MIT
 supertest            7.3.1     Sending requests in tests        MIT
 eslint               10.13.0   Linting                          MIT

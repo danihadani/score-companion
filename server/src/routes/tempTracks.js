@@ -11,7 +11,9 @@ tempTracksRouter.delete("/:id", async (req, res) => {
     return res.status(404).json({ error: "TEMP_TRACK_NOT_FOUND" });
   }
 
-  const existing = await prisma.tempTrack.findUnique({ where: { id: trackId } });
+  const existing = await prisma.tempTrack.findFirst({
+    where: { id: trackId, cue: { project: { userId: req.userId } } },
+  });
   if (!existing) {
     return res.status(404).json({ error: "TEMP_TRACK_NOT_FOUND" });
   }

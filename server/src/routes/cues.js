@@ -8,6 +8,9 @@ import { logger } from "../logger.js";
 
 export const cuesRouter = Router();
 
+// A cue is found only through a project of the logged-in composer:
+// where: { id, project: { userId: req.userId } }. Anyone else's cue answers 404.
+
 // PUT /api/cues/:id - update a cue
 cuesRouter.put("/:id", async (req, res) => {
   const cueId = Number(req.params.id);
@@ -16,8 +19,8 @@ cuesRouter.put("/:id", async (req, res) => {
   }
 
   // The project comes along, because the timecodes are checked at its frame rate.
-  const existing = await prisma.cue.findUnique({
-    where: { id: cueId },
+  const existing = await prisma.cue.findFirst({
+    where: { id: cueId, project: { userId: req.userId } },
     include: { project: true },
   });
   if (!existing) {
@@ -44,7 +47,9 @@ cuesRouter.delete("/:id", async (req, res) => {
     return res.status(404).json({ error: "CUE_NOT_FOUND" });
   }
 
-  const existing = await prisma.cue.findUnique({ where: { id: cueId } });
+  const existing = await prisma.cue.findFirst({
+    where: { id: cueId, project: { userId: req.userId } },
+  });
   if (!existing) {
     return res.status(404).json({ error: "CUE_NOT_FOUND" });
   }
@@ -63,7 +68,7 @@ cuesRouter.post("/:id/temp-tracks", async (req, res) => {
     return res.status(404).json({ error: "CUE_NOT_FOUND" });
   }
 
-  const cue = await prisma.cue.findUnique({ where: { id: cueId } });
+  const cue = await prisma.cue.findFirst({ where: { id: cueId, project: { userId: req.userId } } });
   if (!cue) {
     return res.status(404).json({ error: "CUE_NOT_FOUND" });
   }
@@ -88,7 +93,7 @@ cuesRouter.get("/:id/temp-tracks", async (req, res) => {
     return res.status(404).json({ error: "CUE_NOT_FOUND" });
   }
 
-  const cue = await prisma.cue.findUnique({ where: { id: cueId } });
+  const cue = await prisma.cue.findFirst({ where: { id: cueId, project: { userId: req.userId } } });
   if (!cue) {
     return res.status(404).json({ error: "CUE_NOT_FOUND" });
   }
@@ -109,7 +114,7 @@ cuesRouter.get("/:id/checklist", async (req, res) => {
     return res.status(404).json({ error: "CUE_NOT_FOUND" });
   }
 
-  const cue = await prisma.cue.findUnique({ where: { id: cueId } });
+  const cue = await prisma.cue.findFirst({ where: { id: cueId, project: { userId: req.userId } } });
   if (!cue) {
     return res.status(404).json({ error: "CUE_NOT_FOUND" });
   }
@@ -128,7 +133,7 @@ cuesRouter.post("/:id/checklist", async (req, res) => {
     return res.status(404).json({ error: "CUE_NOT_FOUND" });
   }
 
-  const cue = await prisma.cue.findUnique({ where: { id: cueId } });
+  const cue = await prisma.cue.findFirst({ where: { id: cueId, project: { userId: req.userId } } });
   if (!cue) {
     return res.status(404).json({ error: "CUE_NOT_FOUND" });
   }
@@ -159,7 +164,7 @@ cuesRouter.get("/:id/notes", async (req, res) => {
     return res.status(404).json({ error: "CUE_NOT_FOUND" });
   }
 
-  const cue = await prisma.cue.findUnique({ where: { id: cueId } });
+  const cue = await prisma.cue.findFirst({ where: { id: cueId, project: { userId: req.userId } } });
   if (!cue) {
     return res.status(404).json({ error: "CUE_NOT_FOUND" });
   }
@@ -178,7 +183,7 @@ cuesRouter.post("/:id/notes", async (req, res) => {
     return res.status(404).json({ error: "CUE_NOT_FOUND" });
   }
 
-  const cue = await prisma.cue.findUnique({ where: { id: cueId } });
+  const cue = await prisma.cue.findFirst({ where: { id: cueId, project: { userId: req.userId } } });
   if (!cue) {
     return res.status(404).json({ error: "CUE_NOT_FOUND" });
   }

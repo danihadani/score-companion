@@ -18,7 +18,9 @@ afterAll(async () => {
 
 // A project with one cue, for the temp tracks to hang on.
 async function createCue() {
-  const project = await prisma.project.create({ data: { title: "Inception", fps: 24 } });
+  const project = await prisma.project.create({
+    data: { userId: api.userId, title: "Inception", fps: 24 },
+  });
   return prisma.cue.create({
     data: {
       name: "1m1",

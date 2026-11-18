@@ -11,7 +11,9 @@ notesRouter.delete("/:id", async (req, res) => {
     return res.status(404).json({ error: "NOTE_NOT_FOUND" });
   }
 
-  const existing = await prisma.note.findUnique({ where: { id: noteId } });
+  const existing = await prisma.note.findFirst({
+    where: { id: noteId, cue: { project: { userId: req.userId } } },
+  });
   if (!existing) {
     return res.status(404).json({ error: "NOTE_NOT_FOUND" });
   }

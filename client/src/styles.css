@@ -462,3 +462,106 @@ button.small {
   color: var(--muted);
   font-size: 12px;
 }
+
+/* ---------- a cue's checklist ---------- */
+.cue-card.open {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.progress {
+  position: relative;
+  display: block;
+  height: 16px;
+  margin-top: 6px;
+  background: var(--bg);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: #cfe7d8;
+}
+
+.progress-text {
+  position: relative;
+  display: block;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
+  color: var(--ink);
+}
+
+.cue-details {
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--bg);
+  border-radius: var(--radius);
+  display: grid;
+  gap: 16px;
+}
+
+.details-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.details-head h3 {
+  margin: 0;
+}
+
+.checklist h4 .count {
+  margin-left: 6px;
+}
+
+.checklist-items {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.checklist-items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+.checklist-items li.done label {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+label.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+label.check input {
+  width: auto;
+}
+
+button.link {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 18px;
+  padding: 0 6px;
+}
+
+button.link:hover {
+  background: none;
+  color: var(--danger);
+}

@@ -33,6 +33,7 @@ model Cue {
 
   tempTracks TempTrack[]
   checklist  ChecklistItem[]
+  notes      Note[]
 }
 
 // ---------- a reference track the director liked for a cue ----------
@@ -59,6 +60,17 @@ model ChecklistItem {
   label     String
   done      Boolean  @default(false)
   position  Int
+  createdAt DateTime @default(now())
+
+  cueId Int
+  cue   Cue @relation(fields: [cueId], references: [id], onDelete: Cascade)
+}
+
+// ---------- a dated note on a cue: what changed, and why ----------
+
+model Note {
+  id        Int      @id @default(autoincrement())
+  text      String
   createdAt DateTime @default(now())
 
   cueId Int

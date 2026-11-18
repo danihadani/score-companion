@@ -1,11 +1,15 @@
-import request from "supertest";
-import { app } from "../src/app.js";
 import { prisma } from "../src/prisma.js";
+import { loggedInAs } from "./helpers.js";
+
+// Every request goes through a logged-in composer.
+let api;
 
 // Every test starts from an empty table, so counts are predictable.
 beforeEach(async () => {
   await prisma.cue.deleteMany();
   await prisma.project.deleteMany();
+  await prisma.user.deleteMany();
+  api = await loggedInAs();
 });
 
 // Close the database connection, so Jest can exit.
@@ -15,7 +19,7 @@ afterAll(async () => {
 
 describe("POST /api/projects", () => {
   test("creates a project and answers 201", async () => {
-    const res = await request(app)
+    const res = await api
       .post("/api/projects")
       .send({ title: "Dune", director: "Villeneuve", fps: 23.976 });
 
@@ -28,7 +32,7 @@ describe("POST /api/projects", () => {
   });
 
   test("answers 400 and saves nothing when the title is missing", async () => {
-    const res = await request(app).post("/api/projects").send({ fps: 24 });
+    const res = await api.post("/api/projects").send({ fps: 24 });
 
     expect(res.status).toBe(400);
     expect(res.body.error).toBe("TITLE_REQUIRED");
@@ -46,7 +50,7 @@ describe("GET /api/projects", () => {
       data: { title: "New Film", fps: 24, createdAt: new Date("2026-06-01") },
     });
 
-    const res = await request(app).get("/api/projects");
+    const res = await api.get("/api/projects");
 
     expect(res.status).toBe(200);
     expect(res.body).toHaveLength(2);
@@ -60,21 +64,21 @@ describe("DELETE /api/projects/:id", () => {
       data: { title: "New Film", fps: 24 },
     });
 
-    const res = await request(app).delete(`/api/projects/${project.id}`);
+    const res = await api.delete(`/api/projects/${project.id}`);
 
     expect(res.status).toBe(204);
     expect(await prisma.project.count()).toBe(0);
   });
 
   test("answers 404 for an id that doesn't exist", async () => {
-    const res = await request(app).delete("/api/projects/99999");
+    const res = await api.delete("/api/projects/99999");
 
     expect(res.status).toBe(404);
     expect(res.body.error).toBe("PROJECT_NOT_FOUND");
   });
 
   test("answers 404 when the id is not a number", async () => {
-    const res = await request(app).delete("/api/projects/abc");
+    const res = await api.delete("/api/projects/abc");
 
     expect(res.status).toBe(404);
     expect(res.body.error).toBe("PROJECT_NOT_FOUND");
@@ -87,9 +91,7 @@ describe("PUT /api/projects/:id", () => {
       data: { title: "Old Film", fps: 24 },
     });
 
-    const res = await request(app)
-      .put(`/api/projects/${project.id}`)
-      .send({ title: "New Film", fps: 24 });
+    const res = await api.put(`/api/projects/${project.id}`).send({ title: "New Film", fps: 24 });
 
     expect(res.status).toBe(200);
     expect(res.body.title).toBe("New Film");
@@ -106,7 +108,7 @@ describe("PUT /api/projects/:id", () => {
       data: { title: "Old Film", fps: 24 },
     });
 
-    const res = await request(app).put(`/api/projects/${project.id}`).send({ title: "", fps: 24 });
+    const res = await api.put(`/api/projects/${project.id}`).send({ title: "", fps: 24 });
 
     expect(res.status).toBe(400);
     expect(res.body.error).toBe("TITLE_REQUIRED");
@@ -118,7 +120,7 @@ describe("PUT /api/projects/:id", () => {
   });
 
   test("answers 404 for an id that doesn't exist", async () => {
-    const res = await request(app).put("/api/projects/99999").send({ title: "Film", fps: 24 });
+    const res = await api.put("/api/projects/99999").send({ title: "Film", fps: 24 });
 
     expect(res.status).toBe(404);
   });
@@ -130,7 +132,7 @@ describe("GET /api/projects/:id", () => {
       data: { title: "New Film", fps: 24 },
     });
 
-    const res = await request(app).get(`/api/projects/${project.id}`);
+    const res = await api.get(`/api/projects/${project.id}`);
 
     expect(res.status).toBe(200);
     expect(res.body.id).toBe(project.id);
@@ -138,14 +140,14 @@ describe("GET /api/projects/:id", () => {
   });
 
   test("answers 404 for a project that doesn't not exist", async () => {
-    const res = await request(app).get("/api/projects/99999");
+    const res = await api.get("/api/projects/99999");
 
     expect(res.status).toBe(404);
     expect(res.body.error).toBe("PROJECT_NOT_FOUND");
   });
 
   test("answers 404 when the id is not a number", async () => {
-    const res = await request(app).get("/api/projects/abc");
+    const res = await api.get("/api/projects/abc");
 
     expect(res.status).toBe(404);
     expect(res.body.error).toBe("PROJECT_NOT_FOUND");
@@ -175,7 +177,7 @@ describe("GET /api/projects/:id/summary", () => {
       ],
     });
 
-    const res = await request(app).get(`/api/projects/${project.id}/summary`);
+    const res = await api.get(`/api/projects/${project.id}/summary`);
 
     expect(res.status).toBe(200);
     expect(res.body.count).toBe(2);
@@ -186,7 +188,7 @@ describe("GET /api/projects/:id/summary", () => {
   });
 
   test("answers 404 when the project doesn't exist", async () => {
-    const res = await request(app).get("/api/projects/999999/summary");
+    const res = await api.get("/api/projects/999999/summary");
 
     expect(res.status).toBe(404);
     expect(res.body.error).toBe("PROJECT_NOT_FOUND");

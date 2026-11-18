@@ -15,6 +15,8 @@ import { tempTracksRouter } from "./routes/tempTracks.js";
 import { itunesRouter } from "./routes/itunes.js";
 import { checklistRouter } from "./routes/checklist.js";
 import { notesRouter } from "./routes/notes.js";
+import { usersRouter } from "./routes/users.js";
+import { auth } from "./auth.js";
 
 import { logger } from "./logger.js";
 
@@ -50,12 +52,23 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
-app.use("/api/projects", projectsRouter);
-app.use("/api/cues", cuesRouter);
-app.use("/api/temp-tracks", tempTracksRouter);
-app.use("/api/itunes", itunesRouter);
-app.use("/api/checklist", checklistRouter);
-app.use("/api/notes", notesRouter);
+// At most 10 sign ups or log ins in 15 minutes from one address,
+// so nobody can try password after password.
+// (The tests sign up dozens of times, so the limit is off while they run.)
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 10,
+  skip: () => process.env.NODE_ENV === "test",
+});
+app.use("/api/users", loginLimiter, usersRouter);
+
+// Everything below needs a logged-in composer: auth answers 401 otherwise.
+app.use("/api/projects", auth, projectsRouter);
+app.use("/api/cues", auth, cuesRouter);
+app.use("/api/temp-tracks", auth, tempTracksRouter);
+app.use("/api/itunes", auth, itunesRouter);
+app.use("/api/checklist", auth, checklistRouter);
+app.use("/api/notes", auth, notesRouter);
 
 // Any /api address that no route above answered.
 app.use("/api", (req, res) => {

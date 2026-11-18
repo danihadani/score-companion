@@ -1,10 +1,14 @@
-import request from "supertest";
-import { app } from "../src/app.js";
 import { prisma } from "../src/prisma.js";
+import { loggedInAs } from "./helpers.js";
+
+// Every request goes through a logged-in composer.
+let api;
 
 beforeEach(async () => {
   await prisma.cue.deleteMany();
   await prisma.project.deleteMany();
+  await prisma.user.deleteMany();
+  api = await loggedInAs();
 });
 
 afterAll(async () => {
@@ -17,7 +21,7 @@ describe("POST /api/projects/:id/cues", () => {
       data: { title: "Taxi Driver", fps: 24 },
     });
 
-    const res = await request(app)
+    const res = await api
       .post(`/api/projects/${project.id}/cues`)
       .send({ name: "1m1", timecodeIn: "01:00:00:00", timecodeOut: "01:00:30:00" });
 
@@ -30,7 +34,7 @@ describe("POST /api/projects/:id/cues", () => {
     const project = await prisma.project.create({
       data: { title: "Taxi Driver", fps: 24 },
     });
-    const res = await request(app)
+    const res = await api
       .post(`/api/projects/${project.id}/cues`)
       .send({ name: "1m1", timecodeIn: "01:00:30:00", timecodeOut: "01:00:00:00" });
 
@@ -40,7 +44,7 @@ describe("POST /api/projects/:id/cues", () => {
   });
 
   test("answers 404 when the project doesn't exist", async () => {
-    const res = await request(app)
+    const res = await api
       .post("/api/projects/9999/cues")
       .send({ name: "1m1", timecodeIn: "01:00:00:00", timecodeOut: "01:00:30:00" });
 
@@ -60,7 +64,7 @@ describe("POST /api/projects/:id/cues", () => {
       },
     });
 
-    const res = await request(app).delete(`/api/projects/${project.id}`);
+    const res = await api.delete(`/api/projects/${project.id}`);
 
     expect(res.status).toBe(204);
     expect(await prisma.cue.count()).toBe(0);
@@ -93,7 +97,7 @@ describe("GET /api/projects/:id/cues", () => {
       },
     });
 
-    const res = await request(app).get(`/api/projects/${project.id}/cues`);
+    const res = await api.get(`/api/projects/${project.id}/cues`);
 
     expect(res.status).toBe(200);
     expect(res.body.map((cue) => cue.name)).toEqual(["0m1", "1m1"]);
@@ -105,13 +109,13 @@ describe("GET /api/projects/:id/cues", () => {
     await createProjectWithCue();
     const other = await prisma.project.create({ data: { title: "Empty", fps: 24 } });
 
-    const res = await request(app).get(`/api/projects/${other.id}/cues`);
+    const res = await api.get(`/api/projects/${other.id}/cues`);
 
     expect(res.body).toEqual([]);
   });
 
   test("answers 404 when the project doesn't exist", async () => {
-    const res = await request(app).get("/api/projects/999999/cues");
+    const res = await api.get("/api/projects/999999/cues");
     expect(res.status).toBe(404);
   });
 });
@@ -120,9 +124,7 @@ describe("PUT /api/cues/:id", () => {
   test("updates the cue and answers 200", async () => {
     const { cue } = await createProjectWithCue();
 
-    const res = await request(app)
-      .put(`/api/cues/${cue.id}`)
-      .send({ ...cue, status: "approved" });
+    const res = await api.put(`/api/cues/${cue.id}`).send({ ...cue, status: "approved" });
 
     expect(res.status).toBe(200);
     expect(res.body.status).toBe("approved");
@@ -133,9 +135,7 @@ describe("PUT /api/cues/:id", () => {
   test("answers 400 and changes nothing when the data is invalid", async () => {
     const { cue } = await createProjectWithCue();
 
-    const res = await request(app)
-      .put(`/api/cues/${cue.id}`)
-      .send({ ...cue, timecodeOut: "00:00:00:00" });
+    const res = await api.put(`/api/cues/${cue.id}`).send({ ...cue, timecodeOut: "00:00:00:00" });
 
     expect(res.status).toBe(400);
     expect(res.body.error).toBe("TIMECODE_OUT_BEFORE_IN");
@@ -144,7 +144,7 @@ describe("PUT /api/cues/:id", () => {
   });
 
   test("answers 404 for a cue that doesn't exist", async () => {
-    const res = await request(app)
+    const res = await api
       .put("/api/cues/999999")
       .send({ name: "1m1", timecodeIn: "01:00:00:00", timecodeOut: "01:00:30:00" });
 
@@ -157,19 +157,19 @@ describe("DELETE /api/cues/:id", () => {
   test("deletes the cue and answers 204", async () => {
     const { cue } = await createProjectWithCue();
 
-    const res = await request(app).delete(`/api/cues/${cue.id}`);
+    const res = await api.delete(`/api/cues/${cue.id}`);
 
     expect(res.status).toBe(204);
     expect(await prisma.cue.count()).toBe(0);
   });
 
   test("answers 404 for a cue that doesn't exist", async () => {
-    const res = await request(app).delete("/api/cues/999999");
+    const res = await api.delete("/api/cues/999999");
     expect(res.status).toBe(404);
   });
 
   test("answers 404 when the id is not a number", async () => {
-    const res = await request(app).delete("/api/cues/abc");
+    const res = await api.delete("/api/cues/abc");
     expect(res.status).toBe(404);
   });
 });

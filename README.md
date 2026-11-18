@@ -73,6 +73,7 @@ Timecode is always non-drop: drop-frame isn't supported.
 | `GET /api/cues/:id/temp-tracks` | A cue's temp tracks, oldest first | 200 · 404 |
 | `DELETE /api/temp-tracks/:id` | Remove a temp track | 204 · 404 |
 | `GET /api/itunes/search?term=` | Songs from iTunes, with 30-second previews | 200 · 400 · 502 |
+| `GET /api/projects/:id/summary` | Music time and cue count, overall and per status | 200 · 404 |
 
 ## Running the project
 

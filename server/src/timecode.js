@@ -47,3 +47,14 @@ export function durationTimecode(timecodeIn, timecodeOut, fps) {
     fps,
   );
 }
+
+// Adds up the lengths of some cues, as a timecode.
+// Two cues of 30 seconds at 24 fps → "00:01:00:00"
+export function totalDuration(cues, fps) {
+  const frames = cues.reduce(
+    (sum, cue) =>
+      sum + timecodeToFrames(cue.timecodeOut, fps) - timecodeToFrames(cue.timecodeIn, fps),
+    0,
+  );
+  return framesToTimecode(frames, fps);
+}

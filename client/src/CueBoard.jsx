@@ -10,6 +10,8 @@ export default function CueBoard({ project }) {
   const [error, setError] = useState("");
   // The column a card is being dragged over, to highlight it
   const [overStatus, setOverStatus] = useState(null);
+  // Totals from the server: { count, duration, byStatus: { sketch: {...}, ... } }
+  const [summary, setSummary] = useState(null);
 
   async function loadCues() {
     try {
@@ -26,9 +28,24 @@ export default function CueBoard({ project }) {
     }
   }
 
-  // Load the cues once, when the board is shown.
-  useEffect(() => {
+  async function loadSummary() {
+    try {
+      const res = await fetch(`/api/projects/${project.id}/summary`);
+      if (res.ok) setSummary(await res.json());
+    } catch {
+      // The cues show their own error; the totals just stay as they were.
+    }
+  }
+
+  // Everything that changes the cues calls this, so the totals stay right.
+  function reload() {
     loadCues();
+    loadSummary();
+  }
+
+  // Load the cues and the totals once, when the board is shown.
+  useEffect(() => {
+    reload();
   }, [project.id]);
 
   async function moveCue(cueId, status) {
@@ -47,6 +64,7 @@ export default function CueBoard({ project }) {
         body: JSON.stringify({ ...cue, status }),
       });
       if (!res.ok) throw new Error("The server refused the move");
+      loadSummary();
     } catch {
       setCues(before);
       setError(`"${cue.name}" could not be moved. Please try again.`);
@@ -56,6 +74,12 @@ export default function CueBoard({ project }) {
   return (
     <div>
       {error && <p className="error">{error}</p>}
+      {summary && (
+        <p className="summary">
+          <strong className="tc">{summary.duration}</strong> of music in{" "}
+          {summary.count} cues · {summary.byStatus.mixed.count} mixed
+        </p>
+      )}
 
       <div className="board">
         {CUE_STATUSES.map((status) => {
@@ -80,6 +104,11 @@ export default function CueBoard({ project }) {
                 <span className={`status status-${status}`}>{status}</span>
                 <span className="count">{columnCues.length}</span>
               </h4>
+              {summary && (
+                <p className="column-time tc">
+                  {summary.byStatus[status].duration}
+                </p>
+              )}
 
               {columnCues.map((cue) => (
                 <article
@@ -104,7 +133,7 @@ export default function CueBoard({ project }) {
         })}
       </div>
 
-      <CreateCueForm project={project} onCreated={loadCues} />
+      <CreateCueForm project={project} onCreated={reload} />
     </div>
   );
 }

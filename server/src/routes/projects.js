@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { prisma } from "../prisma.js";
 import { validateProject } from "../validation/projects.js";
-import { validateCue } from "../validation/cues.js";
-import { durationTimecode } from "../timecode.js";
+import { CUE_STATUSES, validateCue } from "../validation/cues.js";
+import { durationTimecode, totalDuration } from "../timecode.js";
 import { logger } from "../logger.js";
 
 export const projectsRouter = Router();
@@ -155,4 +155,34 @@ projectsRouter.get("/:id/cues", async (req, res) => {
       duration: durationTimecode(cue.timecodeIn, cue.timecodeOut, project.fps),
     })),
   );
+});
+
+// GET /api/projects/:id/summary - how much music, overall and per status
+projectsRouter.get("/:id/summary", async (req, res) => {
+  const projectId = Number(req.params.id);
+  if (!Number.isInteger(projectId)) {
+    return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
+  }
+
+  const project = await prisma.project.findUnique({ where: { id: projectId } });
+  if (!project) {
+    return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
+  }
+
+  const cues = await prisma.cue.findMany({ where: { projectId } });
+
+  const byStatus = {};
+  for (const status of CUE_STATUSES) {
+    const statusCues = cues.filter((cue) => cue.status === status);
+    byStatus[status] = {
+      count: statusCues.length,
+      duration: totalDuration(statusCues, project.fps),
+    };
+  }
+
+  res.json({
+    count: cues.length,
+    duration: totalDuration(cues, project.fps),
+    byStatus,
+  });
 });

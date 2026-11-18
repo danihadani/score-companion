@@ -2,7 +2,9 @@ import { Router } from "express";
 import { prisma } from "../prisma.js";
 import { validateProject } from "../validation/projects.js";
 import { CUE_STATUSES, validateCue } from "../validation/cues.js";
+import { DEFAULT_CHECKLIST } from "../validation/checklist.js";
 import { durationTimecode, totalDuration } from "../timecode.js";
+
 import { logger } from "../logger.js";
 
 export const projectsRouter = Router();
@@ -124,8 +126,15 @@ projectsRouter.post("/:id/cues", async (req, res) => {
     // Bad input from the client: answer 400 with the error code.
     return res.status(400).json({ error: err.message });
   }
+  // Every new cue starts with the default checklist (nested create).
   const saved = await prisma.cue.create({
-    data: { ...cue, projectId: project.id },
+    data: {
+      ...cue,
+      projectId: project.id,
+      checklist: {
+        create: DEFAULT_CHECKLIST.map((label, position) => ({ label, position })),
+      },
+    },
   });
   logger.info(`Cue added: id=${saved.id} "${saved.name}" to project ${project.id}`);
   res.status(201).json(saved);
@@ -143,11 +152,21 @@ projectsRouter.get("/:id/cues", async (req, res) => {
     return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
   }
 
-  // Timecodes are always HH:MM:SS:FF, so sorting them as text is film order.
+  // The checklist comes along, only to count how much of it is done.
   const cues = await prisma.cue.findMany({
     where: { projectId },
     orderBy: { timecodeIn: "asc" },
+    include: { checklist: { select: { done: true } } },
   });
+
+  res.json(
+    cues.map(({ checklist, ...cue }) => ({
+      ...cue,
+      duration: durationTimecode(cue.timecodeIn, cue.timecodeOut, project.fps),
+      checklistDone: checklist.filter((item) => item.done).length,
+      checklistTotal: checklist.length,
+    })),
+  );
 
   res.json(
     cues.map((cue) => ({

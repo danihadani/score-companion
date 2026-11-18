@@ -48,4 +48,18 @@ model TempTrack {
 
   cueId Int
   cue   Cue @relation(fields: [cueId], references: [id], onDelete: Cascade)
+  checklist  ChecklistItem[]
+}
+
+// ---------- one thing a cue still needs, e.g. "Orchestration" ----------
+
+model ChecklistItem {
+  id        Int      @id @default(autoincrement())
+  label     String
+  done      Boolean  @default(false)
+  position  Int
+  createdAt DateTime @default(now())
+
+  cueId Int
+  cue   Cue @relation(fields: [cueId], references: [id], onDelete: Cascade)
 }

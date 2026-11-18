@@ -447,3 +447,18 @@ button.small {
 .cue-card .meta {
   font-size: 13px;
 }
+
+.summary {
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+.summary strong {
+  color: var(--ink);
+}
+
+.column-time {
+  margin: -6px 0 4px;
+  color: var(--muted);
+  font-size: 12px;
+}

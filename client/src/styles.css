@@ -565,3 +565,43 @@ button.link:hover {
   background: none;
   color: var(--danger);
 }
+
+/* ---------- a cue's notes ---------- */
+textarea {
+  width: 100%;
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--ink);
+  resize: vertical;
+}
+
+.note-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.note {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.note time {
+  font-size: 12px;
+}
+
+.note p {
+  margin: 2px 0 0;
+  white-space: pre-wrap;
+}

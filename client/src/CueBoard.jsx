@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CreateCueForm from "./CreateCueForm.jsx";
 import Checklist from "./Checklist.jsx";
 import TempTracks from "./TempTracks.jsx";
+import CueNotes from "./CueNotes.jsx";
 
 const CUE_STATUSES = ["sketch", "sent", "approved", "recorded", "mixed"];
 
@@ -14,7 +15,7 @@ export default function CueBoard({ project }) {
   const [overStatus, setOverStatus] = useState(null);
   // Totals from the server: { count, duration, byStatus: { sketch: {...}, ... } }
   const [summary, setSummary] = useState(null);
-    // The cue whose details are open under the board, or null
+  // The cue whose details are open under the board, or null
   const [openCueId, setOpenCueId] = useState(null);
 
   async function loadCues() {
@@ -75,7 +76,7 @@ export default function CueBoard({ project }) {
     }
   }
 
-    const openCue = cues.find((cue) => cue.id === openCueId);
+  const openCue = cues.find((cue) => cue.id === openCueId);
 
   return (
     <div>
@@ -117,7 +118,7 @@ export default function CueBoard({ project }) {
               )}
 
               {columnCues.map((cue) => (
-                             <article
+                <article
                   key={cue.id}
                   className={`cue-card ${openCueId === cue.id ? "open" : ""}`}
                   draggable
@@ -155,7 +156,7 @@ export default function CueBoard({ project }) {
         })}
       </div>
 
-            {openCue && (
+      {openCue && (
         <section className="cue-details">
           <div className="details-head">
             <h3>{openCue.name}</h3>
@@ -167,6 +168,7 @@ export default function CueBoard({ project }) {
             </button>
           </div>
           <Checklist cue={openCue} onChanged={loadCues} />
+          <CueNotes cue={openCue} />
           <TempTracks cue={openCue} />
         </section>
       )}

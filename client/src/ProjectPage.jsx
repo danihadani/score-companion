@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import CueList from "./CueList.jsx";
 import CueBoard from "./CueBoard.jsx";
+import { apiFetch } from "./api.js";
 
 // One project's page: /projects/7
 export default function ProjectPage() {
@@ -17,7 +18,7 @@ export default function ProjectPage() {
   useEffect(() => {
     async function loadProject() {
       try {
-        const res = await fetch(`/api/projects/${id}`);
+        const res = await apiFetch(`/api/projects/${id}`);
         const data = await res.json();
         if (!res.ok) {
           setError(

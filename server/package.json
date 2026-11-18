@@ -6,7 +6,7 @@
   "description": "Score Companion - Express REST API",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "node --watch src/server.js",
+    "dev": "node --env-file=.env --watch src/server.js",
     "test": "node --env-file=.env.test --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand",
     "test:coverage": "node --env-file=.env.test --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --coverage",
     "lint": "eslint .",
@@ -15,8 +15,10 @@
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
+    "bcrypt": "^6.0.0",
     "express": "^5.3.0",
     "express-rate-limit": "^8.7.2",
+    "jsonwebtoken": "^9.0.3",
     "morgan": "^1.12.1",
     "winston": "^3.19.0"
   },

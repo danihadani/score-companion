@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { apiFetch } from "./api.js";
 
 const CUE_STATUSES = ["sketch", "sent", "approved", "recorded", "mixed"];
 
@@ -25,7 +26,7 @@ export default function CreateCueForm({ project, onCreated }) {
 
     let res, data;
     try {
-      res = await fetch(`/api/projects/${project.id}/cues`, {
+      res = await apiFetch(`/api/projects/${project.id}/cues`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, timecodeIn, timecodeOut, scene, status }),

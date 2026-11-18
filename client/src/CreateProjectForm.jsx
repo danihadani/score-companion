@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { apiFetch } from "./api.js";
 
 // Same list as the server. Kept here too, so the form can offer it.
 const ALLOWED_FPS = [23.976, 24, 25, 29.97, 30, 48, 50, 59.94, 60];
@@ -21,7 +22,7 @@ export default function CreateProjectForm({ onCreated }) {
     setError("");
     setCreated(null);
 
-    const res = await fetch("/api/projects", {
+    const res = await apiFetch("/api/projects", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title, director, fps }),

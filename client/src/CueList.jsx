@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import CreateCueForm from "./CreateCueForm.jsx";
 import TempTracks from "./TempTracks.jsx";
+import { apiFetch } from "./api.js";
 
 const CUE_STATUSES = ["sketch", "sent", "approved", "recorded", "mixed"];
 
@@ -13,7 +14,7 @@ export default function CueList({ project }) {
 
   async function loadCues() {
     try {
-      const res = await fetch(`/api/projects/${project.id}/cues`);
+      const res = await apiFetch(`/api/projects/${project.id}/cues`);
       const data = await res.json();
       if (!res.ok) {
         setError("The cues could not be loaded");
@@ -33,7 +34,7 @@ export default function CueList({ project }) {
 
   async function handleStatusChange(cue, status) {
     // PUT sends the whole cue: the new status, and everything else as it was.
-    const res = await fetch(`/api/cues/${cue.id}`, {
+    const res = await apiFetch(`/api/cues/${cue.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...cue, status }),
@@ -48,7 +49,7 @@ export default function CueList({ project }) {
   async function handleDelete(cue) {
     if (!window.confirm(`Delete cue "${cue.name}"?`)) return;
 
-    await fetch(`/api/cues/${cue.id}`, { method: "DELETE" });
+    await apiFetch(`/api/cues/${cue.id}`, { method: "DELETE" });
     loadCues();
   }
 

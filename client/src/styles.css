@@ -605,3 +605,28 @@ textarea {
   margin: 2px 0 0;
   white-space: pre-wrap;
 }
+
+/* ---------- log in, sign up, and who is logged in ---------- */
+.auth {
+  max-width: 440px;
+}
+
+/* One field under the other. (The usual .form puts them side by side.) */
+.auth-form {
+  display: grid;
+  gap: 14px;
+}
+
+.auth-form a {
+  color: var(--accent);
+}
+
+.user-bar {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 16px 20px 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+}

@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
-import request from "supertest";
-import { app } from "../src/app.js";
+import { prisma } from "../src/prisma.js";
+import { loggedInAs } from "./helpers.js";
 
 // One song, the way iTunes sends it (only the fields we use).
 const itunesSong = {
@@ -22,6 +22,17 @@ function fakeItunesAnswer(body, ok = true) {
   });
 }
 
+// The search needs a logged-in composer, like every other route.
+let api;
+beforeEach(async () => {
+  await prisma.user.deleteMany();
+  api = await loggedInAs();
+});
+
+afterAll(async () => {
+  await prisma.$disconnect();
+});
+
 afterEach(() => {
   // Put the real fetch back after every test.
   jest.restoreAllMocks();
@@ -31,7 +42,7 @@ describe("GET /api/itunes/search", () => {
   test("returns the songs with our own field names", async () => {
     fakeItunesAnswer({ resultCount: 1, results: [itunesSong] });
 
-    const res = await request(app).get("/api/itunes/search?term=hans zimmer time");
+    const res = await api.get("/api/itunes/search?term=hans zimmer time");
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual([
@@ -49,7 +60,7 @@ describe("GET /api/itunes/search", () => {
   test("sends the search term to iTunes, looking only for songs", async () => {
     const fetchSpy = fakeItunesAnswer({ resultCount: 0, results: [] });
 
-    await request(app).get("/api/itunes/search?term=rock %26 roll");
+    await api.get("/api/itunes/search?term=rock %26 roll");
 
     const calledUrl = fetchSpy.mock.calls[0][0];
     expect(calledUrl.hostname).toBe("itunes.apple.com");
@@ -60,7 +71,7 @@ describe("GET /api/itunes/search", () => {
   test("answers 400 without calling iTunes when the term is missing", async () => {
     const fetchSpy = fakeItunesAnswer({ resultCount: 0, results: [] });
 
-    const res = await request(app).get("/api/itunes/search?term=   ");
+    const res = await api.get("/api/itunes/search?term=   ");
 
     expect(res.status).toBe(400);
     expect(res.body.error).toBe("TERM_REQUIRED");
@@ -68,7 +79,7 @@ describe("GET /api/itunes/search", () => {
   });
 
   test("answers 400 when the term is too long", async () => {
-    const res = await request(app).get(`/api/itunes/search?term=${"a".repeat(101)}`);
+    const res = await api.get(`/api/itunes/search?term=${"a".repeat(101)}`);
 
     expect(res.status).toBe(400);
     expect(res.body.error).toBe("TERM_TOO_LONG");
@@ -77,7 +88,7 @@ describe("GET /api/itunes/search", () => {
   test("answers 502 when iTunes can't be reached", async () => {
     jest.spyOn(global, "fetch").mockRejectedValue(new Error("network down"));
 
-    const res = await request(app).get("/api/itunes/search?term=time");
+    const res = await api.get("/api/itunes/search?term=time");
 
     expect(res.status).toBe(502);
     expect(res.body.error).toBe("ITUNES_UNAVAILABLE");
@@ -86,7 +97,7 @@ describe("GET /api/itunes/search", () => {
   test("answers 502 when iTunes answers with an error", async () => {
     fakeItunesAnswer({}, false);
 
-    const res = await request(app).get("/api/itunes/search?term=time");
+    const res = await api.get("/api/itunes/search?term=time");
 
     expect(res.status).toBe(502);
   });

@@ -7,6 +7,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ---------- a composer who logs in ----------
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  fullName  String
+  email     String
+  // A bcrypt hash, never the password itself
+  password  String
+  createdAt DateTime @default(now())
+
+  projects Project[]
+}
+
 // ---------- a film project ----------
 
 model Project {
@@ -17,6 +31,10 @@ model Project {
   createdAt DateTime @default(now())
 
   cues Cue[]
+    // Optional only so projects made before users existed can stay in the database.
+  // New projects always get the composer who created them.
+  userId Int?
+  user   User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Cue {

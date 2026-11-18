@@ -32,6 +32,7 @@ model Cue {
   project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   tempTracks TempTrack[]
+  checklist  ChecklistItem[]
 }
 
 // ---------- a reference track the director liked for a cue ----------
@@ -45,6 +46,20 @@ model TempTrack {
   previewUrl String?
   artworkUrl String?
   createdAt  DateTime @default(now())
+
+  cueId Int
+  cue   Cue @relation(fields: [cueId], references: [id], onDelete: Cascade)
+  
+}
+
+// ---------- one thing a cue still needs, e.g. "Orchestration" ----------
+
+model ChecklistItem {
+  id        Int      @id @default(autoincrement())
+  label     String
+  done      Boolean  @default(false)
+  position  Int
+  createdAt DateTime @default(now())
 
   cueId Int
   cue   Cue @relation(fields: [cueId], references: [id], onDelete: Cascade)

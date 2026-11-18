@@ -81,6 +81,7 @@ export default function ItunesSearch({ onPick }) {
                   onPick(song);
                   setResults([]);
                   setSearched(false);
+                  setTerm("");
                 }}
               >
                 Use

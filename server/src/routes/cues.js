@@ -2,6 +2,7 @@ import { Router } from "express";
 import { prisma } from "../prisma.js";
 import { validateCue } from "../validation/cues.js";
 import { validateTempTrack } from "../validation/tempTracks.js";
+import { validateChecklistItem } from "../validation/checklist.js";
 import { logger } from "../logger.js";
 
 export const cuesRouter = Router();
@@ -96,4 +97,54 @@ cuesRouter.get("/:id/temp-tracks", async (req, res) => {
     orderBy: { createdAt: "asc" },
   });
   res.json(tracks);
+});
+
+/******************** A cue's checklist ********************/
+
+// GET /api/cues/:id/checklist - what the cue still needs, in order
+cuesRouter.get("/:id/checklist", async (req, res) => {
+  const cueId = Number(req.params.id);
+  if (!Number.isInteger(cueId)) {
+    return res.status(404).json({ error: "CUE_NOT_FOUND" });
+  }
+
+  const cue = await prisma.cue.findUnique({ where: { id: cueId } });
+  if (!cue) {
+    return res.status(404).json({ error: "CUE_NOT_FOUND" });
+  }
+
+  const items = await prisma.checklistItem.findMany({
+    where: { cueId },
+    orderBy: [{ position: "asc" }, { id: "asc" }],
+  });
+  res.json(items);
+});
+
+// POST /api/cues/:id/checklist - add an item at the end
+cuesRouter.post("/:id/checklist", async (req, res) => {
+  const cueId = Number(req.params.id);
+  if (!Number.isInteger(cueId)) {
+    return res.status(404).json({ error: "CUE_NOT_FOUND" });
+  }
+
+  const cue = await prisma.cue.findUnique({ where: { id: cueId } });
+  if (!cue) {
+    return res.status(404).json({ error: "CUE_NOT_FOUND" });
+  }
+
+  let item;
+  try {
+    item = validateChecklistItem(req.body);
+  } catch (err) {
+    logger.warn(`Checklist item refused for cue ${cueId}: ${err.message}`);
+    return res.status(400).json({ error: err.message });
+  }
+
+  // The new item goes after the last one.
+  const count = await prisma.checklistItem.count({ where: { cueId } });
+  const saved = await prisma.checklistItem.create({
+    data: { ...item, position: count, cueId },
+  });
+  logger.info(`Checklist item added: "${saved.label}" to cue ${cueId} "${cue.name}"`);
+  res.status(201).json(saved);
 });

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import CreateCueForm from "./CreateCueForm.jsx";
+import Checklist from "./Checklist.jsx";
+import TempTracks from "./TempTracks.jsx";
 
 const CUE_STATUSES = ["sketch", "sent", "approved", "recorded", "mixed"];
 
@@ -12,6 +14,8 @@ export default function CueBoard({ project }) {
   const [overStatus, setOverStatus] = useState(null);
   // Totals from the server: { count, duration, byStatus: { sketch: {...}, ... } }
   const [summary, setSummary] = useState(null);
+    // The cue whose details are open under the board, or null
+  const [openCueId, setOpenCueId] = useState(null);
 
   async function loadCues() {
     try {
@@ -71,6 +75,8 @@ export default function CueBoard({ project }) {
     }
   }
 
+    const openCue = cues.find((cue) => cue.id === openCueId);
+
   return (
     <div>
       {error && <p className="error">{error}</p>}
@@ -111,10 +117,13 @@ export default function CueBoard({ project }) {
               )}
 
               {columnCues.map((cue) => (
-                <article
+                             <article
                   key={cue.id}
-                  className="cue-card"
+                  className={`cue-card ${openCueId === cue.id ? "open" : ""}`}
                   draggable
+                  onClick={() =>
+                    setOpenCueId(openCueId === cue.id ? null : cue.id)
+                  }
                   // The card carries its cue's id while it is dragged.
                   onDragStart={(e) =>
                     e.dataTransfer.setData("text/plain", String(cue.id))
@@ -126,12 +135,41 @@ export default function CueBoard({ project }) {
                     {cue.duration}
                     {cue.scene && ` · ${cue.scene}`}
                   </span>
+                  {cue.checklistTotal > 0 && (
+                    <span className="progress">
+                      <span
+                        className="progress-bar"
+                        style={{
+                          width: `${(cue.checklistDone / cue.checklistTotal) * 100}%`,
+                        }}
+                      />
+                      <span className="progress-text">
+                        {cue.checklistDone}/{cue.checklistTotal}
+                      </span>
+                    </span>
+                  )}
                 </article>
               ))}
             </section>
           );
         })}
       </div>
+
+            {openCue && (
+        <section className="cue-details">
+          <div className="details-head">
+            <h3>{openCue.name}</h3>
+            <button
+              className="secondary small"
+              onClick={() => setOpenCueId(null)}
+            >
+              Close
+            </button>
+          </div>
+          <Checklist cue={openCue} onChanged={loadCues} />
+          <TempTracks cue={openCue} />
+        </section>
+      )}
 
       <CreateCueForm project={project} onCreated={reload} />
     </div>

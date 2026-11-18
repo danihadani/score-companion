@@ -43,11 +43,11 @@ describe("POST /api/projects", () => {
 describe("GET /api/projects", () => {
   test("returns all projects, newest first", async () => {
     await prisma.project.create({
-      data: { title: "Old Film", fps: 24, createdAt: new Date("2026-01-01") },
+      data: { userId: api.userId, title: "Old Film", fps: 24, createdAt: new Date("2026-01-01") },
     });
 
     await prisma.project.create({
-      data: { title: "New Film", fps: 24, createdAt: new Date("2026-06-01") },
+      data: { userId: api.userId, title: "New Film", fps: 24, createdAt: new Date("2026-06-01") },
     });
 
     const res = await api.get("/api/projects");
@@ -61,7 +61,7 @@ describe("GET /api/projects", () => {
 describe("DELETE /api/projects/:id", () => {
   test("deletes the project and answers 204", async () => {
     const project = await prisma.project.create({
-      data: { title: "New Film", fps: 24 },
+      data: { userId: api.userId, title: "New Film", fps: 24 },
     });
 
     const res = await api.delete(`/api/projects/${project.id}`);
@@ -88,7 +88,7 @@ describe("DELETE /api/projects/:id", () => {
 describe("PUT /api/projects/:id", () => {
   test("updates the project and answers 200", async () => {
     const project = await prisma.project.create({
-      data: { title: "Old Film", fps: 24 },
+      data: { userId: api.userId, title: "Old Film", fps: 24 },
     });
 
     const res = await api.put(`/api/projects/${project.id}`).send({ title: "New Film", fps: 24 });
@@ -105,7 +105,7 @@ describe("PUT /api/projects/:id", () => {
 
   test("answers 400 and changes nothing when the data is invalid", async () => {
     const project = await prisma.project.create({
-      data: { title: "Old Film", fps: 24 },
+      data: { userId: api.userId, title: "Old Film", fps: 24 },
     });
 
     const res = await api.put(`/api/projects/${project.id}`).send({ title: "", fps: 24 });
@@ -129,7 +129,7 @@ describe("PUT /api/projects/:id", () => {
 describe("GET /api/projects/:id", () => {
   test("returns the project", async () => {
     const project = await prisma.project.create({
-      data: { title: "New Film", fps: 24 },
+      data: { userId: api.userId, title: "New Film", fps: 24 },
     });
 
     const res = await api.get(`/api/projects/${project.id}`);
@@ -157,7 +157,7 @@ describe("GET /api/projects/:id", () => {
 describe("GET /api/projects/:id/summary", () => {
   test("adds up the music, overall and per status", async () => {
     const project = await prisma.project.create({
-      data: { title: "Dune", fps: 24 },
+      data: { userId: api.userId, title: "Dune", fps: 24 },
     });
     await prisma.cue.createMany({
       data: [

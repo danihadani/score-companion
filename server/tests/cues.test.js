@@ -18,7 +18,7 @@ afterAll(async () => {
 describe("POST /api/projects/:id/cues", () => {
   test("adds a cue to the project and answers 201", async () => {
     const project = await prisma.project.create({
-      data: { title: "Taxi Driver", fps: 24 },
+      data: { userId: api.userId, title: "Taxi Driver", fps: 24 },
     });
 
     const res = await api
@@ -32,7 +32,7 @@ describe("POST /api/projects/:id/cues", () => {
 
   test("answers 400 and saves nothing when the cue ends before it starts", async () => {
     const project = await prisma.project.create({
-      data: { title: "Taxi Driver", fps: 24 },
+      data: { userId: api.userId, title: "Taxi Driver", fps: 24 },
     });
     const res = await api
       .post(`/api/projects/${project.id}/cues`)
@@ -53,7 +53,7 @@ describe("POST /api/projects/:id/cues", () => {
 
   test("deletes the cues when their project is deleted", async () => {
     const project = await prisma.project.create({
-      data: { title: "Taxi Driver", fps: 24 },
+      data: { userId: api.userId, title: "Taxi Driver", fps: 24 },
     });
     await prisma.cue.create({
       data: {
@@ -73,7 +73,9 @@ describe("POST /api/projects/:id/cues", () => {
 
 // A project with one cue, for the tests below.
 async function createProjectWithCue() {
-  const project = await prisma.project.create({ data: { title: "Taxi Driver", fps: 24 } });
+  const project = await prisma.project.create({
+    data: { userId: api.userId, title: "Taxi Driver", fps: 24 },
+  });
   const cue = await prisma.cue.create({
     data: {
       name: "1m1",
@@ -107,7 +109,9 @@ describe("GET /api/projects/:id/cues", () => {
 
   test("returns only the cues of that project", async () => {
     await createProjectWithCue();
-    const other = await prisma.project.create({ data: { title: "Empty", fps: 24 } });
+    const other = await prisma.project.create({
+      data: { userId: api.userId, title: "Empty", fps: 24 },
+    });
 
     const res = await api.get(`/api/projects/${other.id}/cues`);
 

@@ -9,6 +9,10 @@ import { logger } from "../logger.js";
 
 export const projectsRouter = Router();
 
+// Every lookup includes userId: req.userId (set by the auth middleware), so a
+// composer only ever finds her own projects. Someone else's project answers
+// 404, the same as one that doesn't exist, so nobody learns that it's there.
+
 // POST /api/projects - create a project
 projectsRouter.post("/", async (req, res) => {
   let project;
@@ -20,14 +24,17 @@ projectsRouter.post("/", async (req, res) => {
     return res.status(400).json({ error: err.message });
   }
 
-  const saved = await prisma.project.create({ data: project });
+  const saved = await prisma.project.create({ data: { ...project, userId: req.userId } });
   logger.info(`Project created: id=${saved.id} "${saved.title}" (${saved.fps} fps)`);
   res.status(201).json(saved);
 });
 
 // GET /api/projects - all projects, newest first
 projectsRouter.get("/", async (req, res) => {
-  const projects = await prisma.project.findMany({ orderBy: { createdAt: "desc" } });
+  const projects = await prisma.project.findMany({
+    where: { userId: req.userId },
+    orderBy: { createdAt: "desc" },
+  });
   res.json(projects);
 });
 
@@ -40,8 +47,8 @@ projectsRouter.get("/:id", async (req, res) => {
     return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
   }
 
-  const project = await prisma.project.findUnique({
-    where: { id: projectId },
+  const project = await prisma.project.findFirst({
+    where: { id: projectId, userId: req.userId },
   });
 
   if (!project) {
@@ -59,8 +66,8 @@ projectsRouter.delete("/:id", async (req, res) => {
     return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
   }
 
-  const project = await prisma.project.findUnique({
-    where: { id: projectId },
+  const project = await prisma.project.findFirst({
+    where: { id: projectId, userId: req.userId },
   });
 
   if (!project) {
@@ -87,8 +94,8 @@ projectsRouter.put("/:id", async (req, res) => {
     logger.warn(`Project ${projectId} not updated: ${err.message}`);
     return res.status(400).json({ error: err.message });
   }
-  const existing = await prisma.project.findUnique({
-    where: { id: projectId },
+  const existing = await prisma.project.findFirst({
+    where: { id: projectId, userId: req.userId },
   });
 
   if (!existing) {
@@ -110,8 +117,8 @@ projectsRouter.post("/:id/cues", async (req, res) => {
   if (!Number.isInteger(projectId)) {
     return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
   }
-  const project = await prisma.project.findUnique({
-    where: { id: projectId },
+  const project = await prisma.project.findFirst({
+    where: { id: projectId, userId: req.userId },
   });
 
   if (!project) {
@@ -147,7 +154,7 @@ projectsRouter.get("/:id/cues", async (req, res) => {
     return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
   }
 
-  const project = await prisma.project.findUnique({ where: { id: projectId } });
+  const project = await prisma.project.findFirst({ where: { id: projectId, userId: req.userId } });
   if (!project) {
     return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
   }
@@ -183,7 +190,7 @@ projectsRouter.get("/:id/summary", async (req, res) => {
     return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
   }
 
-  const project = await prisma.project.findUnique({ where: { id: projectId } });
+  const project = await prisma.project.findFirst({ where: { id: projectId, userId: req.userId } });
   if (!project) {
     return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
   }

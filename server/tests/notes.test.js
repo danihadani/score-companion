@@ -17,7 +17,9 @@ afterAll(async () => {
 
 // A project with one cue, for the notes to hang on.
 async function createCue() {
-  const project = await prisma.project.create({ data: { title: "Her", fps: 24 } });
+  const project = await prisma.project.create({
+    data: { userId: api.userId, title: "Her", fps: 24 },
+  });
   return prisma.cue.create({
     data: {
       name: "1m1",

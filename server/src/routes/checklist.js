@@ -12,7 +12,9 @@ checklistRouter.put("/:id", async (req, res) => {
     return res.status(404).json({ error: "CHECKLIST_ITEM_NOT_FOUND" });
   }
 
-  const existing = await prisma.checklistItem.findUnique({ where: { id: itemId } });
+  const existing = await prisma.checklistItem.findFirst({
+    where: { id: itemId, cue: { project: { userId: req.userId } } },
+  });
   if (!existing) {
     return res.status(404).json({ error: "CHECKLIST_ITEM_NOT_FOUND" });
   }
@@ -38,7 +40,9 @@ checklistRouter.delete("/:id", async (req, res) => {
     return res.status(404).json({ error: "CHECKLIST_ITEM_NOT_FOUND" });
   }
 
-  const existing = await prisma.checklistItem.findUnique({ where: { id: itemId } });
+  const existing = await prisma.checklistItem.findFirst({
+    where: { id: itemId, cue: { project: { userId: req.userId } } },
+  });
   if (!existing) {
     return res.status(404).json({ error: "CHECKLIST_ITEM_NOT_FOUND" });
   }

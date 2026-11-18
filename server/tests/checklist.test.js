@@ -17,7 +17,9 @@ afterAll(async () => {
 
 // A cue created through the API, so it gets the default checklist.
 async function createCue() {
-  const project = await prisma.project.create({ data: { title: "Arrival", fps: 24 } });
+  const project = await prisma.project.create({
+    data: { userId: api.userId, title: "Arrival", fps: 24 },
+  });
   const res = await api
     .post(`/api/projects/${project.id}/cues`)
     .send({ name: "1m1", timecodeIn: "01:00:00:00", timecodeOut: "01:00:30:00" });

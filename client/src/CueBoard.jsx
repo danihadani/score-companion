@@ -10,7 +10,7 @@ export default function CueBoard({ project }) {
   const [error, setError] = useState("");
   // The column a card is being dragged over, to highlight it
   const [overStatus, setOverStatus] = useState(null);
-    // Totals from the server: { count, duration, byStatus: { sketch: {...}, ... } }
+  // Totals from the server: { count, duration, byStatus: { sketch: {...}, ... } }
   const [summary, setSummary] = useState(null);
 
   async function loadCues() {
@@ -28,7 +28,7 @@ export default function CueBoard({ project }) {
     }
   }
 
-   async function loadSummary() {
+  async function loadSummary() {
     try {
       const res = await fetch(`/api/projects/${project.id}/summary`);
       if (res.ok) setSummary(await res.json());
@@ -74,7 +74,7 @@ export default function CueBoard({ project }) {
   return (
     <div>
       {error && <p className="error">{error}</p>}
-        {summary && (
+      {summary && (
         <p className="summary">
           <strong className="tc">{summary.duration}</strong> of music in{" "}
           {summary.count} cues · {summary.byStatus.mixed.count} mixed
@@ -104,7 +104,7 @@ export default function CueBoard({ project }) {
                 <span className={`status status-${status}`}>{status}</span>
                 <span className="count">{columnCues.length}</span>
               </h4>
-                            {summary && (
+              {summary && (
                 <p className="column-time tc">
                   {summary.byStatus[status].duration}
                 </p>

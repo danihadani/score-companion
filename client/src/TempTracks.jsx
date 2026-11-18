@@ -49,7 +49,14 @@ export default function TempTracks({ cue }) {
       res = await fetch(`/api/cues/${cue.id}/temp-tracks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, artist, link, notes, previewUrl, artworkUrl }),
+        body: JSON.stringify({
+          title,
+          artist,
+          link,
+          notes,
+          previewUrl,
+          artworkUrl,
+        }),
       });
       data = await res.json();
     } catch {
@@ -70,7 +77,7 @@ export default function TempTracks({ cue }) {
     loadTracks();
   }
 
-    // A song picked from iTunes fills the form; the notes are still mine to write.
+  // A song picked from iTunes fills the form; the notes are still mine to write.
   function handlePick(song) {
     setTitle(song.title);
     setArtist(song.artist);
@@ -107,7 +114,7 @@ export default function TempTracks({ cue }) {
         <ul className="track-list">
           {tracks.map((track) => (
             <li key={track.id} className="track">
-                {track.artworkUrl && (
+              {track.artworkUrl && (
                 <img src={track.artworkUrl} alt="" width="48" height="48" />
               )}
               <div className="track-text">

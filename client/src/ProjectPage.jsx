@@ -10,7 +10,7 @@ export default function ProjectPage() {
   const [project, setProject] = useState(null);
   const [error, setError] = useState("");
 
- // Which view of the cues is shown: "board" or "table"
+  // Which view of the cues is shown: "board" or "table"
   const [view, setView] = useState("board");
 
   // Load the project when the page opens, and again if the id changes.
@@ -52,7 +52,7 @@ export default function ProjectPage() {
               {project.fps} fps
             </p>
           </header>
-                    <div className="view-switch">
+          <div className="view-switch">
             <button
               className={view === "board" ? "" : "secondary"}
               onClick={() => setView("board")}

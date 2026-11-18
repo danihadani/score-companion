@@ -3,6 +3,7 @@ import { prisma } from "../prisma.js";
 import { validateCue } from "../validation/cues.js";
 import { validateTempTrack } from "../validation/tempTracks.js";
 import { validateChecklistItem } from "../validation/checklist.js";
+import { validateNote } from "../validation/notes.js";
 import { logger } from "../logger.js";
 
 export const cuesRouter = Router();
@@ -146,5 +147,51 @@ cuesRouter.post("/:id/checklist", async (req, res) => {
     data: { ...item, position: count, cueId },
   });
   logger.info(`Checklist item added: "${saved.label}" to cue ${cueId} "${cue.name}"`);
+  res.status(201).json(saved);
+});
+
+/******************** A cue's notes ********************/
+
+// GET /api/cues/:id/notes - a cue's notes, newest first
+cuesRouter.get("/:id/notes", async (req, res) => {
+  const cueId = Number(req.params.id);
+  if (!Number.isInteger(cueId)) {
+    return res.status(404).json({ error: "CUE_NOT_FOUND" });
+  }
+
+  const cue = await prisma.cue.findUnique({ where: { id: cueId } });
+  if (!cue) {
+    return res.status(404).json({ error: "CUE_NOT_FOUND" });
+  }
+
+  const notes = await prisma.note.findMany({
+    where: { cueId },
+    orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+  });
+  res.json(notes);
+});
+
+// POST /api/cues/:id/notes - write a note on a cue
+cuesRouter.post("/:id/notes", async (req, res) => {
+  const cueId = Number(req.params.id);
+  if (!Number.isInteger(cueId)) {
+    return res.status(404).json({ error: "CUE_NOT_FOUND" });
+  }
+
+  const cue = await prisma.cue.findUnique({ where: { id: cueId } });
+  if (!cue) {
+    return res.status(404).json({ error: "CUE_NOT_FOUND" });
+  }
+
+  let note;
+  try {
+    note = validateNote(req.body);
+  } catch (err) {
+    logger.warn(`Note refused for cue ${cueId}: ${err.message}`);
+    return res.status(400).json({ error: err.message });
+  }
+
+  const saved = await prisma.note.create({ data: { ...note, cueId } });
+  logger.info(`Note added: id=${saved.id} to cue ${cueId} "${cue.name}"`);
   res.status(201).json(saved);
 });

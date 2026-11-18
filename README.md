@@ -1,23 +1,28 @@
 # Score Companion
 
-A workspace for film composers: one place to follow every music cue in a film,
-from the first sketch to the final mix.
+The cue wall a film composer keeps next to the DAW: every cue of the film,
+where it stands, and what it still needs.
 
 Writing a score means juggling dozens of cues, each with its own timecode,
-scene and status. Score Companion keeps them in one list per film, in film
-order, and does the timecode arithmetic for you.
+scene, status and notes from the director. Score Companion keeps them on one
+board per film, does the timecode arithmetic, and shows how much music is done.
 
 ## Features
 
-- **Projects** — one per film, with its director and frame rate
+- **Projects** — one page per film, with its director and frame rate
   (23.976, 24, 25, 29.97, 30, 48, 50, 59.94 or 60 fps, the rates DAWs offer).
-- **Cues** — name (`1m1`, `2m3`…), timecode in and out, scene, and status:
-  `sketch` → `sent` → `approved` → `recorded` → `mixed`.
-- **Temp tracks** — the references the director liked for each cue: title,
-  artist, a link and notes.
-  Search iTunes and listen to a 30-second preview before adding one.
-- **Automatic durations** — each cue's length as a timecode, calculated at the
-  project's frame rate.
+- **The cue board** — a column per status
+  (`sketch` → `sent` → `approved` → `recorded` → `mixed`). Drag a cue to move it.
+  A table view lists the same cues in film order.
+- **Music minutes** — the film's total music time, and each column's.
+- **What each cue still needs** — a checklist that every new cue starts with
+  (sketch, director approved, orchestration, recording, mix, stems delivered),
+  with its progress on the card.
+- **Notes** — dated notes on each cue: what changed and why.
+- **Temp tracks** — the existing music the director placed in the edit. Search
+  iTunes and listen to a 30-second preview before adding one.
+- **Automatic durations** — each cue's length as a timecode, at the project's
+  frame rate.
 - **Clear errors** — a cue that ends before it starts, or a timecode like
   `00:00:00:24` in a 24 fps film, is refused with a message saying why.
 
@@ -68,12 +73,19 @@ Timecode is always non-drop: drop-frame isn't supported.
 | `POST /api/projects/:id/cues` | Add a cue to a project | 201 · 400 · 404 |
 | `GET /api/projects/:id/cues` | A project's cues in film order, with durations | 200 · 404 |
 | `PUT /api/cues/:id` | Update a cue (for example its status) | 200 · 400 · 404 |
-| `DELETE /api/cues/:id` | Delete a cue and its temp tracks | 204 · 404 |
+| `DELETE /api/cues/:id` | Delete a cue, with its temp tracks, checklist and notes | 204 · 404 |
 | `POST /api/cues/:id/temp-tracks` | Attach a temp track to a cue | 201 · 400 · 404 |
 | `GET /api/cues/:id/temp-tracks` | A cue's temp tracks, oldest first | 200 · 404 |
 | `DELETE /api/temp-tracks/:id` | Remove a temp track | 204 · 404 |
 | `GET /api/itunes/search?term=` | Songs from iTunes, with 30-second previews | 200 · 400 · 502 |
 | `GET /api/projects/:id/summary` | Music time and cue count, overall and per status | 200 · 404 |
+| `GET /api/cues/:id/checklist` | What a cue still needs, in order | 200 · 404 |
+| `POST /api/cues/:id/checklist` | Add an item to a cue's checklist | 201 · 400 · 404 |
+| `PUT /api/checklist/:id` | Check or uncheck an item | 200 · 400 · 404 |
+| `DELETE /api/checklist/:id` | Remove an item | 204 · 404 |
+| `GET /api/cues/:id/notes` | A cue's notes, newest first | 200 · 404 |
+| `POST /api/cues/:id/notes` | Write a note on a cue | 201 · 400 · 404 |
+| `DELETE /api/notes/:id` | Delete a note | 204 · 404 |
 
 ## Running the project
 
@@ -245,17 +257,35 @@ them. This project uses them as they are.
 Parts of the setup and the code were written with the help of Claude, an AI
 assistant. Every part is explained in this README.
 
+## Future work
+
+Ideas that came up, and why they were left for later:
+
+- **The film, with the music on it.** Upload a proxy of the film, play each
+  cue's bounce in sync, and let the director comment at a timecode. Review tools
+  like Frame.io already do this well, and it's the part furthest from what this
+  app is for: the overview of every cue.
+- **Sync with the DAW.** A Max for Live device could send Ableton's loop or
+  locators to the app as a new cue. Ableton counts in beats, not seconds, so
+  tempo changes would have to be converted.
+- **A public portfolio page.** Finished cues with a Vimeo or YouTube link,
+  on a page that shows only what the composer chooses.
+  
 ## Project structure
 
 ```
 score-companion/
 ├── client/                    React app (Vite)
 │   └── src/
-│       ├── App.jsx            the page, loads the projects
-│       ├── CreateProjectForm.jsx
-│       ├── ProjectList.jsx    projects, with rename and delete
-│       ├── CueList.jsx        a project's cues, with status and delete
-│       └── CreateCueForm.jsx
+│       ├── App.jsx            which page each address shows (React Router)
+│       ├── HomePage.jsx       the projects, with a form to add one
+│       ├── ProjectPage.jsx    one project: the board or the table
+│       ├── CueBoard.jsx       a column per status, drag and drop, totals
+│       ├── CueList.jsx        the same cues as a table
+│       ├── Checklist.jsx      what a cue still needs
+│       ├── CueNotes.jsx       a cue's dated notes
+│       ├── TempTracks.jsx     a cue's temp tracks
+│       └── ItunesSearch.jsx   search iTunes, play a preview
 ├── server/                    Express API
 │   ├── src/
 │   │   ├── server.js          starts listening
@@ -263,8 +293,8 @@ score-companion/
 │   │   ├── logger.js          winston: app.log and error.log
 │   │   ├── prisma.js          the database client
 │   │   ├── timecode.js        timecode ↔ frames, durations
-│   │   ├── routes/            projects.js, cues.js
-│   │   └── validation/        projects.js, cues.js
+│   │   ├── routes/            projects, cues, temp tracks, checklist, notes, iTunes
+│   │   └── validation/        one file per kind of data
 │   ├── prisma/                schema.prisma and migrations
 │   ├── tests/                 Jest tests
 │   └── logs/                  log files

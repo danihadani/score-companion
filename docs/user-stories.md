@@ -146,6 +146,30 @@ synced music, syncing with Ableton) went to "Future work".
 - **What I'll do differently next sprint:** Run `npm test` after every merge,
   before committing. Stop the Docker app before starting the dev server.
 
+### Sprint 4 — The cue wall
+
+- **Planned:** 17 h (5.1, 3.3, 2.4, 5.2, 5.3) **Actual:** 19 h
+- **Scope changed at the start:** the plan had a film player with the music
+  synced on it. Asking what the app gives me that Ableton doesn't led to one
+  sentence: "the cue wall a composer keeps next to the DAW". The player went to
+  "Future work", and the sprint went to the board, the checklist and the notes.
+- **What went well:** Every new kind of data followed the same pattern
+  (model → validation → routes → tests → client), so the checklist and the notes
+  went quickly. The board needed no change on the server: dragging a card uses
+  the existing `PUT /api/cues/:id`.
+- **What was harder than expected, and why:**
+  - **React Router and drag and drop** were new. Moving the card at once and
+    putting it back if the server refuses (an optimistic update) took time to
+    understand.
+  - **Prisma.** A relation written on the wrong model, a migration that wasn't
+    created, and a dev server still running the old Prisma Client: the tests
+    passed, but the board showed no cards until the server was restarted.
+  - **Running commands together.** A commit went in with failing tests, because
+    the commands ran one after another even when one failed.
+- **What I'll do differently next sprint:** Join commands with `&&`, so they
+  stop at the first failure. Restart the dev server after every migration.
+  Read the first error in the output, not the last.
+
 ## Code review
 
 Three large changes went through review by another participant (noater).

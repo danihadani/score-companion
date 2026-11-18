@@ -3,6 +3,7 @@ import CreateCueForm from "./CreateCueForm.jsx";
 import Checklist from "./Checklist.jsx";
 import TempTracks from "./TempTracks.jsx";
 import CueNotes from "./CueNotes.jsx";
+import { apiFetch } from "./api.js";
 
 const CUE_STATUSES = ["sketch", "sent", "approved", "recorded", "mixed"];
 
@@ -20,7 +21,7 @@ export default function CueBoard({ project }) {
 
   async function loadCues() {
     try {
-      const res = await fetch(`/api/projects/${project.id}/cues`);
+      const res = await apiFetch(`/api/projects/${project.id}/cues`);
       const data = await res.json();
       if (!res.ok) {
         setError("The cues could not be loaded");
@@ -35,7 +36,7 @@ export default function CueBoard({ project }) {
 
   async function loadSummary() {
     try {
-      const res = await fetch(`/api/projects/${project.id}/summary`);
+      const res = await apiFetch(`/api/projects/${project.id}/summary`);
       if (res.ok) setSummary(await res.json());
     } catch {
       // The cues show their own error; the totals just stay as they were.
@@ -63,7 +64,7 @@ export default function CueBoard({ project }) {
     setError("");
 
     try {
-      const res = await fetch(`/api/cues/${cueId}`, {
+      const res = await apiFetch(`/api/cues/${cueId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...cue, status }),

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CreateProjectForm from "./CreateProjectForm.jsx";
 import ProjectList from "./ProjectList.jsx";
+import { apiFetch } from "./api.js";
 
 export default function HomePage() {
   const [projects, setProjects] = useState([]);
@@ -8,7 +9,7 @@ export default function HomePage() {
 
   async function loadProjects() {
     try {
-      const res = await fetch("/api/projects");
+      const res = await apiFetch("/api/projects");
       const data = await res.json();
       if (!res.ok) {
         setError("The projects could not be loaded");

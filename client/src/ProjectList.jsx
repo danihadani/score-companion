@@ -1,10 +1,11 @@
 import { Link } from "react-router";
+import { apiFetch } from "./api.js";
 
 export default function ProjectList({ projects, onChanged }) {
   async function handleDelete(project) {
     if (!window.confirm(`Delete "${project.title}"?`)) return;
 
-    await fetch(`/api/projects/${project.id}`, { method: "DELETE" });
+    await apiFetch(`/api/projects/${project.id}`, { method: "DELETE" });
     onChanged();
   }
 
@@ -12,7 +13,7 @@ export default function ProjectList({ projects, onChanged }) {
     const title = window.prompt("New title", project.title);
     if (title === null) return; // she clicked Cancel
 
-    const res = await fetch(`/api/projects/${project.id}`, {
+    const res = await apiFetch(`/api/projects/${project.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       // PUT sends the whole project: the new title, and everything else as it was.

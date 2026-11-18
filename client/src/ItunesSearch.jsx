@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { apiFetch } from "./api.js";
 
 const MESSAGES = {
   TERM_REQUIRED: "Type a song or an artist",
@@ -24,7 +25,7 @@ export default function ItunesSearch({ onPick }) {
 
     try {
       // encodeURIComponent: "rock & roll" stays one search term
-      const res = await fetch(
+      const res = await apiFetch(
         `/api/itunes/search?term=${encodeURIComponent(term)}`,
       );
       const data = await res.json();

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ItunesSearch from "./ItunesSearch.jsx";
+import { apiFetch } from "./api.js";
 
 const MESSAGES = {
   TITLE_REQUIRED: "Please give the track a title",
@@ -23,7 +24,7 @@ export default function TempTracks({ cue }) {
 
   async function loadTracks() {
     try {
-      const res = await fetch(`/api/cues/${cue.id}/temp-tracks`);
+      const res = await apiFetch(`/api/cues/${cue.id}/temp-tracks`);
       const data = await res.json();
       if (!res.ok) {
         setError("The temp tracks could not be loaded");
@@ -46,7 +47,7 @@ export default function TempTracks({ cue }) {
 
     let res, data;
     try {
-      res = await fetch(`/api/cues/${cue.id}/temp-tracks`, {
+      res = await apiFetch(`/api/cues/${cue.id}/temp-tracks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -90,7 +91,7 @@ export default function TempTracks({ cue }) {
     if (!window.confirm(`Remove "${track.title}"?`)) return;
 
     try {
-      const res = await fetch(`/api/temp-tracks/${track.id}`, {
+      const res = await apiFetch(`/api/temp-tracks/${track.id}`, {
         method: "DELETE",
       });
       if (!res.ok) {

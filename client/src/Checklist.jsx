@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { apiFetch } from "./api.js";
 
 const MESSAGES = {
   LABEL_REQUIRED: "Write what the cue still needs",
@@ -13,7 +14,7 @@ export default function Checklist({ cue, onChanged }) {
 
   async function loadItems() {
     try {
-      const res = await fetch(`/api/cues/${cue.id}/checklist`);
+      const res = await apiFetch(`/api/cues/${cue.id}/checklist`);
       const data = await res.json();
       if (!res.ok) {
         setError("The checklist could not be loaded");
@@ -34,7 +35,7 @@ export default function Checklist({ cue, onChanged }) {
   async function send(url, options, failMessage) {
     setError("");
     try {
-      const res = await fetch(url, options);
+      const res = await apiFetch(url, options);
       if (!res.ok) {
         const data = await res.json();
         setError(MESSAGES[data.error] || failMessage);

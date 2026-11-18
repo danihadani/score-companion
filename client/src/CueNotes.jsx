@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { apiFetch } from "./api.js";
 
 const MESSAGES = {
   TEXT_REQUIRED: "Write something first",
@@ -24,7 +25,7 @@ export default function CueNotes({ cue }) {
 
   async function loadNotes() {
     try {
-      const res = await fetch(`/api/cues/${cue.id}/notes`);
+      const res = await apiFetch(`/api/cues/${cue.id}/notes`);
       const data = await res.json();
       if (!res.ok) {
         setError("The notes could not be loaded");
@@ -46,7 +47,7 @@ export default function CueNotes({ cue }) {
     setError("");
 
     try {
-      const res = await fetch(`/api/cues/${cue.id}/notes`, {
+      const res = await apiFetch(`/api/cues/${cue.id}/notes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text }),
@@ -68,7 +69,7 @@ export default function CueNotes({ cue }) {
     if (!window.confirm("Delete this note?")) return;
 
     try {
-      const res = await fetch(`/api/notes/${note.id}`, { method: "DELETE" });
+      const res = await apiFetch(`/api/notes/${note.id}`, { method: "DELETE" });
       if (!res.ok) {
         setError("The note could not be deleted");
         return;

@@ -6,7 +6,7 @@
   "description": "Score Companion - Express REST API",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "node --watch src/server.js",
+    "dev": "node --env-file=.env --watch src/server.js",
     "test": "node --env-file=.env.test --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand",
     "test:coverage": "node --env-file=.env.test --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --coverage",
     "lint": "eslint .",

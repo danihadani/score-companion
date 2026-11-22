@@ -4,6 +4,7 @@ import { validateProject } from "../validation/projects.js";
 import { CUE_STATUSES, validateCue } from "../validation/cues.js";
 import { DEFAULT_CHECKLIST } from "../validation/checklist.js";
 import { durationTimecode, totalDuration } from "../timecode.js";
+import { cueSheet } from "../cueSheet.js";
 
 import { logger } from "../logger.js";
 
@@ -211,4 +212,33 @@ projectsRouter.get("/:id/summary", async (req, res) => {
     duration: totalDuration(cues, project.fps),
     byStatus,
   });
+});
+
+// GET /api/projects/:id/cue-sheet - every cue of the film, as a CSV file
+projectsRouter.get("/:id/cue-sheet", async (req, res) => {
+  const projectId = Number(req.params.id);
+  if (!Number.isInteger(projectId)) {
+    return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
+  }
+
+  const project = await prisma.project.findFirst({
+    where: { id: projectId, userId: req.userId },
+  });
+  if (!project) {
+    return res.status(404).json({ error: "PROJECT_NOT_FOUND" });
+  }
+
+  const cues = await prisma.cue.findMany({
+    where: { projectId },
+    orderBy: { timecodeIn: "asc" },
+  });
+
+  // The file name, without characters that aren't allowed in one: "Dune - cue sheet.csv"
+  const fileName = `${project.title.replace(/[^\w .-]/g, "")} - cue sheet.csv`;
+
+  logger.info(`Cue sheet exported: project ${projectId} "${project.title}" (${cues.length} cues)`);
+  res
+    .type("text/csv")
+    .attachment(fileName) // Content-Disposition: tells the browser to save it as a file
+    .send(cueSheet(project, cues));
 });

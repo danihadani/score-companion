@@ -13,7 +13,29 @@ export default function ProjectPage() {
 
   // Which view of the cues is shown: "board" or "table"
   const [view, setView] = useState("board");
+  const [exportError, setExportError] = useState("");
 
+  // Downloads the cue sheet. A plain <a href> wouldn't send the login token,
+  // so the file is fetched with apiFetch, then handed to the browser to save.
+  async function handleExport() {
+    setExportError("");
+    try {
+      const res = await apiFetch(`/api/projects/${project.id}/cue-sheet`);
+      if (!res.ok) {
+        setExportError("The cue sheet could not be made");
+        return;
+      }
+      const file = await res.blob();
+      const url = URL.createObjectURL(file);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${project.title} - cue sheet.csv`;
+      link.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      setExportError("Can't reach the server. Please try again.");
+    }
+  }
   // Load the project when the page opens, and again if the id changes.
   useEffect(() => {
     async function loadProject() {
@@ -66,7 +88,11 @@ export default function ProjectPage() {
             >
               Table
             </button>
+            <button className="secondary export" onClick={handleExport}>
+              Export cue sheet
+            </button>
           </div>
+          {exportError && <p className="error">{exportError}</p>}
           <section className="card">
             {view === "board" ? (
               <CueBoard project={project} />

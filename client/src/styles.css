@@ -630,3 +630,8 @@ textarea {
   align-items: center;
   gap: 12px;
 }
+
+/* ---------- the cue sheet button, at the far end of the view switch ---------- */
+.view-switch .export {
+  margin-left: auto;
+}

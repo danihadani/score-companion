@@ -39,7 +39,6 @@ export default function ProjectList({ projects, onChanged }) {
 
   return (
     <section>
-      <h2>My projects</h2>
       <ul className="projects">
         {projects.map((project) => (
           <li key={project.id} className="card project">

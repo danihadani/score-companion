@@ -83,10 +83,20 @@ export default function CueBoard({ project }) {
     <div>
       {error && <p className="error">{error}</p>}
       {summary && (
-        <p className="summary">
-          <strong className="tc">{summary.duration}</strong> of music in{" "}
-          {summary.count} cues · {summary.byStatus.mixed.count} mixed
-        </p>
+        // Like the counter on a mixing desk: how much music, and how much is done.
+        <div className="counter">
+          <strong className="tc">{summary.duration}</strong>
+          <span className="counter-label">
+            music in {summary.count} cues · {summary.byStatus.mixed.count} mixed
+          </span>
+          <span className="meter">
+            <span
+              style={{
+                width: `${summary.count ? (summary.byStatus.mixed.count / summary.count) * 100 : 0}%`,
+              }}
+            />
+          </span>
+        </div>
       )}
 
       <div className="board">
@@ -96,6 +106,8 @@ export default function CueBoard({ project }) {
             <section
               key={status}
               className={`column ${overStatus === status ? "over" : ""}`}
+              // Each column gets its status color, used by its line and its cards.
+              style={{ "--c": `var(--status-${status})` }}
               // Without preventDefault the browser doesn't allow a drop here.
               onDragOver={(e) => {
                 e.preventDefault();
@@ -109,7 +121,7 @@ export default function CueBoard({ project }) {
               }}
             >
               <h4 className="column-head">
-                <span className={`status status-${status}`}>{status}</span>
+                <span>{status}</span>
                 <span className="count">{columnCues.length}</span>
               </h4>
               {summary && (
@@ -131,27 +143,32 @@ export default function CueBoard({ project }) {
                     e.dataTransfer.setData("text/plain", String(cue.id))
                   }
                 >
-                  <strong>{cue.name}</strong>
+                  <strong className="cue-title">{cue.name}</strong>
                   <span className="tc">{cue.timecodeIn}</span>
                   <span className="meta">
                     {cue.duration}
                     {cue.scene && ` · ${cue.scene}`}
                   </span>
                   {cue.checklistTotal > 0 && (
-                    <span className="progress">
-                      <span
-                        className="progress-bar"
-                        style={{
-                          width: `${(cue.checklistDone / cue.checklistTotal) * 100}%`,
-                        }}
-                      />
-                      <span className="progress-text">
-                        {cue.checklistDone}/{cue.checklistTotal}
-                      </span>
+                    // A VU meter: one light per checklist item, lit when it's done.
+                    <span
+                      className="vu"
+                      title={`${cue.checklistDone} of ${cue.checklistTotal} done`}
+                    >
+                      {Array.from({ length: cue.checklistTotal }, (_, i) => (
+                        <span
+                          key={i}
+                          className={i < cue.checklistDone ? "on" : ""}
+                        />
+                      ))}
                     </span>
                   )}
                 </article>
               ))}
+
+              {columnCues.length === 0 && (
+                <p className="column-empty">Drag a cue here</p>
+              )}
             </section>
           );
         })}

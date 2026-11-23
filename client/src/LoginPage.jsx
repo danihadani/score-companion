@@ -49,8 +49,11 @@ export default function LoginPage() {
 
   return (
     <main className="auth">
-      <header className="page-head">
-        <h1>Score Companion</h1>
+      <header className="auth-head">
+        <p className="logo auth-logo">
+          <span className="rec" aria-hidden="true" />
+          Score Companion
+        </p>
         <p className="tagline">Every cue in your film, from sketch to mix.</p>
       </header>
 

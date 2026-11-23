@@ -1,20 +1,40 @@
 /* ============================================================
    One stylesheet for the whole client.
    Colors and fonts are set once here, as variables.
+
+   The look: a recording studio at night. Dark panels like a
+   mixing desk, a light for each status, VU meters, and an
+   amber timecode display.
    ============================================================ */
 :root {
-  --bg: #f4f3ef;
-  --card: #ffffff;
-  --ink: #1e2230;
-  --muted: #6b7080;
-  --line: #e2e0d8;
-  --accent: #c2581f;
-  --accent-ink: #ffffff;
-  --danger: #b3322b;
-  --success: #2f7a4d;
-  --font: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
-  --radius: 10px;
+  --bg: #121418; /* the desk */
+  --card: #1b1e24; /* a panel */
+  --card-2: #23272f; /* a raised part of a panel */
+  --display-bg: #07090b; /* behind the timecode display */
+  --ink: #e7e9ee; /* text */
+  --muted: #8a909c;
+  --line: #2f343d;
+  --accent: #ffb547; /* amber, like the display */
+  --accent-ink: #1a1407; /* text on amber */
+  --rec: #ff4d5e; /* the red recording light */
+  --danger: #ff6b6b;
+  --success: #4be08a;
+
+  /* one light per stage of the work */
+  --status-sketch: #8a909c;
+  --status-sent: #4cc3ff;
+  --status-approved: #ffb547;
+  --status-recorded: #ff4d5e;
+  --status-mixed: #4be08a;
+
+  /* text and titles */
+  --font: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* the name, wide like the name on a piece of studio gear */
+  --logo: "Michroma", "Manrope", sans-serif;
+  /* timecodes: a digital display, every digit the same width */
+  --mono: "Share Tech Mono", ui-monospace, Menlo, monospace;
+  --radius: 8px;
+  color-scheme: dark;
 }
 
 * {
@@ -31,38 +51,44 @@ body {
 }
 
 main {
-  max-width: 980px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: 40px 20px 80px;
+  padding: 28px 20px 80px;
   display: grid;
   gap: 24px;
 }
 
-/* ---------- header ---------- */
+/* ---------- headings ---------- */
 .page-head h1 {
   margin: 0;
-  font-size: 34px;
+  font-weight: 800;
+  font-size: clamp(36px, 6vw, 54px);
+  line-height: 1.05;
   letter-spacing: -0.02em;
 }
 .tagline {
-  margin: 4px 0 0;
+  margin: 6px 0 0;
   color: var(--muted);
 }
 
 h2 {
   margin: 0 0 4px;
-  font-size: 20px;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.01em;
 }
 h3 {
   margin: 0;
   font-size: 19px;
+  font-weight: 800;
 }
 h4 {
   margin: 0;
-  font-size: 15px;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--muted);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.14em;
 }
 
 /* Grid children may shrink, so a wide table scrolls inside its card
@@ -72,11 +98,11 @@ main > *,
   min-width: 0;
 }
 
-/* ---------- cards ---------- */
+/* ---------- cards (panels) ---------- */
 .card {
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: 12px;
   padding: 20px;
 }
 
@@ -101,47 +127,58 @@ label {
   color: var(--muted);
 }
 input,
-select {
+select,
+textarea {
   max-width: 100%;
   font: inherit;
   font-size: 15px;
   color: var(--ink);
-  background: var(--card);
+  background: var(--display-bg);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 8px 10px;
   min-width: 0;
 }
 input:focus,
 select:focus,
+textarea:focus,
 button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 1px;
 }
-input::placeholder {
+input::placeholder,
+textarea::placeholder {
   font-family: var(--mono);
-  color: #b4b2aa;
+  color: #555c68;
 }
 
 /* ---------- buttons ---------- */
+/* The usual button is a dark key on the desk. Amber (.accent) is kept
+   for the one action that matters most on a page. */
 button {
   font: inherit;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 15px;
-  border: 1px solid var(--accent);
-  background: var(--accent);
-  color: var(--accent-ink);
-  border-radius: 8px;
-  padding: 8px 16px;
+  border: 1px solid var(--line);
+  background: var(--card-2);
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 7px 16px;
   cursor: pointer;
 }
 button:hover {
-  filter: brightness(1.08);
+  border-color: var(--accent);
+}
+button.accent {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+button.accent:hover {
+  filter: brightness(1.1);
 }
 button.secondary {
   background: transparent;
-  color: var(--ink);
-  border-color: var(--line);
 }
 button.danger {
   background: transparent;
@@ -153,7 +190,10 @@ button.danger:hover {
 }
 button.small {
   font-size: 13px;
-  padding: 4px 10px;
+  padding: 3px 12px;
+}
+button.ghost {
+  background: transparent;
 }
 
 /* ---------- messages ---------- */
@@ -169,13 +209,71 @@ button.small {
   margin: 0;
 }
 
+/* ---------- the band at the top ---------- */
+.topbar {
+  background: #0d0f12;
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar-in {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+/* The name, with a red "recording" light before it */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--logo);
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.rec {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--rec);
+  box-shadow: 0 0 10px var(--rec);
+  flex: none;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.user strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .logo {
+    font-size: 14px;
+  }
+}
+
 /* ---------- projects ---------- */
 .projects {
   list-style: none;
-  margin: 16px 0 0;
+  margin: 0;
   padding: 0;
   display: grid;
-  gap: 16px;
+  gap: 12px;
 }
 .project {
   display: grid;
@@ -185,7 +283,7 @@ button.small {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
 }
 .meta {
@@ -198,7 +296,27 @@ button.small {
   gap: 8px;
 }
 
-/* ---------- cues ---------- */
+/* ---------- links between pages ---------- */
+.back {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.back:hover {
+  color: var(--accent);
+}
+
+.project h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.project h3 a:hover {
+  color: var(--accent);
+}
+
+/* ---------- the cue table ---------- */
 .table-wrap {
   overflow-x: auto;
 }
@@ -210,9 +328,9 @@ button.small {
 .cues th {
   text-align: left;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.12em;
   color: var(--muted);
   padding: 6px 10px;
   border-bottom: 1px solid var(--line);
@@ -226,11 +344,11 @@ button.small {
   border-bottom: none;
 }
 .cue-name {
-  font-weight: 700;
+  font-weight: 800;
 }
 .tc {
   font-family: var(--mono);
-  font-size: 14px;
+  font-size: 15px;
   white-space: nowrap;
 }
 .cue-form {
@@ -241,32 +359,28 @@ button.small {
   width: 140px;
 }
 
-/* status menu: one color per stage of the work */
+/* The status menu in the table: the text in its status color */
 .status {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   border-radius: 999px;
   padding: 4px 10px;
+  background: var(--card-2);
 }
 .status-sketch {
-  background: #eef0f4;
-  color: #4b5263;
+  color: var(--status-sketch);
 }
 .status-sent {
-  background: #e6effb;
-  color: #2c5e9e;
+  color: var(--status-sent);
 }
 .status-approved {
-  background: #fdf0d8;
-  color: #8a5a00;
+  color: var(--status-approved);
 }
 .status-recorded {
-  background: #f3e6f8;
-  color: #7a3f93;
+  color: var(--status-recorded);
 }
 .status-mixed {
-  background: #e3f3e8;
-  color: #2f7a4d;
+  color: var(--status-mixed);
 }
 
 /* ---------- temp tracks, under a cue ---------- */
@@ -294,7 +408,7 @@ button.small {
   justify-content: space-between;
   align-items: flex-start;
   gap: 12px;
-  background: var(--card);
+  background: var(--card-2);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 10px 12px;
@@ -340,7 +454,7 @@ button.small {
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
-  background: var(--card);
+  background: var(--card-2);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 8px 12px;
@@ -372,133 +486,218 @@ button.small {
   margin-top: 8px;
 }
 
-/* ---------- links between pages ---------- */
-.back {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.back:hover {
-  color: var(--accent);
-}
-
-.project h3 a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.project h3 a:hover {
-  color: var(--accent);
-}
-
-/* ---------- the cue board ---------- */
+/* ---------- the project page: view switch and export ---------- */
 .view-switch {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 8px;
 }
 
+/* Board / Table: two keys joined into one control */
+.seg {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.seg button {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--muted);
+}
+.seg button.on {
+  background: var(--card-2);
+  color: var(--ink);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+
+/* the cue sheet button, at the far end of the view switch */
+.view-switch .export {
+  margin-left: auto;
+}
+
+/* ---------- the timecode display: how much music, and how much is mixed ---------- */
+/* a full-width display strip: the timecode on the left, the label on the right */
+.counter {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 6px 20px;
+  margin: 0 0 16px;
+  padding: 12px 18px 14px;
+  background: var(--display-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.counter strong {
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 400;
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(255, 181, 71, 0.45);
+  letter-spacing: 0.04em;
+}
+.counter-label {
+  justify-self: end;
+  text-align: right;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.meter {
+  grid-column: 1 / -1;
+  display: block;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line);
+  overflow: hidden;
+}
+.meter span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+
+/* ---------- the board: the desk, one channel strip per status ---------- */
 .board {
   display: grid;
-  grid-template-columns: repeat(5, minmax(160px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(5, minmax(170px, 1fr));
+  gap: 10px;
   overflow-x: auto;
-  padding-bottom: 8px;
+  padding: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
 }
 
+/* Each column sets --c to its status color, for its light, its time
+   and its cards. */
 .column {
-  background: var(--bg);
-  border: 2px dashed transparent;
+  background: #15181d;
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 10px;
-  min-height: 160px;
+  min-height: 320px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .column.over {
-  border-color: var(--accent);
+  border-color: var(--c);
+  box-shadow: inset 0 0 0 1px var(--c);
 }
 
 .column-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 0 4px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* the status light */
+.column-head > span:first-child::before {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 9px var(--c);
 }
 
 .count {
+  font-family: var(--mono);
   color: var(--muted);
-  font-size: 13px;
+  font-size: 14px;
+  letter-spacing: 0;
 }
 
+.column-time {
+  margin: -4px 0 0;
+  color: var(--c);
+  font-size: 14px;
+}
+
+.column-empty {
+  margin: 0;
+  padding: 22px 8px;
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+/* A cue: a module in the strip, with a stripe in its status color */
 .cue-card {
   display: grid;
-  gap: 2px;
-  background: var(--card);
+  gap: 3px;
+  background: var(--card-2);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-left: 3px solid var(--c);
+  border-radius: 6px;
   padding: 10px;
   cursor: grab;
 }
 
-.cue-card .tc,
+.cue-card:hover {
+  border-color: #3d434e;
+  border-left-color: var(--c);
+}
+
+.cue-card.open {
+  outline: 1px solid var(--accent);
+}
+
+.cue-title {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
 .cue-card .meta {
   font-size: 13px;
 }
 
-.summary {
-  margin: 0 0 12px;
-  color: var(--muted);
-}
-
-.summary strong {
-  color: var(--ink);
-}
-
-.column-time {
-  margin: -6px 0 4px;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-/* ---------- a cue's checklist ---------- */
-.cue-card.open {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent);
-}
-
-.progress {
-  position: relative;
-  display: block;
-  height: 16px;
+/* What the cue still needs, as a VU meter: one light per item, lit when done */
+.vu {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 3px;
   margin-top: 6px;
-  background: var(--bg);
-  border-radius: 8px;
-  overflow: hidden;
 }
 
-.progress-bar {
-  position: absolute;
-  inset: 0 auto 0 0;
-  background: #cfe7d8;
+.vu span {
+  height: 6px;
+  border-radius: 1px;
+  background: #343a44;
 }
 
-.progress-text {
-  position: relative;
-  display: block;
-  font-size: 11px;
-  line-height: 16px;
-  text-align: center;
-  color: var(--ink);
+.vu span.on {
+  background: var(--c);
+  box-shadow: 0 0 6px var(--c);
 }
 
+/* ---------- a cue's details: checklist, notes, temp tracks ---------- */
 .cue-details {
   margin-top: 16px;
-  padding: 16px;
-  background: var(--bg);
-  border-radius: var(--radius);
+  padding: 20px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--accent);
+  border-radius: 12px;
   display: grid;
   gap: 16px;
 }
@@ -511,6 +710,7 @@ button.small {
 
 .details-head h3 {
   margin: 0;
+  font-size: 26px;
 }
 
 .checklist h4 .count {
@@ -529,9 +729,9 @@ button.small {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--card);
+  background: var(--card-2);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 6px 10px;
 }
 
@@ -546,11 +746,13 @@ label.check {
   gap: 8px;
   font-size: 15px;
   font-weight: 400;
+  color: var(--ink);
   cursor: pointer;
 }
 
 label.check input {
   width: auto;
+  accent-color: var(--accent);
 }
 
 button.link {
@@ -569,12 +771,7 @@ button.link:hover {
 /* ---------- a cue's notes ---------- */
 textarea {
   width: 100%;
-  font: inherit;
   padding: 10px 12px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--card);
-  color: var(--ink);
   resize: vertical;
 }
 
@@ -591,9 +788,9 @@ textarea {
   justify-content: space-between;
   align-items: flex-start;
   gap: 12px;
-  background: var(--card);
+  background: var(--card-2);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 10px 12px;
 }
 
@@ -606,9 +803,21 @@ textarea {
   white-space: pre-wrap;
 }
 
-/* ---------- log in, sign up, and who is logged in ---------- */
+/* ---------- log in and sign up: everything centered ---------- */
 .auth {
   max-width: 440px;
+}
+
+.auth-head {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.auth-logo {
+  margin: 12px 0 0;
+  font-size: 22px;
 }
 
 /* One field under the other. (The usual .form puts them side by side.) */
@@ -617,21 +826,11 @@ textarea {
   gap: 14px;
 }
 
+.auth-form h2,
+.auth-form > p {
+  text-align: center;
+}
+
 .auth-form a {
   color: var(--accent);
-}
-
-.user-bar {
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 16px 20px 0;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 12px;
-}
-
-/* ---------- the cue sheet button, at the far end of the view switch ---------- */
-.view-switch .export {
-  margin-left: auto;
 }

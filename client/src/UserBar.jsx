@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { getUser, logout } from "./auth.js";
 
-// Who is logged in, with a way out. Shown above every page that needs a login.
+// The band at the top: the name (with a red "recording" light), who is logged in, and a way out.
 export default function UserBar() {
   const navigate = useNavigate();
   const user = getUser();
@@ -12,13 +12,21 @@ export default function UserBar() {
   }
 
   return (
-    <div className="user-bar">
-      <span className="meta">
-        Logged in as <strong>{user?.fullName}</strong>
-      </span>
-      <button className="secondary small" onClick={handleLogout}>
-        Log out
-      </button>
-    </div>
+    <header className="topbar">
+      <div className="topbar-in">
+        <Link to="/" className="logo">
+          <span className="rec" aria-hidden="true" />
+          Score Companion
+        </Link>
+        <div className="user">
+          <span>
+            Logged in as <strong>{user?.fullName}</strong>
+          </span>
+          <button className="ghost small" onClick={handleLogout}>
+            Log out
+          </button>
+        </div>
+      </div>
+    </header>
   );
 }

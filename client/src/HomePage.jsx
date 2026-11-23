@@ -30,7 +30,7 @@ export default function HomePage() {
   return (
     <main>
       <header className="page-head">
-        <h1>Score Companion</h1>
+        <h1>My films</h1>
         <p className="tagline">Every cue in your film, from sketch to mix.</p>
       </header>
       {error && <p className="error">{error}</p>}

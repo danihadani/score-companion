@@ -72,28 +72,31 @@ export default function ProjectPage() {
             <h1>{project.title}</h1>
             <p className="tagline">
               {project.director && `${project.director} · `}
-              {project.fps} fps
+              <span className="tc">{project.fps} fps</span>
             </p>
           </header>
           <div className="view-switch">
-            <button
-              className={view === "board" ? "" : "secondary"}
-              onClick={() => setView("board")}
-            >
-              Board
-            </button>
-            <button
-              className={view === "table" ? "" : "secondary"}
-              onClick={() => setView("table")}
-            >
-              Table
-            </button>
-            <button className="secondary export" onClick={handleExport}>
+            {/* Two buttons joined into one control: the dark one is the open view. */}
+            <div className="seg">
+              <button
+                className={view === "board" ? "on" : ""}
+                onClick={() => setView("board")}
+              >
+                Board
+              </button>
+              <button
+                className={view === "table" ? "on" : ""}
+                onClick={() => setView("table")}
+              >
+                Table
+              </button>
+            </div>
+            <button className="accent export" onClick={handleExport}>
               Export cue sheet
             </button>
           </div>
           {exportError && <p className="error">{exportError}</p>}
-          <section className="card">
+          <section className={view === "board" ? "" : "card"}>
             {view === "board" ? (
               <CueBoard project={project} />
             ) : (

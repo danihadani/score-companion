@@ -175,13 +175,6 @@ projectsRouter.get("/:id/cues", async (req, res) => {
       checklistTotal: checklist.length,
     })),
   );
-
-  res.json(
-    cues.map((cue) => ({
-      ...cue,
-      duration: durationTimecode(cue.timecodeIn, cue.timecodeOut, project.fps),
-    })),
-  );
 });
 
 // GET /api/projects/:id/summary - how much music, overall and per status

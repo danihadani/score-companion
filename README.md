@@ -258,6 +258,26 @@ What changed:
 - The image runs on `node:26-alpine`, and npm is removed from it: the server
   doesn't need npm to run, and it carried most of the vulnerabilities
 
+  #### Scanned again at the end of the final project (26.11)
+
+| Scan | Result |
+|---|---|
+| Packages (`snyk test`), server | 0 (117 dependencies) |
+| Packages (`snyk test`), client | 0 |
+| Code (`snyk code test`) | 17 findings: 2 medium, 15 low – all false positives |
+| Docker image, app packages | 0 (101 dependencies) |
+| Docker image, base image | 21 – all in `node:26-alpine` itself |
+
+What the findings are:
+- **Code:** 15 are made-up passwords in the tests, which sign up test composers
+  on purpose (the tests are not shipped – the image copies only `server/src`).
+  The 2 medium are in `SignUpPage.jsx`: error messages whose keys contain the
+  word `PASSWORD` (`PASSWORD_TOO_SHORT`), not passwords.
+- **Base image:** 15 are in Node 26.13.0 and are fixed in 26.13.1, the rest in
+  Alpine's openssl and zlib. Node 26.13.1 is out, but its Alpine image isn't
+  published yet (`node:26-alpine` still points to 26.13.0), so the image is
+  rebuilt with `docker compose build --pull` as soon as it is.
+
 ## Licenses
 
 Every tool and package the project uses, with its license, is listed in

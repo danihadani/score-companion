@@ -1,0 +1,6 @@
+# Snyk policy
+# The tests sign up made-up composers with made-up passwords, on purpose.
+# They are not shipped: the Docker image copies only server/src.
+exclude:
+  global:
+    - server/tests/**

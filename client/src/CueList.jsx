@@ -79,7 +79,7 @@ export default function CueList({ project }) {
                   <Fragment key={cue.id}>
                     <tr>
                       <td className="cue-name">{cue.name}</td>
-                                           <td className="tc" data-label="In">
+                      <td className="tc" data-label="In">
                         {cue.timecodeIn}
                       </td>
                       <td className="tc" data-label="Out">

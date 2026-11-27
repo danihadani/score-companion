@@ -53,6 +53,19 @@ eslint               10.13.0   Linting                          MIT
 globals              17.13.0   Node and Jest globals for ESLint MIT
 prettier             3.9.10    Code formatting                  MIT
 
+FONTS
+-----
+
+Font                 Used for                                   License
+-------------------  -----------------------------------------  ----------------------------
+Manrope              Headings and text                          SIL Open Font License 1.1
+Michroma             The logo "SCORE COMPANION"                 SIL Open Font License 1.1
+Share Tech Mono      Timecodes                                  SIL Open Font License 1.1
+Heebo                The presentation slides (Hebrew)           SIL Open Font License 1.1
+
+The fonts are loaded from Google Fonts. The OFL allows using and embedding
+them freely; only selling the fonts themselves is not allowed.
+
 
 CLIENT PACKAGES (client/package.json)
 -------------------------------------

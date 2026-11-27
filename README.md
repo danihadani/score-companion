@@ -264,7 +264,7 @@ What changed:
 |---|---|
 | Packages (`snyk test`), server | 0 (117 dependencies) |
 | Packages (`snyk test`), client | 0 |
-| Code (`snyk code test`) | 17 findings: 2 medium, 15 low – all false positives |
+| Code (`snyk code test`) | 17 findings: 2 medium, 15 low – all false positives. The tests are now excluded (`.snyk`) |
 | Docker image, app packages | 0 (101 dependencies) |
 | Docker image, base image | 21 – all in `node:26-alpine` itself |
 

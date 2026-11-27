@@ -359,6 +359,80 @@ button.ghost {
   width: 140px;
 }
 
+/* A narrow window: the table doesn't fit, so every row becomes a small card.
+   Name and status on top, In / Out / Duration side by side (each with its
+   label, from data-label), then the scene and the buttons. */
+@media (max-width: 860px) {
+  .cues thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .cues,
+  .cues tbody {
+    display: block;
+  }
+  .cues tr {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .cues tr:last-child {
+    border-bottom: none;
+  }
+  .cues td {
+    display: block;
+    padding: 0;
+    border: none;
+    min-width: 0;
+  }
+  .cues td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    font-family: var(--font);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+  .cues td:empty {
+    display: none;
+  }
+  .cues .cue-name {
+    grid-column: 1 / 3;
+    grid-row: 1;
+    align-self: center;
+    font-size: 18px;
+  }
+  .cues .status-cell {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+    align-self: center;
+  }
+  .cues .tc {
+    grid-row: 2;
+    font-size: 14px;
+  }
+  .cues .scene,
+  .cues .row-actions {
+    grid-column: 1 / -1;
+  }
+  .cues .row-actions {
+    justify-content: flex-start;
+  }
+  .cues tr.temps-row {
+    display: block;
+    padding: 0 0 14px;
+  }
+}
+
 /* The status menu in the table: the text in its status color */
 .status {
   font-size: 13px;

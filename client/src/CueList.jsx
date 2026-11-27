@@ -79,11 +79,19 @@ export default function CueList({ project }) {
                   <Fragment key={cue.id}>
                     <tr>
                       <td className="cue-name">{cue.name}</td>
-                      <td className="tc">{cue.timecodeIn}</td>
-                      <td className="tc">{cue.timecodeOut}</td>
-                      <td className="tc">{cue.duration}</td>
-                      <td>{cue.scene}</td>
-                      <td>
+                                           <td className="tc" data-label="In">
+                        {cue.timecodeIn}
+                      </td>
+                      <td className="tc" data-label="Out">
+                        {cue.timecodeOut}
+                      </td>
+                      <td className="tc" data-label="Duration">
+                        {cue.duration}
+                      </td>
+                      <td className="scene" data-label="Scene">
+                        {cue.scene}
+                      </td>
+                      <td className="status-cell">
                         <select
                           className={`status status-${cue.status}`}
                           value={cue.status}

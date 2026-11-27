@@ -638,13 +638,28 @@ button.ghost {
 /* ---------- the board: the desk, one channel strip per status ---------- */
 .board {
   display: grid;
-  grid-template-columns: repeat(5, minmax(170px, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 10px;
-  overflow-x: auto;
   padding: 12px;
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 12px;
+}
+
+/* A narrower window: the five columns wrap instead of running off the
+   screen – three in a row, then one under the other on a phone. */
+@media (max-width: 900px) {
+  .board {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .board {
+    grid-template-columns: 1fr;
+  }
+  .board .column {
+    min-height: 0;
+  }
 }
 
 /* Each column sets --c to its status color, for its light, its time
